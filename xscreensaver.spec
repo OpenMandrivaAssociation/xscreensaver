@@ -1,4 +1,4 @@
-%define release %mkrel 3
+%define release %mkrel 1
 %define plf 0
 %define enable_extrusion 1
 %define disable_inappropriate 1
@@ -19,7 +19,7 @@
 
 Name:		xscreensaver
 Summary:	A set of X Window System screensavers
-Version: 5.01
+Version: 5.02
 Release:	%release
 License:	BSD
 Group:		Graphical desktop/Other
