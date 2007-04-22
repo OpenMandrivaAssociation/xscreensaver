@@ -1,4 +1,4 @@
-%define release %mkrel 1
+%define release %mkrel 2
 %define plf 0
 %define enable_extrusion 1
 %define disable_inappropriate 1
@@ -102,6 +102,10 @@ pleasure.
 
 Install the xscreensaver package if you need screensavers for use with
 the X Window System.
+
+%if %plf
+This package is in PLF as it contains copyrighted images.
+%endif
 
 %package matrix
 Group:		Graphical desktop/Other
