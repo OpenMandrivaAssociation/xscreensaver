@@ -1,4 +1,4 @@
-%define release %mkrel 2
+%define release %mkrel 1
 %define plf 0
 %define enable_extrusion 1
 %define disable_inappropriate 1
@@ -60,7 +60,8 @@ BuildRequires:  XFree86
 BuildRequires:  libMesaGLU-devel
 %else
 BuildRequires: mesaglut-devel
-BuildRequires:  libx11
+BuildRequires: libx11
+BuildRequires: libxxf86misc-devel 
 %endif
 %if %enable_extrusion
 BuildRequires:  libgle-devel
