@@ -19,7 +19,7 @@
 
 Name:		xscreensaver
 Summary:	A set of X Window System screensavers
-Version: 5.02
+Version:	5.03
 Release:	%release
 License:	BSD
 Group:		Graphical desktop/Other
@@ -335,5 +335,3 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 %{_libexecdir}/xscreensaver/xmatrix
 %{_libexecdir}/xscreensaver/glmatrix
 %endif
-
-
