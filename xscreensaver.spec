@@ -1,4 +1,4 @@
-%define release %mkrel 1
+%define release %mkrel 2
 %define plf 0
 %define enable_extrusion 1
 %define disable_inappropriate 1
