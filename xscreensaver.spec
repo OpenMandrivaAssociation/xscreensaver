@@ -1,4 +1,4 @@
-%define release %mkrel 2
+%define release %mkrel 1
 %define plf 0
 %define enable_extrusion 1
 %define disable_inappropriate 1
@@ -19,13 +19,13 @@
 
 Name:		xscreensaver
 Summary:	A set of X Window System screensavers
-Version:	5.03
+Version:	5.04
 Release:	%release
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
 
-Source0:	http://www.jwz.org/xscreensaver/xscreensaver-%{version}.tar.bz2
+Source0:	http://www.jwz.org/xscreensaver/xscreensaver-%{version}.tar.gz
 Source1:	xscreensaver-capplet.png
 
 # Only GDadou should be enabled
