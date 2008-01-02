@@ -68,6 +68,7 @@ BuildRequires:  libgle-devel
 %endif
 BuildRequires: desktop-file-utils
 
+Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 Conflicts:	gnome-control-center < 1.5.11-4mdk
 
 %package common
