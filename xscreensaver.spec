@@ -57,7 +57,7 @@ BuildRequires:	ImageMagick
 
 %if %mdkversion <= 200600
 BuildRequires:  XFree86
-BuildRequires:  libMesaGLU-devel
+BuildRequires:  mesaglu-devel
 %else
 BuildRequires: mesaglut-devel
 BuildRequires: libx11
