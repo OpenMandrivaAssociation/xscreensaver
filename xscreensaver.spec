@@ -201,10 +201,6 @@ EOF
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/pixmaps
 cp %{SOURCE1}  $RPM_BUILD_ROOT%{_datadir}/pixmaps
 
-mkdir -p $RPM_BUILD_ROOT%{_menudir}
-cat << EOF > $RPM_BUILD_ROOT%{_menudir}/%{name} 
-?package(%{name}): command="%{_bindir}/xscreensaver-demo" icon="xscreensaver.png" longtitle="Configure the settings of the screensaver" title="Screensaver" needs="x11" kde_filename="xscreensaver-properties-capplet" section="System/Configuration/Other" startup_notify="true" xdg="true"
-EOF
 
 desktop-file-install --vendor="" \
   --remove-category="Application" \
@@ -291,7 +287,6 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 %{_datadir}/xscreensaver/glade
 %{_datadir}/applications/*
 %{_datadir}/pixmaps/*
-%{_menudir}/*
 %_liconsdir/*.png
 %_iconsdir/*.png
 %_miconsdir/*.png
