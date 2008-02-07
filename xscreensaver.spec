@@ -42,7 +42,8 @@ Patch15:    xscreensaver-5.01-browser.patch
 Patch18:    xscreensaver-4.10-desktopfile.patch
 # (fc) 4.23-1mdk disable inappropriate stuff (Mdk bug #19866)
 Patch19:    xscreensaver-5.00-inappropriate.patch
-
+# fwang: patch from ubuntu, fix building
+Patch20:    54_driver_demogtk.patch
 Requires:   xscreensaver-base = %{version}
 Requires:	fortune-mod words chbg
 Requires:   mandrake_desk >= 8.2
@@ -155,6 +156,7 @@ Various screensavers used by Xscreensaver.
 %if %{disable_inappropriate}
 %patch19 -p1 -b .inappropriate
 %endif
+%patch20 -p1
 
 #needed by patches 11, 16
 autoconf
