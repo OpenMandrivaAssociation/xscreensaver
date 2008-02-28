@@ -1,4 +1,4 @@
-%define release %mkrel 2
+%define release %mkrel 3
 %define plf 0
 %define enable_extrusion 1
 %define disable_inappropriate 1
@@ -46,7 +46,7 @@ Patch19:    xscreensaver-5.00-inappropriate.patch
 Patch20:    54_driver_demogtk.patch
 Requires:   xscreensaver-base = %{version}
 Requires:	fortune-mod words chbg
-Requires:   mandrake_desk >= 8.2
+Requires:   mandriva-theme-screensaver
 BuildRequires:	autoconf2.5
 BuildRequires:	bc
 BuildRequires:	fortune-mod
