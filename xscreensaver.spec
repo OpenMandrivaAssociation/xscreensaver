@@ -1,4 +1,4 @@
-%define release %mkrel 3
+%define release %mkrel 1
 %define plf 0
 %define enable_extrusion 1
 %define disable_inappropriate 1
@@ -19,7 +19,7 @@
 
 Name:		xscreensaver
 Summary:	A set of X Window System screensavers
-Version:	5.04
+Version:	5.05
 Release:	%release
 License:	BSD
 Group:		Graphical desktop/Other
@@ -39,11 +39,9 @@ Patch13:    xscreensaver-4.01-avail.patch
 # (fc) 4.05-4mdk use $BROWSER to launch a browser
 Patch15:    xscreensaver-5.01-browser.patch
 # (fc) 4.05-6mdk fix .desktop entry icon and location
-Patch18:    xscreensaver-4.10-desktopfile.patch
+Patch18:    xscreensaver-5.05-desktopfile.patch
 # (fc) 4.23-1mdk disable inappropriate stuff (Mdk bug #19866)
 Patch19:    xscreensaver-5.00-inappropriate.patch
-# fwang: patch from ubuntu, fix building
-Patch20:    54_driver_demogtk.patch
 Requires:   xscreensaver-base = %{version}
 Requires:	fortune-mod words chbg
 Requires:   mandriva-theme-screensaver
@@ -156,7 +154,6 @@ Various screensavers used by Xscreensaver.
 %if %{disable_inappropriate}
 %patch19 -p1 -b .inappropriate
 %endif
-%patch20 -p1
 
 #needed by patches 11, 16
 autoconf
