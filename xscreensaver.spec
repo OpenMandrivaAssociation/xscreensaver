@@ -1,4 +1,4 @@
-%define release %mkrel 2
+%define release %mkrel 3
 %define plf 0
 %define enable_extrusion 1
 %define disable_inappropriate 1
@@ -36,9 +36,8 @@ Patch11:	xscreensaver-4.05-noGL.patch
 Patch13:	xscreensaver-4.01-avail.patch
 # (fc) 4.23-1mdk disable inappropriate stuff (Mdk bug #19866)
 Patch19:	xscreensaver-5.00-inappropriate.patch
-Requires:	xscreensaver-base = %{version}
+Requires:	xscreensaver-common = %{version}-%{release}
 Requires:	fortune-mod
-Requires:	chbg
 Requires:	mandriva-theme-screensaver
 Requires:	xdg-utils
 BuildRequires:	gdm
@@ -76,6 +75,7 @@ Summary:	A set of screensavers
 Group:		Graphical desktop/Other
 Requires:	xscreensaver-common = %{version}-%{release}
 Conflicts:	xscreensaver < 5.00-2
+Requires:	words
 
 %description base
 Various screensavers used by Xscreensaver.
@@ -86,6 +86,7 @@ Group:		Graphical desktop/Other
 Conflicts:	xscreensaver < 5.00-2
 Obsoletes:	xscreensaver-utils
 Provides:	xscreensaver-utils
+Requires:	chbg
 
 %description common
 Utilities used by xscreensaver screensavers.
@@ -228,12 +229,12 @@ rm -f %{buildroot}%{_datadir}/xscreensaver/config/xjack.xml
 rm -f %{buildroot}%{_mandir}/man6/xjack.6  
 rm -f  %{buildroot}%{_libexecdir}/xscreensaver/xjack
 
-%if ! %{plf}
+%if ! %plf
 rm -rf %{buildroot}%{_libexecdir}/xscreensaver/*matrix
 rm -rf %{buildroot}%{_mandir}/man6/*matrix*
 rm -rf %{buildroot}%{_datadir}/xscreensaver/config/*matrix*
 %endif
-%if ! %{enable_extrusion}
+%if ! %enable_extrusion
 rm -f %{buildroot}%{_datadir}/xscreensaver/config/extrusion.xml
 rm -f %{buildroot}%{_mandir}/man6/extrusion.6
 %endif
@@ -265,7 +266,6 @@ dd=%{_builddir}/%{name}-%{version}
 perl -pi -e "s/.*(xjack|matrix|extrusion).*//" gl-extras.files base.files
 
 %find_lang %{name}
-cat %{name}.lang >> $dd/base.files
 
 %clean
 rm -rf %{buildroot}
@@ -284,7 +284,7 @@ sed -i -e 's/\A-\s+GL:/ GL:/' %{_sysconfdir}/X11/app-defaults/XScreenSaver
 %postun gl
 sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-defaults/XScreenSaver
 
-%files 
+%files -f %{name}.lang
 %defattr(-,root,root)
 %config(noreplace) %{_sysconfdir}/pam.d/xscreensaver
 %doc README
@@ -298,12 +298,13 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 %{_datadir}/xscreensaver/glade
 %{_datadir}/applications/*
 %{_datadir}/pixmaps/*
+%{_datadir}/xscreensaver/config/gdadou.xml
 %{_iconsdir}/hicolor/*/apps/*.png
 
 %files common 
 %defattr(-,root,root)
 %config(noreplace) %{_sysconfdir}/X11/app-defaults/*
-%dir %{_libexecdir}/xscreensaver/
+%dir %{_libexecdir}/%{name}
 %{_bindir}/xscreensaver-getimage
 %{_bindir}/xscreensaver-getimage-file
 %{_bindir}/xscreensaver-getimage-video
@@ -315,6 +316,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 
 %files base -f base.files
 %defattr(-,root,root)
+%exclude %{_datadir}/xscreensaver/config/gdadou.xml
 
 %files gl -f gl-extras.files
 %defattr(-,root,root)
