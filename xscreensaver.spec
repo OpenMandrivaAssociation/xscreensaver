@@ -29,7 +29,7 @@ Source0:	http://www.jwz.org/xscreensaver/xscreensaver-%{version}.tar.gz
 Source1:	xscreensaver-capplet.png
 
 # Only GDadou should be enabled
-Patch9:		xscreensaver-5.00-defaultconfig.patch
+Patch9:		xscreensaver-5.05-defaultconfig.patch
 # (fc) 4.00-4mdk allow root to start xscreensaver
 Patch10:    xscreensaver-4.23-root.patch
 # (fc) 4.05-3mdk disable openGL hacks by default
