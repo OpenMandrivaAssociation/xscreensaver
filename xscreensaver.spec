@@ -247,7 +247,7 @@ list_files() {
   make -s install_prefix=%{buildroot} mandir=%{_mandir}/ \
   bindir=%{_bindir} INSTALL=true "$@"	\
    | sed -n -e 's@.* \(/[^ ]*\)$@\1@p'				\
-   | sed    -e "s@^${RPM_BUILD_ROOT}@@"				\
+   | sed    -e "s@^%{buildroot}@@"				\
 	    -e "s@/[a-z][a-z]*/\.\./@/@"			\
    | sed    -e 's@\(.*/man/.*\)@\1\*@'				\
    | sed    -e 's@\(.*/app-defaults/\)@%config \1@'		\
