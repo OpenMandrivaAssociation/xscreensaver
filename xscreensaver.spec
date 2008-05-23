@@ -1,4 +1,4 @@
-%define release %mkrel 3
+%define release %mkrel 4
 %define plf 0
 %define enable_extrusion 1
 %define disable_inappropriate 1
@@ -26,6 +26,7 @@ Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 Source1:	xscreensaver-capplet.png
+Patch0:		xscreensaver-5.05-mdv-alt-drop_setgid.patch
 # Only GDadou should be enabled
 Patch9:		xscreensaver-5.05-defaultconfig.patch
 # (fc) 4.00-4mdk allow root to start xscreensaver
@@ -138,6 +139,7 @@ extrusion library.
 
 %prep
 %setup -q
+%patch0 -p1 -b .drop_setgid
 # WARNING this patch must ALWAYS be applied, if it fails, REGENERATE it !!!
 %patch9 -p1 -b .defaultconfig
 %patch10 -p1 -b .root
@@ -165,7 +167,7 @@ autoconf
     --with-randr-ext \
     --with-proc-interrupts \
     --with-login-manager \
-    --with-shadow \
+    --without-shadow \
     --with-pixbuf \
     --with-xpm \
     --with-jpeg \
@@ -291,7 +293,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 %{_mandir}/man1/xscreensaver-command.1*
 %{_mandir}/man1/xscreensaver-demo.1*
 %{_mandir}/man1/xscreensaver.1*
-%{_bindir}/xscreensaver
+%attr(2711,root,chkpwd) %{_bindir}/xscreensaver
 %{_bindir}/xscreensaver-command
 %{_bindir}/xscreensaver-demo
 %dir %{_datadir}/xscreensaver
