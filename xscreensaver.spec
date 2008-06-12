@@ -272,13 +272,17 @@ perl -pi -e "s/.*(xjack|matrix|extrusion).*//" gl-extras.files base.files
 %clean
 rm -rf %{buildroot}
 
+%if %mdkversion < 200900
 %post 
 %{update_menus}
 %update_icon_cache hicolor
+%endif
 
+%if %mdkversion < 200900
 %postun
 %{clean_menus}
 %clean_icon_cache hicolor
+%endif
 
 %post gl
 sed -i -e 's/\A-\s+GL:/ GL:/' %{_sysconfdir}/X11/app-defaults/XScreenSaver
