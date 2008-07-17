@@ -51,7 +51,8 @@ BuildRequires:	libglade2.0-devel
 BuildRequires:	imagemagick
 BuildRequires:	mesaglut-devel
 BuildRequires:	libx11
-BuildRequires:	libxxf86misc-devel 
+BuildRequires:	libxxf86misc-devel
+BuildRequires:	libxinerama-devel
 %if %enable_extrusion
 BuildRequires:	libgle-devel
 %endif
