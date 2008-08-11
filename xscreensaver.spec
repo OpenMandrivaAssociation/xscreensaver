@@ -14,12 +14,10 @@
 %define distsuffix plf
 %define disable_inappropriate 0
 %endif
-#fixed2
-%{?!mkrel:%define mkrel(c:) %{-c: 0.%{-c*}.}%{!?_with_unstable:%(perl -e '$_="%{1}";m/(.\*\\D\+)?(\\d+)$/;$rel=${2}-1;re;print "$1$rel";').%{?subrel:%subrel}%{!?subrel:1}.%{?distversion:%distversion}%{?!distversion:%(echo $[%{mdkversion}/10])}}%{?_with_unstable:%{1}}%{?distsuffix:%distsuffix}%{?!distsuffix:mdk}}
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	5.06
+Version:	5.07
 Release:	%release
 License:	BSD
 Group:		Graphical desktop/Other
@@ -28,11 +26,11 @@ Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 Source1:	xscreensaver-capplet.png
 Patch0:		xscreensaver-5.05-mdv-alt-drop_setgid.patch
 # Only GDadou should be enabled
-Patch9:		xscreensaver-5.05-defaultconfig.patch
+Patch9:		xscreensaver-5.07-defaultconfig.patch
 # (fc) 4.00-4mdk allow root to start xscreensaver
 Patch10:	xscreensaver-4.23-root.patch
 # (fc) 4.05-3mdk disable openGL hacks by default
-Patch11:	xscreensaver-4.05-noGL.patch
+Patch11:	xscreensaver-5.07-noGL.patch
 # (fc) 4.05-4mdk don't show screensavers that aren't available
 Patch13:	xscreensaver-4.01-avail.patch
 # (fc) 4.23-1mdk disable inappropriate stuff (Mdk bug #19866)
