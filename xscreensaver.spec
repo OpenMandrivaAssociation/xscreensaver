@@ -1,4 +1,4 @@
-%define release %mkrel 1
+%define release %mkrel 2
 %define plf 0
 %define enable_extrusion 1
 %define disable_inappropriate 1
@@ -138,7 +138,7 @@ extrusion library.
 
 %prep
 %setup -q
-%patch0 -p1 -b .drop_setgid
+#%patch0 -p1 -b .drop_setgid
 # WARNING this patch must ALWAYS be applied, if it fails, REGENERATE it !!!
 %patch9 -p1 -b .defaultconfig
 %patch10 -p1 -b .root
@@ -296,7 +296,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 %{_mandir}/man1/xscreensaver-command.1*
 %{_mandir}/man1/xscreensaver-demo.1*
 %{_mandir}/man1/xscreensaver.1*
-%attr(2711,root,chkpwd) %{_bindir}/xscreensaver
+%attr(2755,root,chkpwd) %{_bindir}/xscreensaver
 %{_bindir}/xscreensaver-command
 %{_bindir}/xscreensaver-demo
 %dir %{_datadir}/xscreensaver
