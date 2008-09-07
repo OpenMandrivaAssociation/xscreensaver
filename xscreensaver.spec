@@ -1,4 +1,3 @@
-%define release %mkrel 2
 %define plf 0
 %define enable_extrusion 1
 %define disable_inappropriate 1
@@ -18,7 +17,7 @@
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
 Version:	5.07
-Release:	%release
+Release:	%mkrel 3
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
@@ -296,7 +295,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 %{_mandir}/man1/xscreensaver-command.1*
 %{_mandir}/man1/xscreensaver-demo.1*
 %{_mandir}/man1/xscreensaver.1*
-%attr(2755,root,chkpwd) %{_bindir}/xscreensaver
+%attr(755,root,chkpwd) %{_bindir}/xscreensaver
 %{_bindir}/xscreensaver-command
 %{_bindir}/xscreensaver-demo
 %dir %{_datadir}/xscreensaver
