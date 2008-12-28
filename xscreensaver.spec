@@ -25,11 +25,11 @@ Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 Source1:	xscreensaver-capplet.png
 Patch0:		xscreensaver-5.05-mdv-alt-drop_setgid.patch
 # Only GDadou should be enabled
-Patch9:		xscreensaver-5.07-defaultconfig.patch
+Patch9:		xscreensaver-5.08-defaultconfig.patch
 # (fc) 4.00-4mdk allow root to start xscreensaver
 Patch10:	xscreensaver-4.23-root.patch
 # (fc) 4.05-3mdk disable openGL hacks by default
-Patch11:	xscreensaver-5.07-noGL.patch
+Patch11:	xscreensaver-5.08-noGL.patch
 # (fc) 4.05-4mdk don't show screensavers that aren't available
 Patch13:	xscreensaver-4.01-avail.patch
 # (fc) 4.23-1mdk disable inappropriate stuff (Mdk bug #19866)
@@ -47,7 +47,8 @@ BuildRequires:	xpm-devel
 BuildRequires:	libglade2.0-devel
 BuildRequires:	imagemagick
 BuildRequires:	mesaglut-devel
-BuildRequires:	libx11
+BuildRequires:	X11-devel
+BuildRequires:	libxext-devel
 BuildRequires:	libxxf86misc-devel
 BuildRequires:	libxinerama-devel
 %if %enable_extrusion
