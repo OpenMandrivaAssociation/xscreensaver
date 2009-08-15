@@ -17,7 +17,7 @@
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
 Version:	5.08
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
