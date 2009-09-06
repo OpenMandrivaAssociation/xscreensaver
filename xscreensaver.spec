@@ -16,8 +16,8 @@
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	5.08
-Release:	%mkrel 4
+Version:	5.09
+Release:	%mkrel 1
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
@@ -29,13 +29,12 @@ Patch9:		xscreensaver-5.08-defaultconfig.patch
 # (fc) 4.00-4mdk allow root to start xscreensaver
 Patch10:	xscreensaver-4.23-root.patch
 # (fc) 4.05-3mdk disable openGL hacks by default
-Patch11:	xscreensaver-5.08-noGL.patch
+Patch11:	xscreensaver-5.09-noGL.patch
 # (fc) 4.05-4mdk don't show screensavers that aren't available
 Patch13:	xscreensaver-4.01-avail.patch
 # (fc) 4.23-1mdk disable inappropriate stuff (Mdk bug #19866)
 Patch19:	xscreensaver-5.00-inappropriate.patch
-# (cg) Needed after x11-proto/libxext update
-Patch20: xscreensaver-5.08-dpmsstr-deprecated.patch
+Patch21:	xscreensaver-5.09-deps.patch
 Requires:	xscreensaver-common = %{version}-%{release}
 Requires:	fortune-mod
 Requires:	mandriva-theme-screensaver
@@ -149,7 +148,7 @@ extrusion library.
 %if %{disable_inappropriate}
 %patch19 -p1 -b .inappropriate
 %endif
-%patch20 -p1 -b .dpmsstr
+%patch21 -p1
 
 #needed by patches 11, 16
 autoconf
