@@ -16,7 +16,7 @@
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	5.09
+Version:	5.10
 Release:	%mkrel 1
 License:	BSD
 Group:		Graphical desktop/Other
@@ -34,7 +34,7 @@ Patch11:	xscreensaver-5.09-noGL.patch
 Patch13:	xscreensaver-4.01-avail.patch
 # (fc) 4.23-1mdk disable inappropriate stuff (Mdk bug #19866)
 Patch19:	xscreensaver-5.00-inappropriate.patch
-Patch21:	xscreensaver-5.09-deps.patch
+Patch21:	xscreensaver-5.10-deps.patch
 Requires:	xscreensaver-common = %{version}-%{release}
 Requires:	fortune-mod
 Requires:	mandriva-theme-screensaver
