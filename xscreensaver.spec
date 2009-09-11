@@ -34,7 +34,6 @@ Patch11:	xscreensaver-5.09-noGL.patch
 Patch13:	xscreensaver-4.01-avail.patch
 # (fc) 4.23-1mdk disable inappropriate stuff (Mdk bug #19866)
 Patch19:	xscreensaver-5.00-inappropriate.patch
-Patch21:	xscreensaver-5.10-deps.patch
 Requires:	xscreensaver-common = %{version}-%{release}
 Requires:	fortune-mod
 Requires:	mandriva-theme-screensaver
@@ -148,7 +147,6 @@ extrusion library.
 %if %{disable_inappropriate}
 %patch19 -p1 -b .inappropriate
 %endif
-%patch21 -p1
 
 #needed by patches 11, 16
 autoconf
@@ -188,6 +186,7 @@ autoconf
     --without-gle
 %endif
 
+make depend
 %make
 
 %install
