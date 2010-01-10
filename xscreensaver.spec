@@ -52,6 +52,7 @@ BuildRequires:	libxext-devel
 BuildRequires:	libxxf86misc-devel
 BuildRequires:	libxinerama-devel
 BuildRequires:	makedepend
+BuildRequires:	gdm
 %if %enable_extrusion
 BuildRequires:	libgle-devel
 %endif
