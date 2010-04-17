@@ -16,8 +16,8 @@
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	5.10
-Release:	%mkrel 2
+Version:	5.11
+Release:	%mkrel 1
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
@@ -183,7 +183,7 @@ autoconf
     --with-image-directory="%{_datadir}/mdk/screensaver" \
     --without-kerberos \
 %if %enable_extrusion
-    --with-gle 
+    --with-gle
 %else
     --without-gle
 %endif
