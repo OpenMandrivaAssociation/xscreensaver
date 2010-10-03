@@ -16,7 +16,7 @@
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	5.11
+Version:	5.12
 Release:	%mkrel 1
 License:	BSD
 Group:		Graphical desktop/Other
@@ -145,7 +145,7 @@ extrusion library.
 %patch9 -p1 -b .defaultconfig
 %patch10 -p1 -b .root
 %patch11 -p1 -b .noGL
-%patch13 -p1 -b .available
+#%patch13 -p1 -b .available
 %if %{disable_inappropriate}
 %patch19 -p1 -b .inappropriate
 %endif
@@ -167,7 +167,7 @@ autoconf
     --with-xf86gamma-ext \
     --with-randr-ext \
     --with-proc-interrupts \
-    --with-login-manager \
+    --with-login-manager=gdmflexiserver \
     --without-shadow \
     --with-pixbuf \
     --with-xpm \
