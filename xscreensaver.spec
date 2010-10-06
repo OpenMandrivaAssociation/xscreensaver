@@ -17,7 +17,7 @@
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
 Version:	5.12
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
@@ -267,7 +267,7 @@ dd=%{_builddir}/%{name}-%{version}
 ( cd hacks     ; list_files install > $dd/base.files)
 
 #gw remove the files we don't package:
-perl -pi -e "s/.*(xjack|matrix|extrusion).*//" gl-extras.files base.files
+perl -pi -e "s/.*(gdadou|xjack|matrix|extrusion).*//" gl-extras.files base.files
 
 %find_lang %{name}
 
