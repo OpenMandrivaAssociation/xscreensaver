@@ -324,7 +324,6 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 
 %files base -f base.files
 %defattr(-,root,root)
-%exclude %{_datadir}/xscreensaver/config/gdadou.xml
 
 %files gl -f gl-extras.files
 %defattr(-,root,root)
