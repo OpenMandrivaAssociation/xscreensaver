@@ -47,10 +47,15 @@ BuildRequires:	xpm-devel
 BuildRequires:	libglade2.0-devel
 BuildRequires:	imagemagick
 BuildRequires:	mesaglut-devel
-BuildRequires:	X11-devel
+BuildRequires:	libx11-devel
 BuildRequires:	libxext-devel
-BuildRequires:	libxxf86misc-devel
+BuildRequires:	libxi-devel
 BuildRequires:	libxinerama-devel
+BuildRequires:	libxmu-devel
+BuildRequires:	libxrandr-devel
+BuildRequires:	libxt-devel
+BuildRequires:	libxxf86misc-devel
+BuildRequires:	libxxf86vm-devel
 BuildRequires:	makedepend
 BuildRequires:	gdm
 %if %enable_extrusion
