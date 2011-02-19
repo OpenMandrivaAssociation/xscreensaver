@@ -12,12 +12,16 @@
 %if %plf
 %define distsuffix plf
 %define disable_inappropriate 0
+%if %mdvver >= 201100
+# make EVR of plf build higher than regular to allow update, needed with rpm5 mkrel
+%define extrarelsuffix plf
+%endif
 %endif
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
 Version:	5.12
-Release:	%mkrel 3
+Release:	%mkrel 3%{?extrarelsuffix}
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
