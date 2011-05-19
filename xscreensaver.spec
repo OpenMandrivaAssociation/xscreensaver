@@ -20,8 +20,8 @@
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	5.12
-Release:	%mkrel 6%{?extrarelsuffix}
+Version:	5.13
+Release:	%mkrel 1
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
@@ -29,7 +29,7 @@ Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 Source1:	xscreensaver-capplet.png
 Patch0:		xscreensaver-5.05-mdv-alt-drop_setgid.patch
 # Only GDadou should be enabled
-Patch9:		xscreensaver-5.08-defaultconfig.patch
+Patch9:		xscreensaver-5.13-defaultconfig.patch
 # (fc) 4.00-4mdk allow root to start xscreensaver
 Patch10:	xscreensaver-4.23-root.patch
 # (fc) 4.05-3mdk disable openGL hacks by default
