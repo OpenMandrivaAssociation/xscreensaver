@@ -21,7 +21,7 @@
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	5.14
+Version:	5.15
 Release:	%release%{?extrarelsuffix}
 License:	BSD
 Group:		Graphical desktop/Other
