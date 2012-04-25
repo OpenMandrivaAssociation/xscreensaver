@@ -72,7 +72,6 @@ BuildRequires:	pkgconfig(xxf86vm)
 BuildRequires:	gle-devel
 %endif
 BuildRequires:	imagemagick
-BuildRequires:	desktop-file-utils
 Conflicts:	gnome-control-center < 1.5.11-4mdk
 
 %description
@@ -228,12 +227,6 @@ Install the xscreensaver-gl package if you need more screensavers for
 use with the X Window System and you have OpenGL or Mesa installed.
 EOF
 
-desktop-file-install \
-  --remove-category="Application" \
-  --remove-category="AdvancedSettings" \
-  --remove-category="Appearance" \
-  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/*
-
 #icons
 mkdir -p %{buildroot}%{_datadir}/pixmaps
 mkdir -p %{buildroot}%{_iconsdir}/hicolor/{16x16,32x32,48x48}/apps
@@ -244,7 +237,7 @@ ln -s %{_datadir}/pixmaps/xscreensaver-capplet.png %{buildroot}%{_iconsdir}/hico
 
 #remove unpackaged files
 rm -f %{buildroot}%{_datadir}/xscreensaver/config/xjack.xml
-rm -f %{buildroot}%{_mandir}/man6/xjack.6  
+rm -f %{buildroot}%{_mandir}/man6/xjack.6
 rm -f  %{buildroot}%{_libexecdir}/xscreensaver/xjack
 
 %if ! %{build_plf}
@@ -306,7 +299,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 %{_bindir}/dmctl
 %dir %{_datadir}/xscreensaver
 %{_datadir}/xscreensaver/glade
-%{_datadir}/applications/*
+%{_datadir}/applications/xscreensaver-properties.desktop
 %{_datadir}/pixmaps/*
 %{_datadir}/xscreensaver/config/gdadou.xml
 %{_iconsdir}/hicolor/*/apps/*.png
@@ -346,3 +339,4 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 %{_libexecdir}/xscreensaver/xmatrix
 %{_libexecdir}/xscreensaver/glmatrix
 %endif
+
