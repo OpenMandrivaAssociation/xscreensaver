@@ -57,6 +57,7 @@ BuildRequires:	freeglut-devel
 %else
 BuildRequires:	mesaglut-devel
 %endif
+BuildRequires:	pkgconfig(gdk-pixbuf-xlib-2.0)
 BuildRequires:	pkgconfig(libglade-2.0)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xext)
