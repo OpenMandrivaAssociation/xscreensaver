@@ -1,18 +1,20 @@
-%define release %mkrel 1
-%define plf 0
+####################
+# PLF build
+%define build_plf 0
+####################
+
 %define enable_extrusion 1
 %define disable_inappropriate 1
 # Allow --with[out] <feature> at rpm command line build
-%{?_with_plf: %{expand: %%global plf 1}}
-%{?_without_plf: %{expand: %%global plf 0}}
+%{?_with_plf: %{expand: %%global build_plf 1}}
+%{?_without_plf: %{expand: %%global build_plf 0}}
 %{?_with_extrusion: %{expand: %%global enable_extrusion 1}}
 %{?_without_extrusion: %{expand: %%global enable_extrusion 0}}
 %{?_with_inappropriate: %{expand: %%global disable_inappropriate 0}}
 %{?_without_inappropriate: %{expand: %%global disable_inappropriate 1}}
 
-%if %plf
+%if %{build_plf}
 %define distsuffix plf
-%define disable_inappropriate 0
 %if %{mdvver} >= 201100
 # make EVR of plf build higher than regular to allow update, needed with rpm5 mkrel
 %define extrarelsuffix plf
@@ -22,7 +24,7 @@
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
 Version:	5.15
-Release:	%release%{?extrarelsuffix}
+Release:	%mkrel 1%{?extrarelsuffix}
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
@@ -81,8 +83,8 @@ pleasure.
 Install the xscreensaver package if you need screensavers for use with
 the X Window System.
 
-%if %plf
-This package is in PLF as it contains copyrighted images.
+%if %{build_plf}
+This package is in restricted as it contains copyrighted images.
 %endif
 
 %package base
@@ -121,7 +123,7 @@ pleasure. These screensavers require OpenGL or Mesa support.
 Install the xscreensaver-gl package if you need more screensavers for
 use with the X Window System and you have OpenGL or Mesa installed.
 
-%if %plf
+%if %{build_plf}
 %package matrix
 Summary:	The Matrix screensavers
 Group:		Graphical desktop/Other
@@ -129,8 +131,8 @@ Requires:	xscreensaver-common = %{version}-%{release}
 
 %description matrix
 The xscreensaver-matrix package contains two screensavers for
-xscreensaver based on the movie The Matrix. It is in plf because there
-might by copyright problems with the artwork used in this
+xscreensaver based on the movie The Matrix. It is in restricted because
+there might by copyright problems with the artwork used in this
 screensavers.
 %endif
 
@@ -245,7 +247,7 @@ rm -f %{buildroot}%{_datadir}/xscreensaver/config/xjack.xml
 rm -f %{buildroot}%{_mandir}/man6/xjack.6  
 rm -f  %{buildroot}%{_libexecdir}/xscreensaver/xjack
 
-%if ! %plf
+%if ! %{build_plf}
 rm -rf %{buildroot}%{_libexecdir}/xscreensaver/*matrix
 rm -rf %{buildroot}%{_mandir}/man6/*matrix*
 rm -rf %{buildroot}%{_datadir}/xscreensaver/config/*matrix*
@@ -334,7 +336,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 %{_libexecdir}/xscreensaver/extrusion
 %endif
 
-%if %plf
+%if %{build_plf}
 %files matrix
 %doc README.GL
 %{_mandir}/man6/xmatrix.6*
