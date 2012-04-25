@@ -28,7 +28,10 @@ Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 Source1:	xscreensaver-capplet.png
+Source2:	dmctl
 Patch0:		xscreensaver-5.05-mdv-alt-drop_setgid.patch
+# Don't check login manager in PATH because we use custom wrapper
+Patch1:		xscreensaver-5.15-lmcheck.patch
 # Only GDadou should be enabled
 Patch9:		xscreensaver-5.15-defaultconfig.patch
 # (fc) 4.00-4mdk allow root to start xscreensaver
@@ -41,33 +44,32 @@ Requires:	xscreensaver-common = %{version}-%{release}
 Requires:	fortune-mod
 Requires:	mandriva-theme-screensaver
 Requires:	xdg-utils
-BuildRequires:	gdm
+BuildRequires:	makedepend
 BuildRequires:	bc
 BuildRequires:	fortune-mod
-BuildRequires:	libjpeg-devel
+BuildRequires:	jpeg-devel
 BuildRequires:	pam-devel
-BuildRequires:	xpm-devel
-BuildRequires:	libglade2.0-devel
-BuildRequires:	imagemagick
 BuildRequires:	mesaglu-devel
 %if %{mdvver} >= 201200
 BuildRequires:	freeglut-devel
 %else
 BuildRequires:	mesaglut-devel
 %endif
-BuildRequires:	libx11-devel
-BuildRequires:	libxext-devel
-BuildRequires:	libxi-devel
-BuildRequires:	libxinerama-devel
-BuildRequires:	libxmu-devel
-BuildRequires:	libxrandr-devel
-BuildRequires:	libxt-devel
-BuildRequires:	libxxf86misc-devel
-BuildRequires:	libxxf86vm-devel
-BuildRequires:	makedepend
+BuildRequires:	pkgconfig(libglade-2.0)
+BuildRequires:	pkgconfig(x11)
+BuildRequires:	pkgconfig(xext)
+BuildRequires:	pkgconfig(xi)
+BuildRequires:	pkgconfig(xinerama)
+BuildRequires:	pkgconfig(xmu)
+BuildRequires:	pkgconfig(xpm)
+BuildRequires:	pkgconfig(xrandr)
+BuildRequires:	pkgconfig(xt)
+BuildRequires:	pkgconfig(xxf86misc)
+BuildRequires:	pkgconfig(xxf86vm)
 %if %{enable_extrusion}
-BuildRequires:	libgle-devel
+BuildRequires:	gle-devel
 %endif
+BuildRequires:	imagemagick
 BuildRequires:	desktop-file-utils
 Conflicts:	gnome-control-center < 1.5.11-4mdk
 
@@ -132,7 +134,7 @@ might by copyright problems with the artwork used in this
 screensavers.
 %endif
 
-%if %enable_extrusion
+%if %{enable_extrusion}
 %package extrusion
 Summary:	OpenGL screensaver
 Group:		Graphical desktop/Other
@@ -151,6 +153,7 @@ extrusion library.
 
 %prep
 %setup -q
+%patch1 -p1 -b .login-manager
 # WARNING this patch must ALWAYS be applied, if it fails, REGENERATE it !!!
 %patch9 -p1 -b .defaultconfig
 %patch10 -p1 -b .root
@@ -159,7 +162,7 @@ extrusion library.
 %patch19 -p1 -b .inappropriate
 %endif
 
-#needed by patches 11, 16
+# Needed by patches 1 and 11
 autoconf
 
 %build
@@ -173,7 +176,7 @@ autoconf
     --with-xf86gamma-ext \
     --with-randr-ext \
     --with-proc-interrupts \
-    --with-login-manager=gdmflexiserver \
+    --with-login-manager=dmctl \
     --without-shadow \
     --with-pixbuf \
     --with-xpm \
@@ -210,6 +213,9 @@ make install_prefix=%{buildroot} bindir=%{_bindir} \
  KDEDIR=%{_prefix} GNOME_BINDIR=%{_bindir}  GNOME_DATADIR=%{_datadir} \
  mandir=%{_mandir} AD_DIR=%{_sysconfdir}/X11/app-defaults/ \
  gnulocaledir=%{_datadir}/locale install
+
+# Custom wrapper for gdmflexiserver and kdmctl
+install -m 755 %{SOURCE2} %{buildroot}%{_bindir}/dmctl
 
 cat<<EOF >README.GL
 The xscreensaver-gl package contains even more screensavers for your
@@ -295,6 +301,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 %attr(755,root,chkpwd) %{_bindir}/xscreensaver
 %{_bindir}/xscreensaver-command
 %{_bindir}/xscreensaver-demo
+%{_bindir}/dmctl
 %dir %{_datadir}/xscreensaver
 %{_datadir}/xscreensaver/glade
 %{_datadir}/applications/*
