@@ -13,7 +13,7 @@
 %if %plf
 %define distsuffix plf
 %define disable_inappropriate 0
-%if %mdvver >= 201100
+%if %{mdvver} >= 201100
 # make EVR of plf build higher than regular to allow update, needed with rpm5 mkrel
 %define extrarelsuffix plf
 %endif
@@ -30,13 +30,11 @@ Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 Source1:	xscreensaver-capplet.png
 Patch0:		xscreensaver-5.05-mdv-alt-drop_setgid.patch
 # Only GDadou should be enabled
-Patch9:		xscreensaver-5.14-defaultconfig.patch
+Patch9:		xscreensaver-5.15-defaultconfig.patch
 # (fc) 4.00-4mdk allow root to start xscreensaver
 Patch10:	xscreensaver-4.23-root.patch
 # (fc) 4.05-3mdk disable openGL hacks by default
 Patch11:	xscreensaver-5.09-noGL.patch
-# (fc) 4.05-4mdk don't show screensavers that aren't available
-Patch13:	xscreensaver-4.01-avail.patch
 # (fc) 4.23-1mdk disable inappropriate stuff (Mdk bug #19866)
 Patch19:	xscreensaver-5.00-inappropriate.patch
 Requires:	xscreensaver-common = %{version}-%{release}
@@ -51,7 +49,12 @@ BuildRequires:	pam-devel
 BuildRequires:	xpm-devel
 BuildRequires:	libglade2.0-devel
 BuildRequires:	imagemagick
+BuildRequires:	mesaglu-devel
+%if %{mdvver} >= 201200
+BuildRequires:	freeglut-devel
+%else
 BuildRequires:	mesaglut-devel
+%endif
 BuildRequires:	libx11-devel
 BuildRequires:	libxext-devel
 BuildRequires:	libxi-devel
@@ -62,13 +65,11 @@ BuildRequires:	libxt-devel
 BuildRequires:	libxxf86misc-devel
 BuildRequires:	libxxf86vm-devel
 BuildRequires:	makedepend
-BuildRequires:	gdm
-%if %enable_extrusion
+%if %{enable_extrusion}
 BuildRequires:	libgle-devel
 %endif
 BuildRequires:	desktop-file-utils
 Conflicts:	gnome-control-center < 1.5.11-4mdk
-Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 The xscreensaver package contains a variety of screensavers for your
@@ -150,12 +151,10 @@ extrusion library.
 
 %prep
 %setup -q
-#%patch0 -p1 -b .drop_setgid
 # WARNING this patch must ALWAYS be applied, if it fails, REGENERATE it !!!
 %patch9 -p1 -b .defaultconfig
 %patch10 -p1 -b .root
 %patch11 -p1 -b .noGL
-#%patch13 -p1 -b .available
 %if %{disable_inappropriate}
 %patch19 -p1 -b .inappropriate
 %endif
@@ -189,7 +188,7 @@ autoconf
     --with-gl \
     --with-image-directory="%{_datadir}/mdk/screensaver" \
     --without-kerberos \
-%if %enable_extrusion
+%if %{enable_extrusion}
     --with-gle
 %else
     --without-gle
@@ -245,7 +244,7 @@ rm -rf %{buildroot}%{_libexecdir}/xscreensaver/*matrix
 rm -rf %{buildroot}%{_mandir}/man6/*matrix*
 rm -rf %{buildroot}%{_datadir}/xscreensaver/config/*matrix*
 %endif
-%if ! %enable_extrusion
+%if ! %{enable_extrusion}
 rm -f %{buildroot}%{_datadir}/xscreensaver/config/extrusion.xml
 rm -f %{buildroot}%{_mandir}/man6/extrusion.6
 %endif
@@ -281,18 +280,6 @@ perl -pi -e "s/.*(gdadou|xjack|matrix|extrusion).*//" gl-extras.files base.files
 %clean
 rm -rf %{buildroot}
 
-%if %mdkversion < 200900
-%post 
-%{update_menus}
-%update_icon_cache hicolor
-%endif
-
-%if %mdkversion < 200900
-%postun
-%{clean_menus}
-%clean_icon_cache hicolor
-%endif
-
 %post gl
 sed -i -e 's/\A-\s+GL:/ GL:/' %{_sysconfdir}/X11/app-defaults/XScreenSaver
 
@@ -300,7 +287,6 @@ sed -i -e 's/\A-\s+GL:/ GL:/' %{_sysconfdir}/X11/app-defaults/XScreenSaver
 sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-defaults/XScreenSaver
 
 %files -f %{name}.lang
-%defattr(-,root,root)
 %config(noreplace) %{_sysconfdir}/pam.d/xscreensaver
 %doc README
 %{_mandir}/man1/xscreensaver-command.1*
@@ -316,8 +302,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 %{_datadir}/xscreensaver/config/gdadou.xml
 %{_iconsdir}/hicolor/*/apps/*.png
 
-%files common 
-%defattr(-,root,root)
+%files common
 %config(noreplace) %{_sysconfdir}/X11/app-defaults/*
 %dir %{_libexecdir}/%{name}
 %{_bindir}/xscreensaver-getimage
@@ -330,24 +315,20 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 %{_datadir}/%{name}/config/README
 
 %files base -f base.files
-%defattr(-,root,root)
 
 %files gl -f gl-extras.files
-%defattr(-,root,root)
 %doc README.GL
 
-%if %enable_extrusion
+%if %{enable_extrusion}
 %files extrusion
-%defattr(-,root,root)
 %doc README.GL
 %{_datadir}/xscreensaver/config/extrusion.xml
-%{_mandir}/man6/extrusion.6*  
+%{_mandir}/man6/extrusion.6*
 %{_libexecdir}/xscreensaver/extrusion
 %endif
 
 %if %plf
 %files matrix
-%defattr(-,root,root)
 %doc README.GL
 %{_mandir}/man6/xmatrix.6*
 %{_mandir}/man6/glmatrix.6*
