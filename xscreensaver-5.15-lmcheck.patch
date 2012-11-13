@@ -1,0 +1,12 @@
+diff -urN xscreensaver-5.15/configure.in xscreensaver-5.15-patched/configure.in
+--- xscreensaver-5.15/configure.in	2011-09-17 05:19:32.000000000 +1100
++++ xscreensaver-5.15-patched/configure.in	2012-04-25 18:52:01.255065222 +1100
+@@ -2403,7 +2403,7 @@
+     # relative path specified on cmd line
+     set dummy $with_login_manager_req ; login_manager_tmp=$2
+     unset ac_cv_path_login_manager_tmp    # don't cache
+-    AC_PATH_PROG(login_manager_tmp, $login_manager_tmp, [])
++#    AC_PATH_PROG(login_manager_tmp, $login_manager_tmp, [])
+     if test -z "$login_manager_tmp" ; then
+       with_login_manager=""
+     else

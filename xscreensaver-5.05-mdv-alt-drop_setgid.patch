@@ -1,0 +1,47 @@
+Derived from ALT's xscreensaver-5.05-alt2.patch
+
+diff -pruN xscreensaver-5.05.orig/driver/exec.c xscreensaver-5.05/driver/exec.c
+--- xscreensaver-5.05.orig/driver/exec.c	2006-02-04 00:36:33.000000000 -0700
++++ xscreensaver-5.05/driver/exec.c	2008-05-23 08:23:04.000000000 -0600
+@@ -85,6 +85,7 @@ static void nice_process (int nice_level
+ 
+ 
+ #ifndef VMS
++extern int __libc_enable_secure = 0;
+ 
+ static void
+ exec_simple_command (const char *command)
+@@ -99,6 +100,9 @@ exec_simple_command (const char *command
+     }
+   av[ac] = 0;
+ 
++  setgid(getgid());
++  setuid(getuid());
++  __libc_enable_secure = 0;
+   execvp (av[0], av);	/* shouldn't return. */
+ }
+ 
+diff -pruN xscreensaver-5.05.orig/driver/setuid.c xscreensaver-5.05/driver/setuid.c
+--- xscreensaver-5.05.orig/driver/setuid.c	2006-02-08 19:33:29.000000000 -0700
++++ xscreensaver-5.05/driver/setuid.c	2008-05-23 08:23:46.000000000 -0600
+@@ -140,9 +140,11 @@ set_ids_by_number (uid_t uid, gid_t gid,
+       setgroups (1, &gid) < 0)
+     sgs_errno = errno ? errno : -1;
+ 
++#if 0
+   errno = 0;
+   if (setgid (gid) != 0)
+     gid_errno = errno ? errno : -1;
++#endif
+ 
+   errno = 0;
+   if (setuid (uid) != 0)
+@@ -260,7 +262,7 @@ hack_uid (saver_info *si)
+ 
+     si->orig_uid = strdup (uid_gid_string (euid, egid));
+ 
+-    if (uid != euid || gid != egid)
++    if (euid == (uid_t) 0 && (uid != euid || gid != egid))
+       if (set_ids_by_number (uid, gid, &si->uid_message) != 0)
+ 	saver_exit (si, 1, 0);
+   }

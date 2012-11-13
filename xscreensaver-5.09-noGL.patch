@@ -1,0 +1,11 @@
+--- xscreensaver-5.09/configure.in.noGL	2009-09-03 06:38:35.000000000 +0200
++++ xscreensaver-5.09/configure.in	2009-09-06 23:03:38.404526138 +0200
+@@ -3626,7 +3626,7 @@
+   RETIRED_GL_EXES='$(RETIRED_GL_EXES)'
+   GL_UTIL_EXES='$(GL_UTIL_EXES)'
+   GL_MEN='$(GL_MEN)'
+-  GL_KLUDGE=" "
++  GL_KLUDGE="-"
+ else
+   GL_KLUDGE="-"
+ fi
