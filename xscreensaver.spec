@@ -24,7 +24,7 @@
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
 Version:	5.15
-Release:	%mkrel 1%{?extrarelsuffix}
+Release:	2%{?extrarelsuffix}
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
@@ -51,12 +51,8 @@ BuildRequires:	bc
 BuildRequires:	fortune-mod
 BuildRequires:	jpeg-devel
 BuildRequires:	pam-devel
-BuildRequires:	mesaglu-devel
-%if %{mdvver} >= 201200
-BuildRequires:	freeglut-devel
-%else
-BuildRequires:	mesaglut-devel
-%endif
+BuildRequires:	pkgconfig(glu)
+BuildRequires:	pkgconfig(glut)
 BuildRequires:	pkgconfig(gdk-pixbuf-xlib-2.0)
 BuildRequires:	pkgconfig(libglade-2.0)
 BuildRequires:	pkgconfig(x11)
@@ -73,7 +69,6 @@ BuildRequires:	pkgconfig(xxf86vm)
 BuildRequires:	gle-devel
 %endif
 BuildRequires:	imagemagick
-Conflicts:	gnome-control-center < 1.5.11-4mdk
 
 %description
 The xscreensaver package contains a variety of screensavers for your
@@ -101,7 +96,6 @@ Various screensavers used by Xscreensaver.
 Summary:	Utilities used by xscreensaver screensavers
 Group:		Graphical desktop/Other
 Conflicts:	xscreensaver < 5.00-2
-Obsoletes:	xscreensaver-utils
 Provides:	xscreensaver-utils
 Requires:	chbg
 
@@ -279,9 +273,6 @@ perl -pi -e "s/.*(gdadou|xjack|matrix|extrusion).*//" gl-extras.files base.files
 
 %find_lang %{name}
 
-%clean
-rm -rf %{buildroot}
-
 %post gl
 sed -i -e 's/\A-\s+GL:/ GL:/' %{_sysconfdir}/X11/app-defaults/XScreenSaver
 
@@ -340,4 +331,344 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 %{_libexecdir}/xscreensaver/xmatrix
 %{_libexecdir}/xscreensaver/glmatrix
 %endif
+
+
+
+%changelog
+* Wed Apr 25 2012 Andrey Bondrov <abondrov@mandriva.org> 5.15-1mdv2012.0
++ Revision: 793381
+- Update BuildRequires
+- We don't need to modify desktop file anymore, it's already fixed upstream
+- Adopt PLF build to new MDV/Rosa realities
+- Use custom wrapper (dmctl) as login manager, update BuildRequires
+- Rediff default config patch and minor spec cleanup
+
+  + Tomasz Pawel Gajc <tpg@mandriva.org>
+    - update to new version 5.15
+
+* Tue May 24 2011 GÃ¶tz Waschk <waschk@mandriva.org> 5.14-1
++ Revision: 678080
+- new version
+- rediff patch 9
+- drop obsolete configure options
+- fix extrarelsuffix again
+
+* Fri May 20 2011 GÃ¶tz Waschk <waschk@mandriva.org> 5.13-2
++ Revision: 676302
+- readd missing extrarelsuffix for plf
+
+* Thu May 19 2011 GÃ¶tz Waschk <waschk@mandriva.org> 5.13-1
++ Revision: 676139
+- new version
+- rediff patch 9
+
+* Sun May 15 2011 Oden Eriksson <oeriksson@mandriva.com> 5.12-6
++ Revision: 674749
+- rebuild
+
+* Sun Feb 27 2011 Funda Wang <fwang@mandriva.org> 5.12-5
++ Revision: 640299
+- rebuild to obsolete old packages
+
+* Mon Feb 21 2011 GÃ¶tz Waschk <waschk@mandriva.org> 5.12-4
++ Revision: 639092
+- rebuild
+
+  + Anssi Hannula <anssi@mandriva.org>
+    - plf: append "plf" to Release on cooker to make plf build have higher EVR
+      again with the rpm5-style mkrel now in use
+
+* Wed Feb 02 2011 Funda Wang <fwang@mandriva.org> 5.12-3
++ Revision: 635147
+- rebuild
+- tighten BR
+
+* Wed Oct 06 2010 GÃ¶tz Waschk <waschk@mandriva.org> 5.12-2mdv2011.0
++ Revision: 583606
+- work around rpm bug #61207
+
+* Sun Oct 03 2010 Tomasz Pawel Gajc <tpg@mandriva.org> 5.12-1mdv2011.0
++ Revision: 582752
+- update to new version 5.12
+- disable patch 3
+- set gdmflexiserver as a default login manager
+
+* Sun Apr 18 2010 Tomasz Pawel Gajc <tpg@mandriva.org> 5.11-1mdv2010.1
++ Revision: 536072
+- update to new version 5.11
+
+* Sun Jan 10 2010 Oden Eriksson <oeriksson@mandriva.com> 5.10-2mdv2010.1
++ Revision: 488979
+- fix br deps (gdm)
+- fix br deps (makedepend)
+- rebuilt against libjpeg v8
+
+  + GÃ¶tz Waschk <waschk@mandriva.org>
+    - drop patch 21 and call make depend instead
+
+* Thu Sep 10 2009 Frederik Himpe <fhimpe@mandriva.org> 5.10-1mdv2010.0
++ Revision: 437464
+- Update to new version 5.10
+- Rediff deps patch
+
+* Sun Sep 06 2009 GÃ¶tz Waschk <waschk@mandriva.org> 5.09-1mdv2010.0
++ Revision: 432083
+- new version
+- rediff patch 11
+- drop patch 20
+- patch 21: fix deps of some hacks
+
+* Sat Aug 15 2009 Oden Eriksson <oeriksson@mandriva.com> 5.08-4mdv2010.0
++ Revision: 416670
+- rebuilt against libjpeg v7
+
+* Mon Jul 20 2009 Colin Guthrie <cguthrie@mandriva.org> 5.08-3mdv2010.0
++ Revision: 398036
+- Build with new x11-proto/libxext
+
+* Mon Dec 29 2008 Tomasz Pawel Gajc <tpg@mandriva.org> 5.08-2mdv2009.1
++ Revision: 320794
+- Patch9: use xvt script instread of hardcoding default terminal emulator to gnome-terminal
+
+* Sun Dec 28 2008 Tomasz Pawel Gajc <tpg@mandriva.org> 5.08-1mdv2009.1
++ Revision: 320545
+- Patch9: rediff to meet nofuzz
+- Patch11: rediff to meet nofuzz
+- fix buildrequires
+- update to new version 5.08
+
+* Sun Sep 07 2008 Tomasz Pawel Gajc <tpg@mandriva.org> 5.07-3mdv2009.0
++ Revision: 282277
+- relax perms for real for xscreensaver binary(disabled drop_setgid patch)
+
+* Mon Aug 25 2008 Vincent Danen <vdanen@mandriva.com> 5.07-2mdv2009.0
++ Revision: 275958
+- disable the drop_setgid patch for now and relax perms
+
+* Mon Aug 11 2008 GÃ¶tz Waschk <waschk@mandriva.org> 5.07-1mdv2009.0
++ Revision: 270724
+- new version
+- rediff patches 9,11
+
+* Thu Jul 17 2008 Funda Wang <fwang@mandriva.org> 5.06-1mdv2009.0
++ Revision: 236674
+- BR libxinerama-devel
+- New version 5.06
+
+  + Pixel <pixel@mandriva.com>
+    - rpm filetriggers deprecates update_menus/update_scrollkeeper/update_mime_database/update_icon_cache/update_desktop_database/post_install_gconf_schemas
+
+* Fri May 23 2008 Vincent Danen <vdanen@mandriva.com> 5.05-4mdv2009.0
++ Revision: 210395
+- build without shadow support
+- add patch to not call setgid()
+- make xscreensaver sgid chkpwd; should work with both tcb and shadow passwords now
+
+* Wed Apr 30 2008 Tomasz Pawel Gajc <tpg@mandriva.org> 5.05-3mdv2009.0
++ Revision: 199448
+- move locales to the main package
+- do not require xscreensaver-base, since now there is only one screensaver GDadou
+- fix file list
+- Patch9: tune up timeouts
+
+* Wed Apr 30 2008 Tomasz Pawel Gajc <tpg@mandriva.org> 5.05-2mdv2009.0
++ Revision: 199358
+- Patch9: install gdadou.xml config file !
+- drop patch 15, use xdg-open
+- drop patch 18, use realname for icons
+- drop X-MandrivLinux category
+- revoke dead configure options and add new ones
+- add missing buildrequires on gdm
+- kill switches for mdv 2006
+- do not require words package (dunno what for this was pulled in)
+- spec file clean
+- TODO maybe split out mandriva specific plugin gdadou to a separate package
+- Patch9: fix chbg syntax
+- set the DPMS values
+
+* Mon Mar 03 2008 GÃ¶tz Waschk <waschk@mandriva.org> 5.05-1mdv2008.1
++ Revision: 178160
+- new version
+- update patch 18
+- drop patch 20
+
+* Thu Feb 28 2008 Frederic Crozat <fcrozat@mandriva.com> 5.04-3mdv2008.1
++ Revision: 176409
+- Replace mandrake_desk dependency with mandriva-theme-screensaver
+
+* Thu Feb 07 2008 Funda Wang <fwang@mandriva.org> 5.04-2mdv2008.1
++ Revision: 163625
+- add ubuntu patch to have it build
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - drop old menu
+    - fix mesaglu-devel BR
+    - kill re-definition of %%buildroot on Pixel's request
+
+  + Olivier Blin <blino@mandriva.org>
+    - restore BuildRoot
+
+* Wed Nov 14 2007 GÃ¶tz Waschk <waschk@mandriva.org> 5.04-1mdv2008.1
++ Revision: 108691
+- new version
+
+* Thu Sep 20 2007 Frederic Crozat <fcrozat@mandriva.com> 5.03-2mdv2008.0
++ Revision: 91461
+- Update patch9 with one background color for GDadou
+  Update patch18 to remove icon extension
+
+* Tue Jul 17 2007 GÃ¶tz Waschk <waschk@mandriva.org> 5.03-1mdv2008.0
++ Revision: 52868
+- fix buildrequires
+
+  + Tomasz Pawel Gajc <tpg@mandriva.org>
+    - new version
+
+* Sun Apr 22 2007 GÃ¶tz Waschk <waschk@mandriva.org> 5.02-2mdv2008.0
++ Revision: 17004
+- fix description
+
+* Sun Apr 22 2007 GÃ¶tz Waschk <waschk@mandriva.org> 5.02-1mdv2008.0
++ Revision: 16951
+- new version
+
+
+* Wed Sep 20 2006 Götz Waschk <waschk@mandriva.org> 5.01-1mdv2007.0
+- rediff patch 15
+- New version 5.01
+
+* Fri Jul 07 2006 Götz Waschk <waschk@mandriva.org> 5.00-5mdv2007.0
+- fix buildrequires
+
+* Thu Jul 06 2006 Frederic Crozat <fcrozat@mandriva.com> 5.00-4mdv2007.0
+- Add obsoletes to ease upgrade
+- switch to XDG menu
+
+* Wed Jul 05 2006 Thierry Vignaud <tvignaud@mandriva.com> 5.00-3mdv2007.0
+- fix upgrade
+
+* Sat Jun 24 2006 Frederic Crozat <fcrozat@mandriva.com> 5.00-2mdv2007.0
+- Slip main packages in seperate subpackages (can be used by gnome-screensaver)
+- disable kerberos support, use pam instead
+
+* Thu May 25 2006 Götz Waschk <waschk@mandriva.org> 5.00-1mdk
+- install in /usr
+- drop patch 20
+- update patch 9,19
+- New release 5.00
+
+* Thu May 18 2006 Laurent MONTEL <lmontel@mandriva.com> 4.24-2
+- Rebuild
+
+* Thu Feb 09 2006 Götz Waschk <waschk@mandriva.org> 4.24-1mdk
+- rediff patch 19 aka the Jesus patch
+- rediff patch 9
+- New release 4.24
+
+* Tue Jan 31 2006 Olivier Blin <oblin@mandriva.com> 4.23-3mdk
+- use "include" directive instead of deprecated pam_stack (Patch20)
+
+* Tue Nov 22 2005 Götz Waschk <waschk@mandriva.org> 4.23-2mdk
+- fix plf build
+
+* Mon Nov 21 2005 Frederic Crozat <fcrozat@mandriva.com> 4.23-1mdk
+- Release 4.23
+- Patch19:; disable inappropriate stuff in glsnake (Mdk bug #19866)
+- Regenerate patch10
+
+* Thu Sep 22 2005 Frederic Crozat <fcrozat@mandriva.com> 4.22-6mdk
+- Update patch15 to fix Mdk bug #9320
+
+* Tue Sep 06 2005 Frederic Crozat <fcrozat@mandriva.com> 4.22-5mdk
+- Update patch9 to sort images
+
+* Sat Sep 03 2005 Frederic Crozat <fcrozat@mandriva.com> 4.22-4mdk
+- Update patch9 with background color based on product
+
+* Tue Jun 28 2005 Andreas Hasenack <andreas@mandriva.com> 4.22-3mdk
+- rebuilt without krb4
+
+* Mon Jun 27 2005 Götz Waschk <waschk@mandriva.org> 4.22-2mdk
+- drop sources 2,3
+
+* Fri Jun 24 2005 Götz Waschk <waschk@mandriva.org> 4.22-1mdk
+- use generated file lists for the hacks
+- New release 4.22
+
+* Sat May 14 2005 Götz Waschk <waschk@mandriva.org> 4.21-2mdk
+- disable source 2
+
+* Tue Apr 19 2005 Götz Waschk <waschk@linux-mandrake.com> 4.21-1mdk
+- fix the --with options
+- mkrel
+- new hack: fliptext
+- update file list
+- rediff patch 9
+- New release 4.21
+
+* Wed Mar 16 2005 Frederic Crozat <fcrozat@mandrakesoft.com> 4.20-3mdk
+- fix icon name (Mdk bug #14650)
+
+* Wed Mar 02 2005 Laurent MONTEL <lmontel@mandrakesoft.com> 4.20-2mdk
+- Fix menu name to remove conflict when we call "kcmshell screensaver"
+
+* Thu Feb 24 2005 Frederic Crozat <fcrozat@mandrakesoft.com> 4.20-1mdk
+- Release 4.20
+- new hacks : boing, boxfix, carousel, fiberlamp
+- Regenerate patch15
+- Remove patches 19 (no longer relevant), 20 (merged upstream)
+
+* Thu Jan 06 2005 Laurent MONTEL <lmontel@mandrakesoft.com> 4.19-2mdk
+- Add patch20: fix launch xscreensaver into kde
+
+* Thu Dec 16 2004 Götz Waschk <waschk@linux-mandrake.com> 4.19-1mdk
+- new hacks: substrate, intermomentary, fireworkx and pinion
+- new version
+
+* Tue Aug 17 2004 Laurent MONTEL <lmontel@mandrakesoft.com> 4.18-2mdk
+- Add patch19: fix kscreebsacer path use '/usr/X11R6/bin' and not '/usr/bin'
+
+* Mon Aug 16 2004 Götz Waschk <waschk@linux-mandrake.com> 4.18-3mdk
+- new hacks: anemotaxism, memscroller
+- remove double menu entry
+- New release 4.17
+
+* Wed Aug 04 2004 Frederic Crozat <fcrozat@mandrakesoft.com> 4.16-3mdk
+- Update patch 15 to use xvt instead of xterm (Mdk bug #9320)
+
+* Sat Jul 31 2004 Götz Waschk <waschk@linux-mandrake.com> 4.16-2mdk
+- add xscreensaver-demo menu entry
+
+* Fri May 14 2004 Götz Waschk <waschk@linux-mandrake.com> 4.16-1mdk
+- add new hacks: antinspect, fuzzyflakes, polyhedra, providence
+- drop patch 19
+- New release 4.16
+
+* Sat Apr 03 2004 Götz Waschk <waschk@linux-mandrake.com> 4.15-1mdk
+- fix description
+- add new hacks: mismunch, noof, pacman, wormhole
+- fix typo in the kerberos driver
+- new version
+
+* Mon Dec 15 2003 Götz Waschk <waschk@linux-mandrake.com> 4.14-4mdk
+- fix deps of the subpackages
+
+* Thu Nov 06 2003 Götz Waschk <waschk@linux-mandrake.com> 4.14-3mdk
+- enable extrusion and move it to the extrusion subpackage
+- rename --with xmatrix to --with plf
+- move xmatrix and glmatrix to the matrix subpackage
+
+* Wed Nov 05 2003 Götz Waschk <waschk@linux-mandrake.com> 4.14-2mdk
+- remove xmatrix, glmatrix and extrusion (thanks to Christian Bricart)
+
+* Tue Nov 04 2003 Götz Waschk <waschk@linux-mandrake.com> 4.14-1mdk
+- add new hacks: apple2, blinkbox, fontglide, gleidescope, mirrorblob, pong,
+- add new hack: xanalogtv
+- add new program ljlatest
+- fix gle buildrequires
+- new version
+- new version
+
+* Tue Oct 21 2003 Frederic Lepied <flepied@mandrakesoft.com> 4.12-2mdk
+- rebuild for rewriting /etc/pam.d file
 
