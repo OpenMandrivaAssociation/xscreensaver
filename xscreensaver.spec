@@ -23,8 +23,8 @@
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	5.15
-Release:	2%{?extrarelsuffix}
+Version:	5.21
+Release:	1%{?extrarelsuffix}
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
@@ -346,18 +346,18 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
   + Tomasz Pawel Gajc <tpg@mandriva.org>
     - update to new version 5.15
 
-* Tue May 24 2011 Götz Waschk <waschk@mandriva.org> 5.14-1
+* Tue May 24 2011 GÃ¶tz Waschk <waschk@mandriva.org> 5.14-1
 + Revision: 678080
 - new version
 - rediff patch 9
 - drop obsolete configure options
 - fix extrarelsuffix again
 
-* Fri May 20 2011 Götz Waschk <waschk@mandriva.org> 5.13-2
+* Fri May 20 2011 GÃ¶tz Waschk <waschk@mandriva.org> 5.13-2
 + Revision: 676302
 - readd missing extrarelsuffix for plf
 
-* Thu May 19 2011 Götz Waschk <waschk@mandriva.org> 5.13-1
+* Thu May 19 2011 GÃ¶tz Waschk <waschk@mandriva.org> 5.13-1
 + Revision: 676139
 - new version
 - rediff patch 9
@@ -370,7 +370,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 + Revision: 640299
 - rebuild to obsolete old packages
 
-* Mon Feb 21 2011 Götz Waschk <waschk@mandriva.org> 5.12-4
+* Mon Feb 21 2011 GÃ¶tz Waschk <waschk@mandriva.org> 5.12-4
 + Revision: 639092
 - rebuild
 
@@ -383,7 +383,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 - rebuild
 - tighten BR
 
-* Wed Oct 06 2010 Götz Waschk <waschk@mandriva.org> 5.12-2mdv2011.0
+* Wed Oct 06 2010 GÃ¶tz Waschk <waschk@mandriva.org> 5.12-2mdv2011.0
 + Revision: 583606
 - work around rpm bug #61207
 
@@ -403,7 +403,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 - fix br deps (makedepend)
 - rebuilt against libjpeg v8
 
-  + Götz Waschk <waschk@mandriva.org>
+  + GÃ¶tz Waschk <waschk@mandriva.org>
     - drop patch 21 and call make depend instead
 
 * Thu Sep 10 2009 Frederik Himpe <fhimpe@mandriva.org> 5.10-1mdv2010.0
@@ -411,7 +411,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 - Update to new version 5.10
 - Rediff deps patch
 
-* Sun Sep 06 2009 Götz Waschk <waschk@mandriva.org> 5.09-1mdv2010.0
+* Sun Sep 06 2009 GÃ¶tz Waschk <waschk@mandriva.org> 5.09-1mdv2010.0
 + Revision: 432083
 - new version
 - rediff patch 11
@@ -445,7 +445,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 + Revision: 275958
 - disable the drop_setgid patch for now and relax perms
 
-* Mon Aug 11 2008 Götz Waschk <waschk@mandriva.org> 5.07-1mdv2009.0
+* Mon Aug 11 2008 GÃ¶tz Waschk <waschk@mandriva.org> 5.07-1mdv2009.0
 + Revision: 270724
 - new version
 - rediff patches 9,11
@@ -486,7 +486,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 - Patch9: fix chbg syntax
 - set the DPMS values
 
-* Mon Mar 03 2008 Götz Waschk <waschk@mandriva.org> 5.05-1mdv2008.1
+* Mon Mar 03 2008 GÃ¶tz Waschk <waschk@mandriva.org> 5.05-1mdv2008.1
 + Revision: 178160
 - new version
 - update patch 18
@@ -508,7 +508,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
   + Olivier Blin <blino@mandriva.org>
     - restore BuildRoot
 
-* Wed Nov 14 2007 Götz Waschk <waschk@mandriva.org> 5.04-1mdv2008.1
+* Wed Nov 14 2007 GÃ¶tz Waschk <waschk@mandriva.org> 5.04-1mdv2008.1
 + Revision: 108691
 - new version
 
@@ -517,27 +517,27 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 - Update patch9 with one background color for GDadou
   Update patch18 to remove icon extension
 
-* Tue Jul 17 2007 Götz Waschk <waschk@mandriva.org> 5.03-1mdv2008.0
+* Tue Jul 17 2007 GÃ¶tz Waschk <waschk@mandriva.org> 5.03-1mdv2008.0
 + Revision: 52868
 - fix buildrequires
 
   + Tomasz Pawel Gajc <tpg@mandriva.org>
     - new version
 
-* Sun Apr 22 2007 Götz Waschk <waschk@mandriva.org> 5.02-2mdv2008.0
+* Sun Apr 22 2007 GÃ¶tz Waschk <waschk@mandriva.org> 5.02-2mdv2008.0
 + Revision: 17004
 - fix description
 
-* Sun Apr 22 2007 Götz Waschk <waschk@mandriva.org> 5.02-1mdv2008.0
+* Sun Apr 22 2007 GÃ¶tz Waschk <waschk@mandriva.org> 5.02-1mdv2008.0
 + Revision: 16951
 - new version
 
 
-* Wed Sep 20 2006 G�tz Waschk <waschk@mandriva.org> 5.01-1mdv2007.0
+* Wed Sep 20 2006 Götz Waschk <waschk@mandriva.org> 5.01-1mdv2007.0
 - rediff patch 15
 - New version 5.01
 
-* Fri Jul 07 2006 G�tz Waschk <waschk@mandriva.org> 5.00-5mdv2007.0
+* Fri Jul 07 2006 Götz Waschk <waschk@mandriva.org> 5.00-5mdv2007.0
 - fix buildrequires
 
 * Thu Jul 06 2006 Frederic Crozat <fcrozat@mandriva.com> 5.00-4mdv2007.0
@@ -551,7 +551,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 - Slip main packages in seperate subpackages (can be used by gnome-screensaver)
 - disable kerberos support, use pam instead
 
-* Thu May 25 2006 G�tz Waschk <waschk@mandriva.org> 5.00-1mdk
+* Thu May 25 2006 Götz Waschk <waschk@mandriva.org> 5.00-1mdk
 - install in /usr
 - drop patch 20
 - update patch 9,19
@@ -560,7 +560,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 * Thu May 18 2006 Laurent MONTEL <lmontel@mandriva.com> 4.24-2
 - Rebuild
 
-* Thu Feb 09 2006 G�tz Waschk <waschk@mandriva.org> 4.24-1mdk
+* Thu Feb 09 2006 Götz Waschk <waschk@mandriva.org> 4.24-1mdk
 - rediff patch 19 aka the Jesus patch
 - rediff patch 9
 - New release 4.24
@@ -568,7 +568,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 * Tue Jan 31 2006 Olivier Blin <oblin@mandriva.com> 4.23-3mdk
 - use "include" directive instead of deprecated pam_stack (Patch20)
 
-* Tue Nov 22 2005 G�tz Waschk <waschk@mandriva.org> 4.23-2mdk
+* Tue Nov 22 2005 Götz Waschk <waschk@mandriva.org> 4.23-2mdk
 - fix plf build
 
 * Mon Nov 21 2005 Frederic Crozat <fcrozat@mandriva.com> 4.23-1mdk
@@ -588,17 +588,17 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 * Tue Jun 28 2005 Andreas Hasenack <andreas@mandriva.com> 4.22-3mdk
 - rebuilt without krb4
 
-* Mon Jun 27 2005 G�tz Waschk <waschk@mandriva.org> 4.22-2mdk
+* Mon Jun 27 2005 Götz Waschk <waschk@mandriva.org> 4.22-2mdk
 - drop sources 2,3
 
-* Fri Jun 24 2005 G�tz Waschk <waschk@mandriva.org> 4.22-1mdk
+* Fri Jun 24 2005 Götz Waschk <waschk@mandriva.org> 4.22-1mdk
 - use generated file lists for the hacks
 - New release 4.22
 
-* Sat May 14 2005 G�tz Waschk <waschk@mandriva.org> 4.21-2mdk
+* Sat May 14 2005 Götz Waschk <waschk@mandriva.org> 4.21-2mdk
 - disable source 2
 
-* Tue Apr 19 2005 G�tz Waschk <waschk@linux-mandrake.com> 4.21-1mdk
+* Tue Apr 19 2005 Götz Waschk <waschk@linux-mandrake.com> 4.21-1mdk
 - fix the --with options
 - mkrel
 - new hack: fliptext
@@ -621,14 +621,14 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 * Thu Jan 06 2005 Laurent MONTEL <lmontel@mandrakesoft.com> 4.19-2mdk
 - Add patch20: fix launch xscreensaver into kde
 
-* Thu Dec 16 2004 G�tz Waschk <waschk@linux-mandrake.com> 4.19-1mdk
+* Thu Dec 16 2004 Götz Waschk <waschk@linux-mandrake.com> 4.19-1mdk
 - new hacks: substrate, intermomentary, fireworkx and pinion
 - new version
 
 * Tue Aug 17 2004 Laurent MONTEL <lmontel@mandrakesoft.com> 4.18-2mdk
 - Add patch19: fix kscreebsacer path use '/usr/X11R6/bin' and not '/usr/bin'
 
-* Mon Aug 16 2004 G�tz Waschk <waschk@linux-mandrake.com> 4.18-3mdk
+* Mon Aug 16 2004 Götz Waschk <waschk@linux-mandrake.com> 4.18-3mdk
 - new hacks: anemotaxism, memscroller
 - remove double menu entry
 - New release 4.17
@@ -636,32 +636,32 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 * Wed Aug 04 2004 Frederic Crozat <fcrozat@mandrakesoft.com> 4.16-3mdk
 - Update patch 15 to use xvt instead of xterm (Mdk bug #9320)
 
-* Sat Jul 31 2004 G�tz Waschk <waschk@linux-mandrake.com> 4.16-2mdk
+* Sat Jul 31 2004 Götz Waschk <waschk@linux-mandrake.com> 4.16-2mdk
 - add xscreensaver-demo menu entry
 
-* Fri May 14 2004 G�tz Waschk <waschk@linux-mandrake.com> 4.16-1mdk
+* Fri May 14 2004 Götz Waschk <waschk@linux-mandrake.com> 4.16-1mdk
 - add new hacks: antinspect, fuzzyflakes, polyhedra, providence
 - drop patch 19
 - New release 4.16
 
-* Sat Apr 03 2004 G�tz Waschk <waschk@linux-mandrake.com> 4.15-1mdk
+* Sat Apr 03 2004 Götz Waschk <waschk@linux-mandrake.com> 4.15-1mdk
 - fix description
 - add new hacks: mismunch, noof, pacman, wormhole
 - fix typo in the kerberos driver
 - new version
 
-* Mon Dec 15 2003 G�tz Waschk <waschk@linux-mandrake.com> 4.14-4mdk
+* Mon Dec 15 2003 Götz Waschk <waschk@linux-mandrake.com> 4.14-4mdk
 - fix deps of the subpackages
 
-* Thu Nov 06 2003 G�tz Waschk <waschk@linux-mandrake.com> 4.14-3mdk
+* Thu Nov 06 2003 Götz Waschk <waschk@linux-mandrake.com> 4.14-3mdk
 - enable extrusion and move it to the extrusion subpackage
 - rename --with xmatrix to --with plf
 - move xmatrix and glmatrix to the matrix subpackage
 
-* Wed Nov 05 2003 G�tz Waschk <waschk@linux-mandrake.com> 4.14-2mdk
+* Wed Nov 05 2003 Götz Waschk <waschk@linux-mandrake.com> 4.14-2mdk
 - remove xmatrix, glmatrix and extrusion (thanks to Christian Bricart)
 
-* Tue Nov 04 2003 G�tz Waschk <waschk@linux-mandrake.com> 4.14-1mdk
+* Tue Nov 04 2003 Götz Waschk <waschk@linux-mandrake.com> 4.14-1mdk
 - add new hacks: apple2, blinkbox, fontglide, gleidescope, mirrorblob, pong,
 - add new hack: xanalogtv
 - add new program ljlatest
