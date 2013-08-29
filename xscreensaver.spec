@@ -23,7 +23,7 @@
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	5.21
+Version:	5.22
 Release:	2%{?extrarelsuffix}
 License:	BSD
 Group:		Graphical desktop/Other
@@ -48,7 +48,7 @@ Requires:	mandriva-theme-screensaver
 Requires:	xdg-utils
 BuildRequires:	makedepend
 BuildRequires:	bc
-BuildRequires:	fortune-mod
+#BuildRequires:	fortune-mod
 BuildRequires:	jpeg-devel
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig(glu)
