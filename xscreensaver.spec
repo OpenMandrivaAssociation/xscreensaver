@@ -43,7 +43,7 @@ Patch11:	xscreensaver-5.09-noGL.patch
 # (fc) 4.23-1mdk disable inappropriate stuff (Mdk bug #19866)
 Patch19:	xscreensaver-5.00-inappropriate.patch
 Requires:	xscreensaver-common = %{version}-%{release}
-Requires:	fortune-mod
+#Requires:	fortune-mod
 Requires:	mandriva-theme-screensaver
 Requires:	xdg-utils
 BuildRequires:	makedepend
