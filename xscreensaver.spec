@@ -24,7 +24,7 @@
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
 Version:	5.22
-Release:	2%{?extrarelsuffix}
+Release:	3%{?extrarelsuffix}
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
