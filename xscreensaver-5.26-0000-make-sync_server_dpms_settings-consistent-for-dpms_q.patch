@@ -1,0 +1,145 @@
+From 4104dc276d9a169e6c3b990c420d24e3a6e3a02b Mon Sep 17 00:00:00 2001
+From: Mamoru TASAKA <mtasaka@fedoraproject.org>
+Date: Mon, 13 Jan 2014 02:40:00 +0900
+Subject: [PATCH] make sync_server_dpms_settings consistent for dpms_quickoff_p
+ option
+
+To make sync_server_dpms_settings behavior consistent for dpms_quickoff_p
+option, add dpms_quickoff_p to the argument of it and adjust off_secs
+temporarily as already done "partially".
+Also do not disable DPMS in stop_the_insanity() when dpms settings is
+0,0,0 and dpms_quickoff_p is selected.
+---
+ driver/demo-Gtk.c     |  2 +-
+ driver/dpms.c         |  8 +++++++-
+ driver/prefs.c        |  4 +++-
+ driver/prefs.h        |  2 +-
+ driver/timers.c       |  1 +
+ driver/xscreensaver.c | 11 +++++------
+ 6 files changed, 18 insertions(+), 10 deletions(-)
+
+diff --git a/driver/demo-Gtk.c b/driver/demo-Gtk.c
+index fdf239a..c55e1b4 100644
+--- a/driver/demo-Gtk.c
++++ b/driver/demo-Gtk.c
+@@ -1722,7 +1722,7 @@ flush_dialog_changes_and_save (state *s)
+     {
+       Display *dpy = GDK_DISPLAY();
+       Bool enabled_p = (p->dpms_enabled_p && p->mode != DONT_BLANK);
+-      sync_server_dpms_settings (dpy, enabled_p,
++      sync_server_dpms_settings (dpy, enabled_p, p->dpms_quickoff_p,
+                                  p->dpms_standby / 1000,
+                                  p->dpms_suspend / 1000,
+                                  p->dpms_off / 1000,
+diff --git a/driver/dpms.c b/driver/dpms.c
+index d88737e..4be9331 100644
+--- a/driver/dpms.c
++++ b/driver/dpms.c
+@@ -97,7 +97,7 @@ ignore_all_errors_ehandler (Display *dpy, XErrorEvent *error)
+ 
+ 
+ void
+-sync_server_dpms_settings (Display *dpy, Bool enabled_p,
++sync_server_dpms_settings (Display *dpy, Bool enabled_p, Bool dpms_quickoff_p,
+                            int standby_secs, int suspend_secs, int off_secs,
+                            Bool verbose_p)
+ {
+@@ -107,6 +107,12 @@ sync_server_dpms_settings (Display *dpy, Bool enabled_p,
+   CARD16 o_standby = 0, o_suspend = 0, o_off = 0;
+   Bool bogus_p = False;
+ 
++  if (dpms_quickoff_p && !off_secs)
++  {
++    /* To do this, we might need to temporarily re-enable DPMS first. */
++    off_secs = 0xFFFF;
++  }
++
+   if (standby_secs == 0 && suspend_secs == 0 && off_secs == 0)
+     /* all zero implies "DPMS disabled" */
+     enabled_p = False;
+diff --git a/driver/prefs.c b/driver/prefs.c
+index 399a086..e2d765a 100644
+--- a/driver/prefs.c
++++ b/driver/prefs.c
+@@ -1635,7 +1635,9 @@ stop_the_insanity (saver_preferences *p)
+ 
+   if (p->dpms_standby == 0 &&	   /* if *all* are 0, then DPMS is disabled */
+       p->dpms_suspend == 0 &&
+-      p->dpms_off     == 0)
++      p->dpms_off     == 0 &&
++      !(p->dpms_quickoff_p)           /* ... but we want to do DPMS quick off */
++      )
+     p->dpms_enabled_p = False;
+ 
+ 
+diff --git a/driver/prefs.h b/driver/prefs.h
+index ecbb490..485cdd4 100644
+--- a/driver/prefs.h
++++ b/driver/prefs.h
+@@ -28,7 +28,7 @@ extern char *format_hack (Display *, screenhack *, Bool wrap_p);
+ char *make_hack_name (Display *, const char *shell_command);
+ 
+ /* From dpms.c */
+-extern void sync_server_dpms_settings (Display *, Bool enabled_p,
++extern void sync_server_dpms_settings (Display *, Bool enabled_p, Bool dpms_quickoff_p,
+                                        int standby_secs, int suspend_secs,
+                                        int off_secs,
+                                        Bool verbose_p);
+diff --git a/driver/timers.c b/driver/timers.c
+index 5489bef..55ade11 100644
+--- a/driver/timers.c
++++ b/driver/timers.c
+@@ -1521,6 +1521,7 @@ watchdog_timer (XtPointer closure, XtIntervalId *id)
+   sync_server_dpms_settings (si->dpy,
+                              (p->dpms_enabled_p  &&
+                               p->mode != DONT_BLANK),
++                             p->dpms_quickoff_p,
+                              p->dpms_standby / 1000,
+                              p->dpms_suspend / 1000,
+                              p->dpms_off / 1000,
+diff --git a/driver/xscreensaver.c b/driver/xscreensaver.c
+index aa9d964..4b2cce4 100644
+--- a/driver/xscreensaver.c
++++ b/driver/xscreensaver.c
+@@ -1138,6 +1138,7 @@ maybe_reload_init_file (saver_info *si)
+       sync_server_dpms_settings (si->dpy,
+                                  (p->dpms_enabled_p  &&
+                                   p->mode != DONT_BLANK),
++                                 p->dpms_quickoff_p,
+                                  p->dpms_standby / 1000,
+                                  p->dpms_suspend / 1000,
+                                  p->dpms_off / 1000,
+@@ -1270,19 +1271,16 @@ main_loop (saver_info *si)
+         for (i = 0; i < si->nscreens; i++)
+           spawn_screenhack (&si->screens[i]);
+ 
+-      /* If we are blanking only, optionally power down monitor right now.
+-         To do this, we might need to temporarily re-enable DPMS first.
+-       */
++      /* If we are blanking only, optionally power down monitor right now. */
+       if (p->mode == BLANK_ONLY &&
+           p->dpms_enabled_p && 
+           p->dpms_quickoff_p)
+         {
+           sync_server_dpms_settings (si->dpy, True,
++                                     p->dpms_quickoff_p,
+                                      p->dpms_standby / 1000,
+                                      p->dpms_suspend / 1000,
+-                                     (p->dpms_off
+-                                      ? (p->dpms_off / 1000)
+-                                      : 0xFFFF),
++                                     p->dpms_off / 1000,
+                                      False);
+           monitor_power_on (si, False);
+         }
+@@ -1538,6 +1536,7 @@ main (int argc, char **argv)
+   sync_server_dpms_settings (si->dpy,
+                              (p->dpms_enabled_p  &&
+                               p->mode != DONT_BLANK),
++                             p->dpms_quickoff_p,
+                              p->dpms_standby / 1000,
+                              p->dpms_suspend / 1000,
+                              p->dpms_off / 1000,
+-- 
+1.8.5.2
+
