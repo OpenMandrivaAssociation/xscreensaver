@@ -231,6 +231,7 @@ autoreconf
     --with-gl \
     --with-image-directory=%{_datadir}/mdk/screensaver \
     --without-kerberos \
+    --with-text-file=%{_sysconfdir}/release \
 %if %{enable_extrusion}
     --with-gle
 %else
