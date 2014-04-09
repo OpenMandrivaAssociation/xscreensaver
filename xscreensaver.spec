@@ -61,7 +61,6 @@ Requires:	xdg-utils
 BuildRequires:	makedepend
 BuildRequires:	bc
 #BuildRequires:	fortune-mod
-BuildRequires:	intltool
 BuildRequires:	jpeg-devel
 BuildRequires:	libgnome2
 BuildRequires:	pam-devel
@@ -151,7 +150,8 @@ ln -srf po/Makefile.in{,.in}
 %patch1105 -p1
 
 # Needed by patches 1 and 11
-autoreconf
+autoconf
+automake
 
 %build
 %configure2_5x \
