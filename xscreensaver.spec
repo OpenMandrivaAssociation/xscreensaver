@@ -230,6 +230,7 @@ autoreconf
     --with-pam \
     --with-gl \
     --with-image-directory=%{_datadir}/mdk/screensaver \
+    --with-x-app-defaults=%{_datadir}/X11/app-defaults
     --without-kerberos \
     --with-text-file=%{_sysconfdir}/release \
 %if %{enable_extrusion}
@@ -252,7 +253,7 @@ mkdir -p %{buildroot}%{_libexecdir}/xscreensaver
 
 make install_prefix=%{buildroot} bindir=%{_bindir} \
  KDEDIR=%{_prefix} GNOME_BINDIR=%{_bindir}  GNOME_DATADIR=%{_datadir} \
- mandir=%{_mandir} AD_DIR=%{_sysconfdir}/X11/app-defaults/ \
+ mandir=%{_mandir} AD_DIR=%{_datadir}/X11/app-defaults/ \
  gnulocaledir=%{_datadir}/locale install
 
 install -p -m755 %{SOURCE3} -D %{buildroot}%{_sbindir}/update-xscreensaver-hacks
@@ -321,10 +322,10 @@ perl -pi -e "s/.*(gdadou|xjack|matrix|extrusion).*//" gl-extras.files base.files
 %find_lang %{name}
 
 %post gl
-sed -i -e 's/\A-\s+GL:/ GL:/' %{_sysconfdir}/X11/app-defaults/XScreenSaver
+sed -i -e 's/\A-\s+GL:/ GL:/' %{_datadir}/X11/app-defaults/XScreenSaver
 
 %postun gl
-sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-defaults/XScreenSaver
+sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_datadir}/X11/app-defaults/XScreenSaver
 
 %files -f %{name}.lang
 %config(noreplace) %{_sysconfdir}/pam.d/xscreensaver
@@ -344,7 +345,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 %{_iconsdir}/hicolor/*/apps/*.png
 
 %files common
-%config(noreplace) %{_sysconfdir}/X11/app-defaults/*
+%{_datadir}/X11/app-defaults/*
 %dir %{_libexecdir}/%{name}
 %{_bindir}/xscreensaver-getimage
 %{_bindir}/xscreensaver-getimage-file
