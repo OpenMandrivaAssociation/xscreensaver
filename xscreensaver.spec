@@ -228,6 +228,7 @@ autoreconf
     --with-gtk \
     --without-motif \
     --with-pam \
+    --enable-pam-check-account-type \
     --with-gl \
     --with-image-directory=%{_datadir}/mdk/screensaver \
     --with-x-app-defaults=%{_datadir}/X11/app-defaults
