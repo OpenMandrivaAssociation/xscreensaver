@@ -4,7 +4,11 @@
 ####################
 
 %define enable_extrusion 1
+%if "%{disttag}" == "mdk"
+%define disable_inappropriate 0
+%else
 %define disable_inappropriate 1
+%endif
 # Allow --with[out] <feature> at rpm command line build
 %{?_with_plf: %{expand: %%global build_plf 1}}
 %{?_without_plf: %{expand: %%global build_plf 0}}
@@ -31,6 +35,7 @@ URL:		http://www.jwz.org/xscreensaver/
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 Source1:	xscreensaver-capplet.png
 Source2:	dmctl
+Source3:	update-xscreensaver-hacks
 Patch0:		xscreensaver-5.05-mdv-alt-drop_setgid.patch
 # Don't check login manager in PATH because we use custom wrapper
 Patch1:		xscreensaver-5.15-lmcheck.patch
@@ -42,14 +47,33 @@ Patch10:	xscreensaver-4.23-root.patch
 Patch11:	xscreensaver-5.09-noGL.patch
 # (fc) 4.23-1mdk disable inappropriate stuff (Mdk bug #19866)
 Patch19:	xscreensaver-5.00-inappropriate.patch
-Patch100:	xscreensaver-5.26-0000-make-sync_server_dpms_settings-consistent-for-dpms_q.patch
+
+# fedora patches
+# bug 129335
+# sanitize the names of modes in barcode
+Patch1001:          xscreensaver-5.00b5-sanitize-hacks.patch
+## Patches already sent to the upsteam
+## Patches which must be discussed with upstream
+#
+# Change webcollage not to access to net
+# Also see bug 472061
+Patch1021:         xscreensaver-5.26-webcollage-default-nonet.patch
+#
+# Update Japanese po file
+Patch1032:         xscreensaver-5.13-dpmsQuickoff-japo.patch
+# driver/test-passwd tty segfaults
+Patch1051:         xscreensaver-5.12-test-passwd-segv-tty.patch
+# patch to compile driver/test-xdpms
+Patch1052:         xscreensaver-5.12-tests-miscfix.patch
+
+Patch1100:	xscreensaver-5.26-0000-make-sync_server_dpms_settings-consistent-for-dpms_q.patch
 # Kill memleak on goop
-Patch101:	xscreensaver-5.26-0001-Kill-memleak-on-goop-on-resize.patch
+Patch1101:	xscreensaver-5.26-0001-Kill-memleak-on-goop-on-resize.patch
 # Shut down cppcheck error / warning messages
-Patch102:	xscreensaver-5.26-0002-asm6502.c-shut-down-error-message-from-cppcheck.patch
-Patch103:	xscreensaver-5.26-0003-demo-Gtk.c-shut-down-error-message-from-cppcheck.patch
-Patch104:	xscreensaver-5.26-0004-asm6502.c-shut-down-error-message-from-cppcheck.patch
-Patch105:	xscreensaver-5.26-0005-splash.c-shut-down-warning-message-from-cppcheck.patch
+Patch1102:	xscreensaver-5.26-0002-asm6502.c-shut-down-error-message-from-cppcheck.patch
+Patch1103:	xscreensaver-5.26-0003-demo-Gtk.c-shut-down-error-message-from-cppcheck.patch
+Patch1104:	xscreensaver-5.26-0004-asm6502.c-shut-down-error-message-from-cppcheck.patch
+Patch1105:	xscreensaver-5.26-0005-splash.c-shut-down-warning-message-from-cppcheck.patch
 
 Requires:	xscreensaver-common = %{version}-%{release}
 #Requires:	fortune-mod
@@ -151,7 +175,7 @@ hypnotized viewing pleasure. This screensaver requires OpenGL or Mesa
 support.
 
 This screensaver is in a separate package, because it is the only
-application for the Mandriva Linux distribution which requires the GLE
+application for the %{distribution} distribution which requires the GLE
 extrusion library.
 %endif
 
@@ -165,15 +189,21 @@ extrusion library.
 %if %{disable_inappropriate}
 %patch19 -p1 -b .inappropriate
 %endif
-%patch100 -p1
-%patch101 -p1
-%patch102 -p1
-%patch103 -p1
-%patch104 -p1
-%patch105 -p1
+
+%patch1001 -p1
+%patch1021 -p1
+%patch1032 -p1
+%patch1051 -p1
+%patch1052 -p1
+%patch1100 -p1
+%patch1101 -p1
+%patch1102 -p1
+%patch1103 -p1
+%patch1104 -p1
+%patch1105 -p1
 
 # Needed by patches 1 and 11
-autoconf
+autoreconf
 
 %build
 %configure2_5x \
@@ -223,6 +253,8 @@ make install_prefix=%{buildroot} bindir=%{_bindir} \
  KDEDIR=%{_prefix} GNOME_BINDIR=%{_bindir}  GNOME_DATADIR=%{_datadir} \
  mandir=%{_mandir} AD_DIR=%{_sysconfdir}/X11/app-defaults/ \
  gnulocaledir=%{_datadir}/locale install
+
+install -p -m755 %{SOURCE3} -D %{buildroot}%{_sbindir}/update-xscreensaver-hacks
 
 # Custom wrapper for gdmflexiserver and kdmctl
 install -m 755 %{SOURCE2} %{buildroot}%{_bindir}/dmctl
@@ -323,6 +355,8 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_sysconfdir}/X11/app-def
 %{_datadir}/%{name}/config/README
 
 %files base -f base.files
+%{_sbindir}/update-xscreensaver-hacks
+
 
 %files gl -f gl-extras.files
 %doc README.GL
