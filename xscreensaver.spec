@@ -1,34 +1,13 @@
-####################
-# PLF build
-%define build_plf 0
-####################
-
-%define enable_extrusion 1
 %if "%{disttag}" == "mdk"
 %define disable_inappropriate 0
 %else
 %define disable_inappropriate 1
 %endif
-# Allow --with[out] <feature> at rpm command line build
-%{?_with_plf: %{expand: %%global build_plf 1}}
-%{?_without_plf: %{expand: %%global build_plf 0}}
-%{?_with_extrusion: %{expand: %%global enable_extrusion 1}}
-%{?_without_extrusion: %{expand: %%global enable_extrusion 0}}
-%{?_with_inappropriate: %{expand: %%global disable_inappropriate 0}}
-%{?_without_inappropriate: %{expand: %%global disable_inappropriate 1}}
-
-%if %{build_plf}
-%define distsuffix plf
-%if %{mdvver} >= 201100
-# make EVR of plf build higher than regular to allow update, needed with rpm5 mkrel
-%define extrarelsuffix plf
-%endif
-%endif
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
 Version:	5.26
-Release:	1%{?extrarelsuffix}
+Release:	2
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
@@ -98,9 +77,7 @@ BuildRequires:	pkgconfig(xrandr)
 BuildRequires:	pkgconfig(xt)
 BuildRequires:	pkgconfig(xxf86misc)
 BuildRequires:	pkgconfig(xxf86vm)
-%if %{enable_extrusion}
 BuildRequires:	gle-devel
-%endif
 BuildRequires:	imagemagick
 
 %description
@@ -110,10 +87,6 @@ pleasure.
 
 Install the xscreensaver package if you need screensavers for use with
 the X Window System.
-
-%if %{build_plf}
-This package is in restricted as it contains copyrighted images.
-%endif
 
 %package base
 Summary:	A set of screensavers
@@ -140,6 +113,8 @@ Group:		Graphical desktop/Other
 Requires:	xscreensaver-common = %{version}-%{release}
 Requires(post):	xscreensaver-common = %{version}-%{release}
 Requires(postun):	xscreensaver-common = %{version}-%{release}
+%rename		%{name}-extrusion
+%rename		%{name}-matrix
 
 %description gl
 The xscreensaver-gl package contains even more screensavers for your
@@ -149,41 +124,12 @@ pleasure. These screensavers require OpenGL or Mesa support.
 Install the xscreensaver-gl package if you need more screensavers for
 use with the X Window System and you have OpenGL or Mesa installed.
 
-%if %{build_plf}
-%package matrix
-Summary:	The Matrix screensavers
-Group:		Graphical desktop/Other
-Requires:	xscreensaver-common = %{version}-%{release}
-
-%description matrix
-The xscreensaver-matrix package contains two screensavers for
-xscreensaver based on the movie The Matrix. It is in restricted because
-there might by copyright problems with the artwork used in this
-screensavers.
-%endif
-
-%if %{enable_extrusion}
-%package extrusion
-Summary:	OpenGL screensaver
-Group:		Graphical desktop/Other
-Requires:	xscreensaver-common = %{version}-%{release}
-
-%description extrusion
-The xscreensaver-extrusion package contains the extrusion
-screensaversfor your mind-numbing, ambition-eroding, time-wasting,
-hypnotized viewing pleasure. This screensaver requires OpenGL or Mesa
-support.
-
-This screensaver is in a separate package, because it is the only
-application for the %{distribution} distribution which requires the GLE
-extrusion library.
-%endif
-
 %prep
 %setup -q
 %patch1 -p1 -b .login-manager
 # WARNING this patch must ALWAYS be applied, if it fails, REGENERATE it !!!
 %patch9 -p1 -b .defaultconfig
+ln -srf po/Makefile.in{,.in}
 %patch10 -p1 -b .root
 %patch11 -p1 -b .noGL
 %if %{disable_inappropriate}
@@ -231,16 +177,12 @@ autoreconf
     --enable-pam-check-account-type \
     --with-gl \
     --with-image-directory=%{_datadir}/mdk/screensaver \
-    --with-x-app-defaults=%{_datadir}/X11/app-defaults
+    --with-x-app-defaults=%{_datadir}/X11/app-defaults \
     --without-kerberos \
     --with-text-file=%{_sysconfdir}/release \
-%if %{enable_extrusion}
     --with-gle
-%else
-    --without-gle
-%endif
-
-make depend
+make distdepend
+make depend DEPEND="makedepend -I$(gcc -print-search-dirs|sed -e 's#^install: \(.*\).*#\1#g'|head -n1)/include"
 %make
 
 %install
@@ -256,6 +198,7 @@ make install_prefix=%{buildroot} bindir=%{_bindir} \
  KDEDIR=%{_prefix} GNOME_BINDIR=%{_bindir}  GNOME_DATADIR=%{_datadir} \
  mandir=%{_mandir} AD_DIR=%{_datadir}/X11/app-defaults/ \
  gnulocaledir=%{_datadir}/locale install
+%makeinstall -C po
 
 install -p -m755 %{SOURCE3} -D %{buildroot}%{_sbindir}/update-xscreensaver-hacks
 
@@ -279,21 +222,6 @@ convert -scale 16x16 %{SOURCE1} %{buildroot}%{_iconsdir}/hicolor/16x16/apps/%{na
 convert -scale 32x32 %{SOURCE1} %{buildroot}%{_iconsdir}/hicolor/32x32/apps/%{name}.png
 ln -s %{_datadir}/pixmaps/xscreensaver-capplet.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/%{name}.png
 
-#remove unpackaged files
-rm -f %{buildroot}%{_datadir}/xscreensaver/config/xjack.xml
-rm -f %{buildroot}%{_mandir}/man6/xjack.6
-rm -f  %{buildroot}%{_libexecdir}/xscreensaver/xjack
-
-%if ! %{build_plf}
-rm -rf %{buildroot}%{_libexecdir}/xscreensaver/*matrix
-rm -rf %{buildroot}%{_mandir}/man6/*matrix*
-rm -rf %{buildroot}%{_datadir}/xscreensaver/config/*matrix*
-%endif
-%if ! %{enable_extrusion}
-rm -f %{buildroot}%{_datadir}/xscreensaver/config/extrusion.xml
-rm -f %{buildroot}%{_mandir}/man6/extrusion.6
-%endif
-
 %find_lang %{name}
 
 # This function prints a list of things that get installed.
@@ -314,11 +242,8 @@ list_files() {
 # Generate three lists of files for the three packages.
 #
 dd=%{_builddir}/%{name}-%{version}
-( cd hacks/glx ; list_files install > $dd/gl-extras.files)
-( cd hacks     ; list_files install > $dd/base.files)
-
-#gw remove the files we don't package:
-perl -pi -e "s/.*(gdadou|xjack|matrix|extrusion).*//" gl-extras.files base.files
+pushd hacks/glx ; list_files install > $dd/gl-extras.files ; popd
+pushd hacks     ; list_files install > $dd/base.files; popd
 
 %find_lang %{name}
 
@@ -339,10 +264,10 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_datadir}/X11/app-defaul
 %{_bindir}/xscreensaver-demo
 %{_bindir}/dmctl
 %dir %{_datadir}/xscreensaver
+%dir %{_datadir}/xscreensaver/config
 %{_datadir}/xscreensaver/glade
 %{_datadir}/applications/xscreensaver-properties.desktop
 %{_datadir}/pixmaps/*
-%{_datadir}/xscreensaver/config/gdadou.xml
 %{_iconsdir}/hicolor/*/apps/*.png
 
 %files common
@@ -360,25 +285,5 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_datadir}/X11/app-defaul
 %files base -f base.files
 %{_sbindir}/update-xscreensaver-hacks
 
-
 %files gl -f gl-extras.files
 %doc README.GL
-
-%if %{enable_extrusion}
-%files extrusion
-%doc README.GL
-%{_datadir}/xscreensaver/config/extrusion.xml
-%{_mandir}/man6/extrusion.6*
-%{_libexecdir}/xscreensaver/extrusion
-%endif
-
-%if %{build_plf}
-%files matrix
-%doc README.GL
-%{_mandir}/man6/xmatrix.6*
-%{_mandir}/man6/glmatrix.6*
-%{_datadir}/xscreensaver/config/glmatrix.xml
-%{_datadir}/xscreensaver/config/xmatrix.xml
-%{_libexecdir}/xscreensaver/xmatrix
-%{_libexecdir}/xscreensaver/glmatrix
-%endif
