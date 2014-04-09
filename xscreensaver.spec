@@ -102,7 +102,7 @@ Various screensavers used by Xscreensaver.
 %package common
 Summary:	Utilities used by xscreensaver screensavers
 Group:		Graphical desktop/Other
-Conflicts:	xscreensaver < 5.00-2
+Conflicts:	xscreensaver < 5.26-2
 Provides:	xscreensaver-utils
 
 %description common
@@ -264,9 +264,6 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_datadir}/X11/app-defaul
 %{_bindir}/xscreensaver-command
 %{_bindir}/xscreensaver-demo
 %{_bindir}/dmctl
-%dir %{_datadir}/xscreensaver
-%dir %{_datadir}/xscreensaver/config
-%{_datadir}/xscreensaver/glade
 %{_datadir}/applications/xscreensaver-properties.desktop
 %{_datadir}/pixmaps/*
 %{_iconsdir}/hicolor/*/apps/*.png
@@ -280,6 +277,9 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_datadir}/X11/app-defaul
 %{_bindir}/xscreensaver-text
 %{_mandir}/man1/xscreensaver-getimage*
 %{_mandir}/man1/xscreensaver-text.1*
+%dir %{_datadir}/%{name}
+%dir %{_datadir}/%{name}/glade
+%{_datadir}/%{name}/glade/*
 %dir %{_datadir}/%{name}/config
 %{_datadir}/%{name}/config/README
 
