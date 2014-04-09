@@ -53,7 +53,7 @@ Patch105:	xscreensaver-5.26-0005-splash.c-shut-down-warning-message-from-cppchec
 
 Requires:	xscreensaver-common = %{version}-%{release}
 #Requires:	fortune-mod
-Requires:	mandriva-theme-screensaver
+Requires:	distro-theme-screensaver
 Requires:	xdg-utils
 BuildRequires:	makedepend
 BuildRequires:	bc
