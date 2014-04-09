@@ -61,6 +61,7 @@ Requires:	xdg-utils
 BuildRequires:	makedepend
 BuildRequires:	bc
 #BuildRequires:	fortune-mod
+BuildRequires:	intltool
 BuildRequires:	jpeg-devel
 BuildRequires:	libgnome2
 BuildRequires:	pam-devel
