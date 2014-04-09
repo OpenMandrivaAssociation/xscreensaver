@@ -199,7 +199,7 @@ autoconf
     --without-motif \
     --with-pam \
     --with-gl \
-    --with-image-directory="%{_datadir}/omv/screensaver" \
+    --with-image-directory=%{_datadir}/mdk/screensaver \
     --without-kerberos \
 %if %{enable_extrusion}
     --with-gle
