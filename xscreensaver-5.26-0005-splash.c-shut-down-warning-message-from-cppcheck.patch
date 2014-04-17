@@ -1,0 +1,35 @@
+From ac0234fedf76251c28d4748c4f8b33e272bc8b22 Mon Sep 17 00:00:00 2001
+From: Mamoru TASAKA <mtasaka@fedoraproject.org>
+Date: Mon, 13 Jan 2014 00:04:30 +0900
+Subject: [PATCH 6/6] splash.c: shut down warning message from cppcheck
+
+Shut down warning message below:
+[driver/splash.c:783]: (warning) Possible null pointer
+dereference: sp - otherwise it is redundant to check it
+against null
+
+NULL check must be done before dereferencing, otherwise
+recent GCC actually optimizes out this, assuming that
+defererenced pointer cannot be NULL.
+---
+ driver/splash.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/driver/splash.c b/driver/splash.c
+index bc83002..6f38bfd 100644
+--- a/driver/splash.c
++++ b/driver/splash.c
+@@ -778,9 +778,9 @@ void
+ handle_splash_event (saver_info *si, XEvent *event)
+ {
+   splash_dialog_data *sp = si->sp_data;
++  if (!sp) return;
+   saver_screen_info *ssi = sp->prompt_screen;
+   int which = 0;
+-  if (!sp) return;
+ 
+   switch (event->xany.type)
+     {
+-- 
+1.8.5.2
+

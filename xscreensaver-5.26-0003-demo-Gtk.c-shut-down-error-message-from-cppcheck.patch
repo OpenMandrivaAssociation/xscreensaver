@@ -1,0 +1,40 @@
+From 2ba02cba03c9c929abd061c07fd7ec9cfcaf572e Mon Sep 17 00:00:00 2001
+From: Mamoru TASAKA <mtasaka@fedoraproject.org>
+Date: Sun, 12 Jan 2014 15:53:33 +0900
+Subject: [PATCH 3/6] demo-Gtk.c: shut down error message from cppcheck
+
+On warning_dialog(), free(msg) when too early for dialog.
+
+On init_icon(), as the 3rd argument of gdk_pixmap_create_from_xpm_d
+is const GdkColor *, this must be initialized. So initialize
+with NULL, as API allows this.
+---
+ driver/demo-Gtk.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/driver/demo-Gtk.c b/driver/demo-Gtk.c
+index fdf239a..72ba52e 100644
+--- a/driver/demo-Gtk.c
++++ b/driver/demo-Gtk.c
+@@ -555,6 +555,7 @@ warning_dialog (GtkWidget *parent, const char *message,
+       !GET_WINDOW (parent)) /* too early to pop up transient dialogs */
+     {
+       fprintf (stderr, "%s: too early for dialog?\n", progname);
++      free(msg);
+       return False;
+     }
+ 
+@@ -4336,9 +4337,8 @@ static void
+ init_icon (GdkWindow *window)
+ {
+   GdkBitmap *mask = 0;
+-  GdkColor transp;
+   GdkPixmap *pixmap =
+-    gdk_pixmap_create_from_xpm_d (window, &mask, &transp,
++    gdk_pixmap_create_from_xpm_d (window, &mask, 0,
+                                   (gchar **) logo_50_xpm);
+   if (pixmap)
+     gdk_window_set_icon (window, 0, pixmap, mask);
+-- 
+1.8.5.2
+

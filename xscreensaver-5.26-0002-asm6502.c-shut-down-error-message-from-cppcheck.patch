@@ -1,0 +1,29 @@
+From 1c2ac1d24db4dc1664113bf54b8c678f690f16bc Mon Sep 17 00:00:00 2001
+From: Mamoru TASAKA <mtasaka@fedoraproject.org>
+Date: Sun, 12 Jan 2014 14:40:56 +0900
+Subject: [PATCH 2/6] asm6502.c: shut down error message from cppcheck
+
+On parseDec(), free(dec) also on else condition.
+---
+ hacks/asm6502.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/hacks/asm6502.c b/hacks/asm6502.c
+index c3aa2a3..265a436 100644
+--- a/hacks/asm6502.c
++++ b/hacks/asm6502.c
+@@ -1373,8 +1373,10 @@ static BOOL parseDec(char **s, Bit32 *value){
+     free(dec);  
+     return TRUE;
+   }
+-  else
++  else{
++    free(dec);
+     return FALSE;
++  }
+ }
+ 
+ static BOOL parseValue(char **s, Bit32 *value){
+-- 
+1.8.5.2
+

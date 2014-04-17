@@ -1,0 +1,33 @@
+From 0b24cc7b10a5f3ba44bd0a5cdf83209e5a3ab8a4 Mon Sep 17 00:00:00 2001
+From: Mamoru TASAKA <mtasaka@fedoraproject.org>
+Date: Sun, 12 Jan 2014 23:36:21 +0900
+Subject: [PATCH 5/6] asm6502.c: shut down error message from cppcheck
+
+Shut down cppcheck error message as:
+[hacks/asm6502.c:1686]: (error) Memory leak: buffer
+
+In fileToBuffer, when assembly file is not found
+and ifp gets NULL, it causes segv in parseAssembly()
+as code is NULL. Anyway there is no need to return
+from fileToBuffer, so let's just abort() (and this
+shuts down cppcheck error message)
+---
+ hacks/asm6502.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/hacks/asm6502.c b/hacks/asm6502.c
+index 265a436..94fcdd2 100644
+--- a/hacks/asm6502.c
++++ b/hacks/asm6502.c
+@@ -1685,7 +1685,7 @@ static char *fileToBuffer(const char *filename){
+   if (!buffer) abort();
+ 
+   ifp = fopen(filename, "rb");
+-  if (!ifp) return 0;
++  if (!ifp) abort();
+ 
+   while((c = getc(ifp)) != EOF){
+     buffer[i++] = c;
+-- 
+1.8.5.2
+
