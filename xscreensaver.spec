@@ -56,6 +56,7 @@ Requires:	xscreensaver-common = %{version}-%{release}
 #Requires:	fortune-mod
 Requires:	distro-theme-screensaver
 Requires:	xdg-utils
+BuildRequires:	intltool
 BuildRequires:	makedepend
 BuildRequires:	bc
 #BuildRequires:	fortune-mod
