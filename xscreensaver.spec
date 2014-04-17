@@ -24,13 +24,11 @@ Patch9:		xscreensaver-5.15-defaultconfig.patch
 Patch10:	xscreensaver-4.23-root.patch
 # (fc) 4.05-3mdk disable openGL hacks by default
 Patch11:	xscreensaver-5.09-noGL.patch
-# (fc) 4.23-1mdk disable inappropriate stuff (Mdk bug #19866)
-Patch19:	xscreensaver-5.00-inappropriate.patch
 
 # fedora patches
 # bug 129335
 # sanitize the names of modes in barcode
-Patch1001:          xscreensaver-5.00b5-sanitize-hacks.patch
+Patch1001:          xscreensaver-5.26-sanitize-hacks.patch
 ## Patches already sent to the upsteam
 ## Patches which must be discussed with upstream
 #
@@ -133,10 +131,9 @@ ln -srf po/Makefile.in{,.in}
 %patch10 -p1 -b .root
 %patch11 -p1 -b .noGL
 %if %{disable_inappropriate}
-%patch19 -p1 -b .inappropriate
+%patch1001 -p1 -b .inappropriate
 %endif
 
-%patch1001 -p1
 %patch1021 -p1
 %patch1032 -p1
 %patch1051 -p1
@@ -149,8 +146,7 @@ ln -srf po/Makefile.in{,.in}
 %patch1105 -p1
 
 # Needed by patches 1 and 11
-autoconf
-automake
+autoreconf -fiv
 
 %build
 %configure2_5x \
