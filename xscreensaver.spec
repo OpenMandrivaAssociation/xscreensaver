@@ -62,7 +62,6 @@ BuildRequires:	makedepend
 BuildRequires:	bc
 #BuildRequires:	fortune-mod
 BuildRequires:	jpeg-devel
-BuildRequires:	libgnome2
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig(glu)
 BuildRequires:	pkgconfig(glut)
