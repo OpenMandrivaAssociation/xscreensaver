@@ -1,5 +1,4 @@
-removed_sources:
-  xscreensaver-5.21.tar.gz: cc44ddc538ad5b59ff851f70e8a48633763ff077
+
 sources:
-  xscreensaver-5.26.tar.gz: 8055822b661733e68550872a4ae6b6129c0b73fc
+  xscreensaver-5.27.tar.gz: 20c4c0f501ef92b2752397c0f25ce4c0bd5bcde0
   xscreensaver-capplet.png: c3d157c9a1ffea30a8250ee6eab69243e2a66226
