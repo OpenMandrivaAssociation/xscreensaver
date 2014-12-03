@@ -6,8 +6,8 @@
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	5.26
-Release:	2
+Version:	5.29
+Release:	1
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
@@ -42,15 +42,6 @@ Patch1032:         xscreensaver-5.13-dpmsQuickoff-japo.patch
 Patch1051:         xscreensaver-5.12-test-passwd-segv-tty.patch
 # patch to compile driver/test-xdpms
 Patch1052:         xscreensaver-5.12-tests-miscfix.patch
-
-Patch1100:	xscreensaver-5.26-0000-make-sync_server_dpms_settings-consistent-for-dpms_q.patch
-# Kill memleak on goop
-Patch1101:	xscreensaver-5.26-0001-Kill-memleak-on-goop-on-resize.patch
-# Shut down cppcheck error / warning messages
-Patch1102:	xscreensaver-5.26-0002-asm6502.c-shut-down-error-message-from-cppcheck.patch
-Patch1103:	xscreensaver-5.26-0003-demo-Gtk.c-shut-down-error-message-from-cppcheck.patch
-Patch1104:	xscreensaver-5.26-0004-asm6502.c-shut-down-error-message-from-cppcheck.patch
-Patch1105:	xscreensaver-5.26-0005-splash.c-shut-down-warning-message-from-cppcheck.patch
 
 Requires:	xscreensaver-common = %{version}-%{release}
 #Requires:	fortune-mod
@@ -139,12 +130,6 @@ ln -srf po/Makefile.in{,.in}
 %patch1032 -p1
 %patch1051 -p1
 %patch1052 -p1
-%patch1100 -p1
-%patch1101 -p1
-%patch1102 -p1
-%patch1103 -p1
-%patch1104 -p1
-%patch1105 -p1
 
 # Needed by patches 1 and 11
 autoreconf -fiv

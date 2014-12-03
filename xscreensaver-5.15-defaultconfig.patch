@@ -1,14 +1,5 @@
 --- xscreensaver-5.26/driver/XScreenSaver.ad.in.defaultconfig	2013-12-09 12:01:40.000000000 +0100
 +++ xscreensaver-5.26/driver/XScreenSaver.ad.in	2014-04-09 17:59:29.663271241 +0200
-@@ -5,7 +5,7 @@
- !                            by Jamie Zawinski
- !
- !                              version 5.26
--!                              09-Dec-2013
-+!                              09-Apr-2014
- !
- ! See "man xscreensaver" for more info.  The latest version is always
- ! available at http://www.jwz.org/xscreensaver/
 @@ -29,23 +29,23 @@
  ! /* (xrdb prevention kludge: whole file)
  
@@ -99,15 +90,6 @@
  @GL_KLUDGE@ GL: 				gleidescope -root			    \n\
  @GL_KLUDGE@ GL: 				glknots -root				    \n\
  @GL_KLUDGE@ GL: 				glmatrix -root				    \n\
-@@ -419,7 +424,7 @@ XScreenSaver.bourneShell:		/bin/sh
- *passwd.uname:                  True
- 
- *splash.heading.label:		XScreenSaver %s
--*splash.body.label:		Copyright © 1991-2013 by
-+*splash.body.label:		Copyright © 1991-2014 by
- *splash.body2.label:		Jamie Zawinski <jwz@jwz.org>
- *splash.demo.label:		Settings
- *splash.help.label:		Help
 @@ -459,6 +464,7 @@ XScreenSaver.bourneShell:		/bin/sh
  *hacks.flyingtoasters.name: FlyingToasters
  *hacks.fontglide.name:      FontGlide
