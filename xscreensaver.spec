@@ -7,7 +7,7 @@
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
 Version:	5.29
-Release:	2
+Release:	1.1
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
@@ -47,7 +47,7 @@ Requires:	xscreensaver-common = %{version}-%{release}
 #Requires:	fortune-mod
 Requires:	distro-theme-screensaver
 Requires:	xdg-utils
-Requires:	tcb >= 1.1-14
+Requires:	tcb >= 1.1-12
 BuildRequires:	intltool
 BuildRequires:	makedepend
 BuildRequires:	bc
