@@ -7,7 +7,7 @@
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
 Version:	5.29
-Release:	3
+Release:	4
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
@@ -47,7 +47,6 @@ Requires:	xscreensaver-common = %{version}-%{release}
 #Requires:	fortune-mod
 Requires:	distro-theme-screensaver
 Requires:	xdg-utils
-Requires:	tcb >= 1.1-14
 BuildRequires:	intltool
 BuildRequires:	makedepend
 BuildRequires:	bc
@@ -136,7 +135,7 @@ ln -srf po/Makefile.in{,.in}
 autoreconf -fiv
 
 %build
-%configure2_5x \
+%configure \
     --enable-locking \
     --enable-root-passwd \
     --with-browser=xdg-open \
@@ -158,6 +157,7 @@ autoreconf -fiv
     --with-gtk \
     --without-motif \
     --with-pam \
+    --enable-pam-check-account-type \
     --with-gl \
     --with-image-directory=%{_datadir}/mdk/screensaver \
     --with-x-app-defaults=%{_datadir}/X11/app-defaults \
@@ -165,7 +165,7 @@ autoreconf -fiv
     --with-text-file=%{_sysconfdir}/release \
     --with-gle
 make distdepend
-make depend DEPEND="makedepend -I$(gcc -print-search-dirs|sed -e 's#^install: \(.*\).*#\1#g'|head -n1)/include"
+make depend DEPEND="makedepend -I$(%{_cc} -print-search-dirs|sed -e 's#^install: \(.*\).*#\1#g'|head -n1)/include"
 %make
 
 %install
