@@ -7,7 +7,7 @@
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
 Version:	5.29
-Release:	5
+Release:	6
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
@@ -243,7 +243,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_datadir}/X11/app-defaul
 %{_mandir}/man1/xscreensaver-command.1*
 %{_mandir}/man1/xscreensaver-demo.1*
 %{_mandir}/man1/xscreensaver.1*
-%attr(755,root,chkpwd) %{_bindir}/xscreensaver
+%attr(755,root,shadow) %{_bindir}/xscreensaver
 %{_bindir}/xscreensaver-command
 %{_bindir}/xscreensaver-demo
 %{_bindir}/dmctl
