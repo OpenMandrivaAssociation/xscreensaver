@@ -147,7 +147,6 @@ autoreconf -fiv
     --with-proc-interrupts \
     --with-login-manager=dmctl \
     --without-shadow \
-    --disable-root-passwd \
     --with-pixbuf \
     --with-xpm \
     --with-jpeg \
@@ -238,12 +237,12 @@ sed -i -e 's/\A-\s+GL:/ GL:/' %{_datadir}/X11/app-defaults/XScreenSaver
 sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_datadir}/X11/app-defaults/XScreenSaver
 
 %files -f %{name}.lang
-%config(noreplace) %{_sysconfdir}/pam.d/xscreensaver
 %doc README
+%attr(640,root,chkpwd) %config(noreplace) %{_sysconfdir}/pam.d/xscreensaver
 %{_mandir}/man1/xscreensaver-command.1*
 %{_mandir}/man1/xscreensaver-demo.1*
 %{_mandir}/man1/xscreensaver.1*
-%attr(755,root,shadow) %{_bindir}/xscreensaver
+%attr(2711,root,chkpwd) %{_bindir}/xscreensaver
 %{_bindir}/xscreensaver-command
 %{_bindir}/xscreensaver-demo
 %{_bindir}/dmctl
