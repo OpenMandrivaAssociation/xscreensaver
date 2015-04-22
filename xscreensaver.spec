@@ -7,7 +7,7 @@
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
 Version:	5.29
-Release:	7
+Release:	8
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
@@ -47,6 +47,7 @@ Requires:	xscreensaver-common = %{version}-%{release}
 #Requires:	fortune-mod
 Requires:	distro-theme-screensaver
 Requires:	xdg-utils
+Requires:	pam >= 1.1.8-18
 BuildRequires:	intltool
 BuildRequires:	makedepend
 BuildRequires:	bc
@@ -238,11 +239,11 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_datadir}/X11/app-defaul
 
 %files -f %{name}.lang
 %doc README
-%attr(640,root,chkpwd) %config(noreplace) %{_sysconfdir}/pam.d/xscreensaver
+%config(noreplace) %{_sysconfdir}/pam.d/xscreensaver
 %{_mandir}/man1/xscreensaver-command.1*
 %{_mandir}/man1/xscreensaver-demo.1*
 %{_mandir}/man1/xscreensaver.1*
-%attr(2711,root,chkpwd) %{_bindir}/xscreensaver
+%attr(755,root,shadow) %{_bindir}/xscreensaver
 %{_bindir}/xscreensaver-command
 %{_bindir}/xscreensaver-demo
 %{_bindir}/dmctl
