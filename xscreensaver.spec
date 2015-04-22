@@ -7,7 +7,7 @@
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
 Version:	5.29
-Release:	4
+Release:	5
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
@@ -147,6 +147,7 @@ autoreconf -fiv
     --with-proc-interrupts \
     --with-login-manager=dmctl \
     --without-shadow \
+    --disable-root-passwd \
     --with-pixbuf \
     --with-xpm \
     --with-jpeg \
