@@ -68,8 +68,10 @@ BuildRequires:	pkgconfig(xrandr)
 BuildRequires:	pkgconfig(xt)
 BuildRequires:	pkgconfig(xxf86misc)
 BuildRequires:	pkgconfig(xxf86vm)
+BuildRequires:	pkgconfig(xft)
 BuildRequires:	gle-devel
 BuildRequires:	imagemagick
+BuildRequires:	xdg-utils
 
 %description
 The xscreensaver package contains a variety of screensavers for your
