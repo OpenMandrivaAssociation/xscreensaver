@@ -121,7 +121,6 @@ use with the X Window System and you have OpenGL or Mesa installed.
 %patch1 -p1 -b .login-manager
 # WARNING this patch must ALWAYS be applied, if it fails, REGENERATE it !!!
 %patch9 -p1 -b .defaultconfig
-ln -srf po/Makefile.in{,.in}
 %patch10 -p1 -b .root
 %patch11 -p1 -b .noGL
 %if %{disable_inappropriate}
