@@ -1,6 +1,6 @@
 diff -Naur xscreensaver-5.32/driver/XScreenSaver.ad.in xscreensaver-5.32.tpg/driver/XScreenSaver.ad.in
 --- xscreensaver-5.32/driver/XScreenSaver.ad.in	2014-11-18 22:54:02.000000000 +0000
-+++ xscreensaver-5.32.tpg/driver/XScreenSaver.ad.in	2015-04-23 00:50:36.294782548 +0000
++++ xscreensaver-5.32.tpg/driver/XScreenSaver.ad.in	2015-04-23 01:24:59.419402847 +0000
 @@ -29,23 +29,23 @@
  ! /* (xrdb prevention kludge: whole file)
  
@@ -105,7 +105,7 @@ diff -Naur xscreensaver-5.32/driver/XScreenSaver.ad.in xscreensaver-5.32.tpg/dri
  *hacks.quasicrystal.name:   QuasiCrystal
 diff -Naur xscreensaver-5.32/hacks/Makefile.in xscreensaver-5.32.tpg/hacks/Makefile.in
 --- xscreensaver-5.32/hacks/Makefile.in	2014-11-19 07:24:01.000000000 +0000
-+++ xscreensaver-5.32.tpg/hacks/Makefile.in	2015-04-23 00:50:36.295782575 +0000
++++ xscreensaver-5.32.tpg/hacks/Makefile.in	2015-04-23 01:24:59.419402847 +0000
 @@ -128,7 +128,7 @@
  # Programs that are mentioned in XScreenSaver.ad, and that have XML files,
  # but that are not shipped with xscreensaver itself.
@@ -117,7 +117,7 @@ diff -Naur xscreensaver-5.32/hacks/Makefile.in xscreensaver-5.32.tpg/hacks/Makef
  
 diff -Naur xscreensaver-5.32/hacks/config/OpenMandriva.xml xscreensaver-5.32.tpg/hacks/config/OpenMandriva.xml
 --- xscreensaver-5.32/hacks/config/OpenMandriva.xml	1970-01-01 00:00:00.000000000 +0000
-+++ xscreensaver-5.32.tpg/hacks/config/OpenMandriva.xml	2015-04-23 00:51:28.437163482 +0000
++++ xscreensaver-5.32.tpg/hacks/config/OpenMandriva.xml	2015-04-23 01:24:59.420402873 +0000
 @@ -0,0 +1,13 @@
 +<?xml version="1.0" encoding="ISO-8859-1"?>
 +
@@ -132,3 +132,14 @@ diff -Naur xscreensaver-5.32/hacks/config/OpenMandriva.xml xscreensaver-5.32.tpg
 +Written by OpenMandriva Association; 2015.
 +  </_description>
 +</screensaver>
+diff -Naur xscreensaver-5.32/hacks/munge-ad.pl xscreensaver-5.32.tpg/hacks/munge-ad.pl
+--- xscreensaver-5.32/hacks/munge-ad.pl	2014-11-15 03:14:58.000000000 +0000
++++ xscreensaver-5.32.tpg/hacks/munge-ad.pl	2015-04-23 01:25:22.499015503 +0000
+@@ -151,6 +151,7 @@
+     if (-f "$hack.c" || -f "$hack") { $glp = 0; }
+     elsif (-f "glx/$hack.c") { $glp = 1; }
+     elsif ($hack eq 'companioncube') { $glp = 1; }  # kludge
++    elsif ($hack eq 'OpenMandriva') { $glp = 1; }  # kludge
+     elsif ($dis != 2) { error ("is $hack X or GL?"); }
+ 
+     $counts[($disable{$hack} || 0)]++;
