@@ -6,8 +6,8 @@
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	5.29
-Release:	8
+Version:	5.32
+Release:	1
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
@@ -18,8 +18,8 @@ Source3:	update-xscreensaver-hacks
 Patch0:		xscreensaver-5.05-mdv-alt-drop_setgid.patch
 # Don't check login manager in PATH because we use custom wrapper
 Patch1:		xscreensaver-5.15-lmcheck.patch
-# Only GDadou should be enabled
-Patch9:		xscreensaver-5.15-defaultconfig.patch
+# Only OpenMandriva should be enabled
+Patch9:		xscreensaver-5.32-defaultconfig.patch
 # (fc) 4.00-4mdk allow root to start xscreensaver
 Patch10:	xscreensaver-4.23-root.patch
 # (fc) 4.05-3mdk disable openGL hacks by default
@@ -47,7 +47,7 @@ Requires:	xscreensaver-common = %{version}-%{release}
 #Requires:	fortune-mod
 Requires:	distro-theme-screensaver
 Requires:	xdg-utils
-Requires:	pam >= 1.1.8-18
+Requires:	pam >= 1.1.8-19
 BuildRequires:	intltool
 BuildRequires:	makedepend
 BuildRequires:	bc
@@ -94,6 +94,7 @@ Summary:	Utilities used by xscreensaver screensavers
 Group:		Graphical desktop/Other
 Conflicts:	xscreensaver < 5.26-2
 Provides:	xscreensaver-utils
+Requires:	chbg
 
 %description common
 Utilities used by xscreensaver screensavers.
