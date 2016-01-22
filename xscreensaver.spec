@@ -1,13 +1,9 @@
-%if "%{disttag}" == "mdk"
-%define disable_inappropriate 0
-%else
 %define disable_inappropriate 1
-%endif
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	5.32
-Release:	2
+Version:	5.34
+Release:	1
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
@@ -58,6 +54,7 @@ BuildRequires:	pkgconfig(glu)
 BuildRequires:	pkgconfig(glut)
 BuildRequires:	pkgconfig(gdk-pixbuf-xlib-2.0)
 BuildRequires:	pkgconfig(libglade-2.0)
+BuildRequires:	pkgconfig(krb5)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xext)
 BuildRequires:	pkgconfig(xi)
@@ -167,6 +164,7 @@ autoreconf -fiv
     --without-kerberos \
     --with-text-file=%{_sysconfdir}/release \
     --with-gle
+
 make distdepend
 make depend DEPEND="makedepend -I$(%{_cc} -print-search-dirs|sed -e 's#^install: \(.*\).*#\1#g'|head -n1)/include"
 %make
