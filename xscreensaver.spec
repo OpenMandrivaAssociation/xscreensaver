@@ -32,8 +32,6 @@ Patch1001:          xscreensaver-5.26-sanitize-hacks.patch
 # Also see bug 472061
 Patch1021:         xscreensaver-5.26-webcollage-default-nonet.patch
 #
-# Update Japanese po file
-Patch1032:         xscreensaver-5.13-dpmsQuickoff-japo.patch
 # driver/test-passwd tty segfaults
 Patch1051:         xscreensaver-5.12-test-passwd-segv-tty.patch
 # patch to compile driver/test-xdpms
@@ -127,7 +125,6 @@ use with the X Window System and you have OpenGL or Mesa installed.
 %endif
 
 %patch1021 -p1
-%patch1032 -p1
 %patch1051 -p1
 %patch1052 -p1
 
