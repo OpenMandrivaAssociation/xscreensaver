@@ -49,7 +49,6 @@ fix_hackconf ()
 	rm -f $tmpconf_1 $tmpconf_2 $tmpconf_3
 	echo $tmpconf
 	return 0
-	
 }
 
 for suffix in header tail ; do

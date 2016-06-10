@@ -2,8 +2,8 @@
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	5.34
-Release:	5
+Version:	5.35
+Release:	1
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
@@ -24,18 +24,18 @@ Patch11:	xscreensaver-5.09-noGL.patch
 # fedora patches
 # bug 129335
 # sanitize the names of modes in barcode
-Patch1001:          xscreensaver-5.26-sanitize-hacks.patch
+Patch1001:	xscreensaver-5.26-sanitize-hacks.patch
 ## Patches already sent to the upsteam
 ## Patches which must be discussed with upstream
 #
 # Change webcollage not to access to net
 # Also see bug 472061
-Patch1021:         xscreensaver-5.26-webcollage-default-nonet.patch
+Patch1021:	xscreensaver-5.35-webcollage-default-nonet.patch
 #
 # driver/test-passwd tty segfaults
-Patch1051:         xscreensaver-5.12-test-passwd-segv-tty.patch
+Patch1051:	xscreensaver-5.12-test-passwd-segv-tty.patch
 # patch to compile driver/test-xdpms
-Patch1052:         xscreensaver-5.12-tests-miscfix.patch
+Patch1052:	xscreensaver-5.12-tests-miscfix.patch
 
 Requires:	xscreensaver-common = %{version}-%{release}
 #Requires:	fortune-mod
