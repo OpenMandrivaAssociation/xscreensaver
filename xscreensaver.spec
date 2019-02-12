@@ -2,7 +2,7 @@
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	5.40
+Version:	5.42
 Release:	1
 License:	BSD
 Group:		Graphical desktop/Other
@@ -46,7 +46,7 @@ BuildRequires:	intltool
 BuildRequires:	makedepend
 BuildRequires:	bc
 #BuildRequires:	fortune-mod
-BuildRequires:	jpeg-devel
+BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig(glu)
 BuildRequires:	pkgconfig(glut)
@@ -164,7 +164,7 @@ autoreconf -fiv
 
 make distdepend
 make depend DEPEND="makedepend -I$(%{_cc} -print-search-dirs|sed -e 's#^install: \(.*\).*#\1#g'|head -n1)/include"
-%make
+%make_build
 
 %install
 rm -rf %{buildroot} gl-extras.files base.files %{name}.lang
@@ -179,7 +179,7 @@ make install_prefix=%{buildroot} bindir=%{_bindir} \
  KDEDIR=%{_prefix} GNOME_BINDIR=%{_bindir}  GNOME_DATADIR=%{_datadir} \
  mandir=%{_mandir} AD_DIR=%{_datadir}/X11/app-defaults/ \
  gnulocaledir=%{_datadir}/locale install
-%makeinstall -C po
+%make_install -C po
 
 install -p -m755 %{SOURCE3} -D %{buildroot}%{_sbindir}/update-xscreensaver-hacks
 
