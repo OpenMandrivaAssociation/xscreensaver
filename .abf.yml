@@ -1,5 +1,3 @@
-removed_sources:
-  xscreensaver-5.38.tar.gz: b4e6b6799e8e244c894db277d6ff2bf5ee48290c
 sources:
-  xscreensaver-5.40.tar.gz: 82c7433fe008e6ea9ab8683cf3325a673b8a8233
+  xscreensaver-5.42.tar.gz: b8eb08e258a70924aa0e644e4930164baf505ee6
   xscreensaver-capplet.png: c3d157c9a1ffea30a8250ee6eab69243e2a66226
