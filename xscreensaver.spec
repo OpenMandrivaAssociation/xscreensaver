@@ -175,11 +175,14 @@ mkdir -p %{buildroot}%{_mandir}/man6
 mkdir -p %{buildroot}%{_sysconfdir}/pam.d
 mkdir -p %{buildroot}%{_libexecdir}/xscreensaver
 
+# translate desktop file
+intltool-merge -d ./po ./driver/screensaver-properties.desktop.in ./driver/screensaver-properties.desktop
+
 make install_prefix=%{buildroot} bindir=%{_bindir} \
  KDEDIR=%{_prefix} GNOME_BINDIR=%{_bindir}  GNOME_DATADIR=%{_datadir} \
  mandir=%{_mandir} AD_DIR=%{_datadir}/X11/app-defaults/ \
  gnulocaledir=%{_datadir}/locale install
-%make_install -C po
+%makeinstall -C po
 
 install -p -m755 %{SOURCE3} -D %{buildroot}%{_sbindir}/update-xscreensaver-hacks
 
