@@ -1,0 +1,109 @@
+--- ./hacks/glx/glsnake.c.orig	2012-06-03 22:23:44.000000000 +0100
++++ ./hacks/glx/glsnake.c	2014-04-17 16:24:39.552830745 +0100
+@@ -542,7 +542,7 @@
+ 	PIN, ZERO, RIGHT, RIGHT, ZERO, PIN, PIN, ZERO, PIN, PIN, ZERO,
+ 	RIGHT, ZERO }
+     },
+-    { "k's turd",
++    { "caterpillar",
+       { RIGHT, RIGHT, PIN, RIGHT, LEFT, RIGHT, PIN, RIGHT, LEFT,
+ 	RIGHT, PIN, RIGHT, LEFT, RIGHT, PIN, RIGHT, LEFT, RIGHT, PIN,
+ 	RIGHT, LEFT, RIGHT, PIN, ZERO }
+@@ -567,22 +567,22 @@
+ 	ZERO, PIN, ZERO, ZERO, ZERO, ZERO, PIN, ZERO, ZERO, ZERO, ZERO,
+ 	ZERO, ZERO, ZERO }
+     },
+-    { "kissy box",
++    { "ribbon",
+       { PIN, ZERO, ZERO, ZERO, PIN, ZERO, ZERO, ZERO, ZERO, ZERO,
+ 	ZERO, PIN, ZERO, ZERO, ZERO, ZERO, PIN, ZERO, ZERO, ZERO, ZERO,
+ 	ZERO, PIN, ZERO }
+     },
+-    { "erect penis",     /* thanks benno */
++    { "shuffle board",     /* thanks benno */
+       { PIN, ZERO, PIN, PIN, ZERO, ZERO, PIN, ZERO, ZERO, ZERO, PIN,
+ 	PIN, ZERO, ZERO, ZERO, RIGHT, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO,
+ 	ZERO, ZERO }
+     },
+-    { "flaccid penis",
++    { "anchor",
+       { PIN, ZERO, PIN, PIN, ZERO, ZERO, PIN, ZERO, ZERO, ZERO, PIN,
+ 	PIN, ZERO, ZERO, ZERO, RIGHT, PIN, ZERO, ZERO, ZERO, ZERO, ZERO,
+ 	ZERO, ZERO }
+     },
+-    { "vagina",
++    { "engagement ring",
+       { RIGHT, ZERO, ZERO, ZERO, RIGHT, ZERO, ZERO, PIN, ZERO, ZERO,
+ 	LEFT, ZERO, ZERO, ZERO, LEFT, ZERO, LEFT, PIN, LEFT, PIN, RIGHT,
+ 	PIN, RIGHT, ZERO }
+@@ -1002,7 +1002,7 @@
+     { "Parrot",
+         { ZERO, ZERO, ZERO, ZERO, RIGHT, RIGHT, ZERO, LEFT, PIN, RIGHT, ZERO, RIGHT, ZERO, RIGHT, ZERO, RIGHT, PIN, LEFT, ZERO, RIGHT, LEFT, ZERO, PIN, ZERO }
+     },
+-    { "Penis",
++    { "Shuttle",
+         { PIN, PIN, RIGHT, ZERO, PIN, PIN, ZERO, PIN, ZERO, ZERO, RIGHT, PIN, LEFT, ZERO, ZERO, PIN, ZERO, PIN, PIN, ZERO, LEFT, PIN, PIN, ZERO }
+     },
+     { "PictureComingSoon",
+--- ./hacks/barcode.c.inappropriate	2019-08-22 04:11:07.000000000 +0100
++++ ./hacks/barcode.c	2020-07-21 10:21:54.721153917 +0100
+@@ -121,8 +121,6 @@
+   "belly",
+   "bliss",
+   "bogosity",
+-  "boobies",
+-  "boobs",
+   "booty",
+   "bread",
+   "brogrammers",
+@@ -137,7 +135,6 @@
+   "chocolate",
+   "chupacabra",
+   "CLONE",
+-  "cock",
+   "congress",
+   "constriction",
+   "contrition",
+@@ -178,7 +175,6 @@
+   "fear",
+   "fever",
+   "filth",
+-  "flatulence",
+   "fluff",
+   "fnord",
+   "followers",
+@@ -196,9 +192,7 @@
+   "happiness",
+   "hate",
+   "helplessness",
+-  "hemorrhoid",
+   "hermaphrodite",
+-  "heroin",
+   "heroine",
+   "hope",
+   "hysteria",
+@@ -280,7 +274,6 @@
+   "punishment",
+   "punk rock",
+   "punk",
+-  "pussy",
+   "quagmire",
+   "quarantine",
+   "quartz",
+@@ -289,7 +282,6 @@
+   "rage",
+   "readout",
+   "reality",
+-  "rectum",
+   "reject",
+   "rejection",
+   "respect",
+@@ -355,8 +347,6 @@
+   "venom",
+   "verifiability",
+   "very fine people",
+-  "viagra",
+-  "vibrator",
+   "victim",
+   "vignette",
+   "villainy",

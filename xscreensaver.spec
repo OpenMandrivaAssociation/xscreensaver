@@ -2,7 +2,7 @@
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	5.42
+Version:	5.44
 Release:	1
 License:	BSD
 Group:		Graphical desktop/Other
@@ -15,7 +15,7 @@ Patch0:		xscreensaver-5.05-mdv-alt-drop_setgid.patch
 # Don't check login manager in PATH because we use custom wrapper
 Patch1:		xscreensaver-5.15-lmcheck.patch
 # Only OpenMandriva should be enabled
-Patch9:		xscreensaver-5.32-defaultconfig.patch
+Patch9:		xscreensaver-5.44-defaultconfig.patch
 # (fc) 4.00-4mdk allow root to start xscreensaver
 Patch10:	xscreensaver-4.23-root.patch
 # (fc) 4.05-3mdk disable openGL hacks by default
@@ -24,7 +24,7 @@ Patch11:	xscreensaver-5.09-noGL.patch
 # fedora patches
 # bug 129335
 # sanitize the names of modes in barcode
-Patch1001:	xscreensaver-5.26-sanitize-hacks.patch
+Patch1001:	xscreensaver-5.44-sanitize-hacks.patch
 ## Patches already sent to the upsteam
 ## Patches which must be discussed with upstream
 #
@@ -32,10 +32,6 @@ Patch1001:	xscreensaver-5.26-sanitize-hacks.patch
 # Also see bug 472061
 Patch1021:	xscreensaver-5.35-webcollage-default-nonet.patch
 #
-# driver/test-passwd tty segfaults
-Patch1051:	xscreensaver-5.12-test-passwd-segv-tty.patch
-# patch to compile driver/test-xdpms
-Patch1052:	xscreensaver-5.12-tests-miscfix.patch
 
 Requires:	xscreensaver-common = %{version}-%{release}
 #Requires:	fortune-mod
@@ -52,6 +48,7 @@ BuildRequires:	pkgconfig(glu)
 BuildRequires:	pkgconfig(glut)
 BuildRequires:	pkgconfig(gdk-pixbuf-xlib-2.0)
 BuildRequires:	pkgconfig(libglade-2.0)
+BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:	pkgconfig(krb5)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xext)
@@ -125,8 +122,6 @@ use with the X Window System and you have OpenGL or Mesa installed.
 %endif
 
 %patch1021 -p1
-%patch1051 -p1
-%patch1052 -p1
 
 # Needed by patches 1 and 11
 autoreconf -fiv
@@ -240,10 +235,12 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_datadir}/X11/app-defaul
 %files -f %{name}.lang
 %doc README
 %config(noreplace) %{_sysconfdir}/pam.d/xscreensaver
+%{_mandir}/man1/xscreensaver-systemd.1*
 %{_mandir}/man1/xscreensaver-command.1*
 %{_mandir}/man1/xscreensaver-demo.1*
 %{_mandir}/man1/xscreensaver.1*
 %attr(755,root,shadow) %{_bindir}/xscreensaver
+%{_bindir}/xscreensaver-systemd
 %{_bindir}/xscreensaver-command
 %{_bindir}/xscreensaver-demo
 %{_bindir}/dmctl

@@ -1,0 +1,159 @@
+diff -Naur xscreensaver-5.32/hacks/Makefile.in xscreensaver-5.32.tpg/hacks/Makefile.in
+--- xscreensaver-5.32/hacks/Makefile.in	2014-11-19 07:24:01.000000000 +0000
++++ xscreensaver-5.32.tpg/hacks/Makefile.in	2015-04-23 02:06:37.162886930 +0000
+@@ -128,7 +128,7 @@
+ # Programs that are mentioned in XScreenSaver.ad, and that have XML files,
+ # but that are not shipped with xscreensaver itself.
+ #
+-EXTERNALS	= cosmos electricsheep fireflies goban \
++EXTERNALS	= cosmos electricsheep fireflies OpenMandriva goban \
+ 		  sphereeversion ssystem xaos xdaliclock xearth xfishtank \
+ 		  xmountains xplanet xsnow
+ 
+diff -Naur xscreensaver-5.32/hacks/config/OpenMandriva.xml xscreensaver-5.32.tpg/hacks/config/OpenMandriva.xml
+--- xscreensaver-5.32/hacks/config/OpenMandriva.xml	1970-01-01 00:00:00.000000000 +0000
++++ xscreensaver-5.32.tpg/hacks/config/OpenMandriva.xml	2015-04-23 02:06:37.162886930 +0000
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="ISO-8859-1"?>
++
++<screensaver name="chbg" _label="OpenMandriva">
++
++  <command arg="-xscreensaver -mode smart -bg "#000000" -interval 0.16 -effect 1 -speed 500 -R /usr/share/mdk/screensaver/"/>
++
++  <_description>
++This is the official OpenMandriva screensaver.
++Visit www.openmandriva.org
++
++Written by OpenMandriva Association; 2015.
++  </_description>
++</screensaver>
+diff -Naur xscreensaver-5.32/hacks/config/OpenMandriva.xml.h xscreensaver-5.32.tpg/hacks/config/OpenMandriva.xml.h
+--- xscreensaver-5.32/hacks/config/OpenMandriva.xml.h	1970-01-01 00:00:00.000000000 +0000
++++ xscreensaver-5.32.tpg/hacks/config/OpenMandriva.xml.h	2015-04-23 02:07:29.264270448 +0000
+@@ -0,0 +1 @@
++
+diff -Naur xscreensaver-5.32/hacks/munge-ad.pl xscreensaver-5.32.tpg/hacks/munge-ad.pl
+--- xscreensaver-5.32/hacks/munge-ad.pl	2014-11-15 03:14:58.000000000 +0000
++++ xscreensaver-5.32.tpg/hacks/munge-ad.pl	2015-04-23 02:06:37.162886930 +0000
+@@ -151,6 +151,7 @@
+     if (-f "$hack.c" || -f "$hack") { $glp = 0; }
+     elsif (-f "glx/$hack.c") { $glp = 1; }
+     elsif ($hack eq 'companioncube') { $glp = 1; }  # kludge
++    elsif ($hack eq 'OpenMandriva') { $glp = 1; }  # kludge
+     elsif ($dis != 2) { error ("is $hack X or GL?"); }
+ 
+     $counts[($disable{$hack} || 0)]++;
+diff -Naur xscreensaver-5.32/po/POTFILES.in xscreensaver-5.32.tpg/po/POTFILES.in
+--- xscreensaver-5.32/po/POTFILES.in	2014-11-19 07:24:06.000000000 +0000
++++ xscreensaver-5.32.tpg/po/POTFILES.in	2015-04-23 02:06:37.162886930 +0000
+@@ -3,6 +3,7 @@
+ driver/demo-Gtk.c
+ driver/screensaver-properties.desktop.in
+ driver/xscreensaver-demo.glade2.in
++hacks/config/OpenMandriva.xml
+ hacks/config/abstractile.xml
+ hacks/config/anemone.xml
+ hacks/config/anemotaxis.xml
+--- xscreensaver-5.44/driver/XScreenSaver.ad.in.defaultconfig	2020-03-20 23:52:58.000000000 +0000
++++ xscreensaver-5.44/driver/XScreenSaver.ad.in	2020-07-21 10:18:58.776827810 +0100
+@@ -29,23 +29,23 @@
+ ! /* (xrdb prevention kludge: whole file)
+ 
+ *mode:			random
+-*timeout:		0:10:00
++*timeout:		0:05:00
+ *cycle:			0:10:00
+-*lockTimeout:		0:00:00
++*lockTimeout:		0:10:00
+ *passwdTimeout:		0:00:30
+-*dpmsEnabled:		False
++*dpmsEnabled:		True
+ *dpmsQuickoffEnabled:	False
+-*dpmsStandby:		2:00:00
+-*dpmsSuspend:		2:00:00
+-*dpmsOff:		4:00:00
+-*grabDesktopImages:	True
++*dpmsStandby:		0:10:00
++*dpmsSuspend:		0:15:00
++*dpmsOff:		0:20:00
++*grabDesktopImages:	False
+ *grabVideoFrames:	False
+ *chooseRandomImages:	@DEFAULT_IMAGES_P@
+ ! This can be a local directory name, or the URL of an RSS or Atom feed.
+ *imageDirectory:	@DEFAULT_IMAGE_DIRECTORY@
+ *nice:			10
+ *memoryLimit:		0
+-*lock:			False
++*lock:			True
+ *verbose:		False
+ *timestamp:		True
+ *fade:			True
+@@ -56,10 +56,10 @@
+ *splashDuration:	0:00:05
+ *visualID:		default
+ *installColormap:	True
+-*ignoreUninstalledPrograms: False
++*ignoreUninstalledPrograms: True
+ *authWarningSlack:	20
+ 
+-*textMode:		file
++*textMode:		data
+ *textLiteral:		XScreenSaver
+ *textFile:		@DEFAULT_TEXT_FILE@
+ *textProgram:		fortune
+@@ -86,6 +86,10 @@
+ ! (xscreensaver not covering the whole screen)
+ *GetViewPortIsFullOfLies: False
+ 
++! default mode is one screensaver
++*mode:                  one
++*selected:              0
++
+ ! This is what the "Settings" button on the splash screen runs.
+ *demoCommand: xscreensaver-demo
+ 
+@@ -101,13 +105,13 @@
+ !   Gnome 2.4, 2.6: (yelp can't display man pages, as of 2.6.3)
+ !
+ @GNOME24@*loadURL: @WITH_BROWSER@ '%s'
+-@GNOME24@*manualCommand: gnome-terminal --title '%s manual' \
++@GNOME24@*manualCommand: xvt --title '%s manual' \
+ @GNOME24@		--command '/bin/sh -c "man %s; read foo"'
+ !
+ !   Gnome 2.2:
+ !
+ @GNOME22@*loadURL: gnome-url-show '%s'
+-@GNOME22@*manualCommand: gnome-terminal --title '%s manual' \
++@GNOME22@*manualCommand: xvt --title '%s manual' \
+ @GNOME22@		--command '/bin/sh -c "man %s; read foo"'
+ !
+ !   Gnome 1.4:
+@@ -117,8 +121,8 @@
+ !
+ !   non-Gnome systems:
+ !
+-@NOGNOME@*loadURL: firefox '%s' || mozilla '%s' || netscape '%s'
+-@NOGNOME@*manualCommand: xterm -sb -fg black -bg gray75 -T '%s manual' \
++@NOGNOME@*loadURL: @WITH_BROWSER@ '%s'
++@NOGNOME@*manualCommand: xvt -T '%s manual' \
+ @NOGNOME@		    -e /bin/sh -c 'man "%s" ; read foo'
+ 
+ 
+@@ -344,6 +348,9 @@
+ 
+ *programs:								      \
+ 				maze -root				    \n\
++default-n:             "OpenMandriva" chbg -xscreensaver -mode smart -bg "#000000"  \
++                         -interval 0.16 -effect 1 -speed 500                  \
++                         -R `/bin/ls /usr/share/mdk/screensaver/*`          \n\
+ @GL_KLUDGE@ GL: 				superquadrics -root			    \n\
+ 				attraction -root			    \n\
+ 				blitspin -root				    \n\
+@@ -650,6 +657,7 @@
+ *hacks.morph3d.name:        Morph3D
+ *hacks.nerverot.name:       NerveRot
+ *hacks.noseguy.name:        NoseGuy
++*hacks.openmandriva.name:   OpenMandriva
+ *hacks.popsquares.name:     PopSquares
+ *hacks.projectiveplane.name:ProjectivePlane
+ *hacks.quasicrystal.name:   QuasiCrystal
