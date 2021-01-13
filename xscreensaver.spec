@@ -112,7 +112,7 @@ use with the X Window System and you have OpenGL or Mesa installed.
 
 %prep
 %setup -q
-%patch1 -p1 -b .login-manager
+#patch1 -p1 -b .login-manager
 # WARNING this patch must ALWAYS be applied, if it fails, REGENERATE it !!!
 %patch9 -p1 -b .defaultconfig
 %patch10 -p1 -b .root
