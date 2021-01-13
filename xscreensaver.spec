@@ -13,7 +13,7 @@ Source2:	dmctl
 Source3:	update-xscreensaver-hacks
 Patch0:		xscreensaver-5.05-mdv-alt-drop_setgid.patch
 # Don't check login manager in PATH because we use custom wrapper
-Patch1:		xscreensaver-5.15-lmcheck.patch
+#Patch1:		xscreensaver-5.15-lmcheck.patch
 # Only OpenMandriva should be enabled
 Patch9:		xscreensaver-5.44-defaultconfig.patch
 # (fc) 4.00-4mdk allow root to start xscreensaver
