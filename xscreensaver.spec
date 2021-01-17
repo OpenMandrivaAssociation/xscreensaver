@@ -1,8 +1,8 @@
-%define disable_inappropriate 1
+%define disable_inappropriate 0
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	5.44
+Version:	5.45
 Release:	1
 License:	BSD
 Group:		Graphical desktop/Other
@@ -13,9 +13,9 @@ Source2:	dmctl
 Source3:	update-xscreensaver-hacks
 Patch0:		xscreensaver-5.05-mdv-alt-drop_setgid.patch
 # Don't check login manager in PATH because we use custom wrapper
-Patch1:		xscreensaver-5.15-lmcheck.patch
+#Patch1:		xscreensaver-5.15-lmcheck.patch
 # Only OpenMandriva should be enabled
-Patch9:		xscreensaver-5.44-defaultconfig.patch
+Patch9:		xscreensaver-5.45-defaultconfig.patch
 # (fc) 4.00-4mdk allow root to start xscreensaver
 Patch10:	xscreensaver-4.23-root.patch
 # (fc) 4.05-3mdk disable openGL hacks by default
@@ -112,7 +112,7 @@ use with the X Window System and you have OpenGL or Mesa installed.
 
 %prep
 %setup -q
-%patch1 -p1 -b .login-manager
+#patch1 -p1 -b .login-manager
 # WARNING this patch must ALWAYS be applied, if it fails, REGENERATE it !!!
 %patch9 -p1 -b .defaultconfig
 %patch10 -p1 -b .root
@@ -246,6 +246,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_datadir}/X11/app-defaul
 %{_bindir}/dmctl
 %{_datadir}/applications/xscreensaver-properties.desktop
 %{_datadir}/pixmaps/*
+%{_datadir}/xscreensaver/ui/*
 %{_iconsdir}/hicolor/*/apps/*.png
 
 %files common
@@ -258,8 +259,6 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_datadir}/X11/app-defaul
 %{_mandir}/man1/xscreensaver-getimage*
 %{_mandir}/man1/xscreensaver-text.1*
 %dir %{_datadir}/%{name}
-%dir %{_datadir}/%{name}/glade
-%{_datadir}/%{name}/glade/*
 %dir %{_datadir}/%{name}/config
 %{_datadir}/%{name}/config/README
 
