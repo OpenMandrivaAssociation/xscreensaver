@@ -15,7 +15,7 @@ Patch0:		xscreensaver-5.05-mdv-alt-drop_setgid.patch
 # Don't check login manager in PATH because we use custom wrapper
 #Patch1:		xscreensaver-5.15-lmcheck.patch
 # Only OpenMandriva should be enabled
-Patch9:		xscreensaver-5.44-defaultconfig.patch
+Patch9:		xscreensaver-5.45-defaultconfig.patch
 # (fc) 4.00-4mdk allow root to start xscreensaver
 Patch10:	xscreensaver-4.23-root.patch
 # (fc) 4.05-3mdk disable openGL hacks by default
