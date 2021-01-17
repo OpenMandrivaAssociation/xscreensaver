@@ -24,7 +24,7 @@ Patch11:	xscreensaver-5.09-noGL.patch
 # fedora patches
 # bug 129335
 # sanitize the names of modes in barcode
-Patch1001:	xscreensaver-5.44-sanitize-hacks.patch
+#Patch1001:	xscreensaver-5.44-sanitize-hacks.patch
 ## Patches already sent to the upsteam
 ## Patches which must be discussed with upstream
 #
