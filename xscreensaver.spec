@@ -259,7 +259,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_datadir}/X11/app-defaul
 %{_mandir}/man1/xscreensaver-text.1*
 %dir %{_datadir}/%{name}
 #dir #{_datadir}/%{name}/glade
-%{_datadir}/%{name}/glade/*
+#{_datadir}/%{name}/glade/*
 %dir %{_datadir}/%{name}/config
 %{_datadir}/%{name}/config/README
 
