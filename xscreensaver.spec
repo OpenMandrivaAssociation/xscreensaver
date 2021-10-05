@@ -2,7 +2,7 @@
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	5.45
+Version:	6.01
 Release:	1
 License:	BSD
 Group:		Graphical desktop/Other
@@ -35,7 +35,7 @@ Patch1021:	xscreensaver-5.35-webcollage-default-nonet.patch
 
 Requires:	xscreensaver-common = %{version}-%{release}
 #Requires:	fortune-mod
-Requires:	distro-theme-screensaver
+Requires:	distro-release-theme
 Requires:	xdg-utils
 Requires:	pam >= 1.1.8-19
 BuildRequires:	intltool
@@ -235,10 +235,10 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_datadir}/X11/app-defaul
 %files -f %{name}.lang
 %doc README
 %config(noreplace) %{_sysconfdir}/pam.d/xscreensaver
-%{_mandir}/man1/xscreensaver-systemd.1*
-%{_mandir}/man1/xscreensaver-command.1*
-%{_mandir}/man1/xscreensaver-demo.1*
-%{_mandir}/man1/xscreensaver.1*
+%doc %{_mandir}/man1/xscreensaver-systemd.1*
+%doc %{_mandir}/man1/xscreensaver-command.1*
+%doc %{_mandir}/man1/xscreensaver-demo.1*
+%doc %{_mandir}/man1/xscreensaver.1*
 %attr(755,root,shadow) %{_bindir}/xscreensaver
 %{_bindir}/xscreensaver-systemd
 %{_bindir}/xscreensaver-command
@@ -256,8 +256,8 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_datadir}/X11/app-defaul
 %{_bindir}/xscreensaver-getimage-file
 %{_bindir}/xscreensaver-getimage-video
 %{_bindir}/xscreensaver-text
-%{_mandir}/man1/xscreensaver-getimage*
-%{_mandir}/man1/xscreensaver-text.1*
+%doc %{_mandir}/man1/xscreensaver-getimage*
+%doc %{_mandir}/man1/xscreensaver-text.1*
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/config
 %{_datadir}/%{name}/config/README

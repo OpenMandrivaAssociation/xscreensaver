@@ -1,7 +1,7 @@
 #!/bin/sh
-if [ -n "`pidof kdm`" ]; then
+if [ -n "$(pidof kdm)" ]; then
     exec kdmctl reserve "$@"
-elif [ -n "`pidof gdm`" ]; then
+elif [ -n "$(pidof gdm)" ]; then
     exec gdmflexiserver -ls "$@"
 else
     echo "No known DM running, maybe we're using startx"
