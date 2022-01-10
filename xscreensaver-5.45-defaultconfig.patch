@@ -1,6 +1,6 @@
-diff -uraN xscreensaver-5.45/driver/XScreenSaver.ad.in mandriva-pingwina-xscreensaver-5.45/driver/XScreenSaver.ad.in
---- xscreensaver-5.45/driver/XScreenSaver.ad.in	2020-12-08 18:10:20.000000000 +0100
-+++ mandriva-pingwina-xscreensaver-5.45/driver/XScreenSaver.ad.in	2021-01-17 14:48:53.069523514 +0100
+diff -uraN xscreensaver-6.02/driver/XScreenSaver.ad.in OpenMandriva-xscreensaver-6.02/driver/XScreenSaver.ad.in
+--- xscreensaver-6.02/driver/XScreenSaver.ad.in	2021-10-11 20:49:37.173116852 +0200
++++ OpenMandriva-xscreensaver-6.02/driver/XScreenSaver.ad.in	2022-01-10 18:19:43.955661401 +0100
 @@ -29,23 +29,23 @@
  ! /* (xrdb prevention kludge: whole file)
  
@@ -31,9 +31,9 @@ diff -uraN xscreensaver-5.45/driver/XScreenSaver.ad.in mandriva-pingwina-xscreen
 -*lock:			False
 +*lock:			True
  *verbose:		False
- *timestamp:		True
  *fade:			True
-@@ -56,10 +56,10 @@
+ *unfade:		True
+@@ -55,15 +55,19 @@
  *splashDuration:	0:00:05
  *visualID:		default
  *installColormap:	True
@@ -46,65 +46,47 @@ diff -uraN xscreensaver-5.45/driver/XScreenSaver.ad.in mandriva-pingwina-xscreen
  *textLiteral:		XScreenSaver
  *textFile:		@DEFAULT_TEXT_FILE@
  *textProgram:		fortune
-@@ -86,6 +86,10 @@
- ! (xscreensaver not covering the whole screen)
- *GetViewPortIsFullOfLies: False
+ *textURL:		https://en.wikipedia.org/w/index.php?title=Special:NewPages&feed=rss
  
 +! default mode is one screensaver
 +*mode:                  one
 +*selected:              0
 +
  ! This is what the "Settings" button on the splash screen runs.
- *demoCommand: xscreensaver-demo
+ *demoCommand: xscreensaver-settings
  
-@@ -101,13 +105,13 @@
- !   Gnome 2.4, 2.6: (yelp can't display man pages, as of 2.6.3)
- !
- @GNOME24@*loadURL: @WITH_BROWSER@ '%s'
--@GNOME24@*manualCommand: gnome-terminal --title '%s manual' \
-+@GNOME24@*manualCommand: xvt --title '%s manual' \
- @GNOME24@		--command '/bin/sh -c "man %s; read foo"'
- !
- !   Gnome 2.2:
- !
- @GNOME22@*loadURL: gnome-url-show '%s'
--@GNOME22@*manualCommand: gnome-terminal --title '%s manual' \
-+@GNOME22@*manualCommand: xvt --title '%s manual' \
- @GNOME22@		--command '/bin/sh -c "man %s; read foo"'
- !
- !   Gnome 1.4:
-@@ -117,8 +121,8 @@
+@@ -97,8 +101,8 @@
  !
  !   non-Gnome systems:
  !
--@NOGNOME@*loadURL: firefox '%s' || mozilla '%s' || netscape '%s'
+-@NOGNOME@*loadURL: x-www-browser '%s' || firefox '%s' || chromium-browser '%s'
 -@NOGNOME@*manualCommand: xterm -sb -fg black -bg gray75 -T '%s manual' \
 +@NOGNOME@*loadURL: @WITH_BROWSER@ '%s'
 +@NOGNOME@*manualCommand: xvt -T '%s manual' \
  @NOGNOME@		    -e /bin/sh -c 'man "%s" ; read foo'
  
  
-@@ -344,6 +348,9 @@
+@@ -325,6 +329,9 @@
  
  *programs:								      \
  				maze -root				    \n\
 +default-n:             "OpenMandriva" chbg -xscreensaver -mode smart -bg "#000000"  \
-+                                -interval 0.16 -effect 1 -speed 500                  \
-+                                -R `/bin/ls /usr/share/mdk/screensaver/*`          \n\
++                                        -interval 0.16 -effect 1 -speed 500                  \
++                                        -R `/bin/ls /usr/share/mdk/screensaver/*`          \n\
  @GL_KLUDGE@ GL: 				superquadrics -root			    \n\
  				attraction -root			    \n\
  				blitspin -root				    \n\
 @@ -655,6 +662,7 @@
- *hacks.morph3d.name:        Morph3D
- *hacks.nerverot.name:       NerveRot
- *hacks.noseguy.name:        NoseGuy
+ *hacks.morph3d.name:        Morph 3D
+ *hacks.nerverot.name:       Nerve Rot
+ *hacks.noseguy.name:        Nose Guy
 +*hacks.openmandriva.name:   OpenMandriva
- *hacks.popsquares.name:     PopSquares
- *hacks.projectiveplane.name:ProjectivePlane
- *hacks.quasicrystal.name:   QuasiCrystal
-diff -uraN xscreensaver-5.45/hacks/config/OpenMandriva.xml mandriva-pingwina-xscreensaver-5.45/hacks/config/OpenMandriva.xml
---- xscreensaver-5.45/hacks/config/OpenMandriva.xml	1970-01-01 01:00:00.000000000 +0100
-+++ mandriva-pingwina-xscreensaver-5.45/hacks/config/OpenMandriva.xml	2021-01-17 14:35:12.367684963 +0100
+ *hacks.pacman.name:         Pac-Man
+ *hacks.photopile.name:      Photo Pile
+ *hacks.popsquares.name:     Pop Squares
+diff -uraN xscreensaver-6.02/hacks/config/OpenMandriva.xml OpenMandriva-xscreensaver-6.02/hacks/config/OpenMandriva.xml
+--- xscreensaver-6.02/hacks/config/OpenMandriva.xml	1970-01-01 01:00:00.000000000 +0100
++++ OpenMandriva-xscreensaver-6.02/hacks/config/OpenMandriva.xml	2022-01-10 18:25:54.671363599 +0100
 @@ -0,0 +1,13 @@
 +<?xml version="1.0" encoding="ISO-8859-1"?>
 +
@@ -118,29 +100,11 @@ diff -uraN xscreensaver-5.45/hacks/config/OpenMandriva.xml mandriva-pingwina-xsc
 +
 +Written by OpenMandriva Association; 2021.
 +  </_description>
-+</screensaver>
-diff -uraN xscreensaver-5.45/hacks/config/OpenMandriva.xml.h mandriva-pingwina-xscreensaver-5.45/hacks/config/OpenMandriva.xml.h
---- xscreensaver-5.45/hacks/config/OpenMandriva.xml.h	1970-01-01 01:00:00.000000000 +0100
-+++ mandriva-pingwina-xscreensaver-5.45/hacks/config/OpenMandriva.xml.h	2021-01-17 14:36:04.708310033 +0100
-@@ -0,0 +1,2 @@
-+
-+
-diff -uraN xscreensaver-5.45/hacks/Makefile.in mandriva-pingwina-xscreensaver-5.45/hacks/Makefile.in
---- xscreensaver-5.45/hacks/Makefile.in	2020-12-08 18:53:16.000000000 +0100
-+++ mandriva-pingwina-xscreensaver-5.45/hacks/Makefile.in	2021-01-17 14:32:51.851530479 +0100
-@@ -129,7 +129,7 @@
- # Programs that are mentioned in XScreenSaver.ad, and that have XML files,
- # but that are not shipped with xscreensaver itself.
- #
--EXTERNALS	= cosmos electricsheep fireflies goban \
-+EXTERNALS	= cosmos electricsheep fireflies OpenMandriva goban \
- 		  sphereeversion ssystem xaos xdaliclock xearth xfishtank \
- 		  xmountains xplanet xsnow
- 
-diff -uraN xscreensaver-5.45/hacks/munge-ad.pl mandriva-pingwina-xscreensaver-5.45/hacks/munge-ad.pl
---- xscreensaver-5.45/hacks/munge-ad.pl	2020-12-06 19:43:58.000000000 +0100
-+++ mandriva-pingwina-xscreensaver-5.45/hacks/munge-ad.pl	2021-01-17 14:37:17.149395923 +0100
-@@ -152,6 +152,7 @@
++</screensaver> 
+diff -uraN xscreensaver-6.02/hacks/munge-ad.pl OpenMandriva-xscreensaver-6.02/hacks/munge-ad.pl
+--- xscreensaver-6.02/hacks/munge-ad.pl	2021-02-07 09:24:43.097328233 +0100
++++ OpenMandriva-xscreensaver-6.02/hacks/munge-ad.pl	2022-01-10 18:30:03.110584813 +0100
+@@ -153,6 +153,7 @@
      if (-f "$hack.c" || -f "$hack") { $glp = 0; }
      elsif (-f "glx/$hack.c") { $glp = 1; }
      elsif ($hack eq 'companioncube') { $glp = 1; }  # kludge
@@ -148,13 +112,13 @@ diff -uraN xscreensaver-5.45/hacks/munge-ad.pl mandriva-pingwina-xscreensaver-5.
      elsif ($dis != 2) { error ("is $hack X or GL?"); }
  
      $counts[($disable{$hack} || 0)]++;
-diff -uraN xscreensaver-5.45/po/POTFILES.in mandriva-pingwina-xscreensaver-5.45/po/POTFILES.in
---- xscreensaver-5.45/po/POTFILES.in	2020-12-08 18:53:21.000000000 +0100
-+++ mandriva-pingwina-xscreensaver-5.45/po/POTFILES.in	2021-01-17 14:38:35.832576980 +0100
-@@ -3,6 +3,7 @@
- driver/demo-Gtk.c
+diff -uraN xscreensaver-6.02/po/POTFILES.in OpenMandriva-xscreensaver-6.02/po/POTFILES.in
+--- xscreensaver-6.02/po/POTFILES.in	2021-10-12 03:04:31.262390680 +0200
++++ OpenMandriva-xscreensaver-6.02/po/POTFILES.in	2022-01-10 18:30:44.811257386 +0100
+@@ -5,6 +5,7 @@
  driver/screensaver-properties.desktop.in
- driver/xscreensaver-demo.ui
+ driver/subprocs.c
+ driver/xscreensaver.ui
 +hacks/config/OpenMandriva.xml
  hacks/config/abstractile.xml
  hacks/config/anemone.xml
