@@ -1,6 +1,7 @@
---- xscreensaver-4.23/driver/demo-Gtk.c.root	2005-10-22 07:36:52.000000000 +0200
-+++ xscreensaver-4.23/driver/demo-Gtk.c	2005-11-21 11:12:25.000000000 +0100
-@@ -890,8 +890,13 @@
+diff -uraN xscreensaver-6.02/driver/demo-Gtk.c OpenMandriva-xscreensaver-6.02/driver/demo-Gtk.c
+--- xscreensaver-6.02/driver/demo-Gtk.c	2021-10-05 00:18:28.077451478 +0200
++++ OpenMandriva-xscreensaver-6.02/driver/demo-Gtk.c	2022-01-10 18:50:43.769841840 +0100
+@@ -969,8 +969,13 @@
    flush_dialog_changes_and_save (s);
    xscreensaver_command (GDK_DISPLAY(), XA_EXIT, 0, False, NULL);
    sleep (1);
@@ -8,23 +9,23 @@
 +     if (system ("TEMPXAUTHORITY=`su - nobody -c \"/bin/mktemp /tmp/xscreensaver.XXXXXX\"` && xauth extract $TEMPXAUTHORITY $DISPLAY && XAUTHORITY=$TEMPXAUTHORITY xscreensaver -nosplash && rm -f $TEMPXAUTHORITY &") < 0)
 +	     fprintf (stderr, "%s: fork error\n", blurb());
 +  } else {
-   if (system ("xscreensaver -nosplash &") < 0)
+   if (system ("xscreensaver -splash &") < 0)
      fprintf (stderr, "%s: fork error\n", blurb());
 +  }
  
    await_xscreensaver (s);
  }
-@@ -4745,7 +4750,12 @@
+@@ -5050,7 +5055,12 @@
  
        if (init_results == 1)
  	{
 -	  system ("xscreensaver -nosplash &");
 +	  if (getuid() == 0) {
-+	    system ("TEMPXAUTHORITY=`su - nobody -c \"/bin/mktemp /tmp/xscreensaver.XXXXXX\"` && xauth extract $TEMPXAUTHORITY $DISPLAY && XAUTHORITY=$TEMPXAUTHORITY xscreensaver -nosplash && rm -f $TEMPXAUTHORITY &");
-+	  }
-+	  else {
-+	    system ("xscreensaver -nosplash &");
-+	  }
++          system ("TEMPXAUTHORITY=`su - nobody -c \"/bin/mktemp /tmp/xscreensaver.XXXXXX\"` && xauth extract $TEMPXAUTHORITY $DISPLAY && XAUTHORITY=$TEMPXAUTHORITY xscreensaver -nosplash && rm -f $TEMPXAUTHORITY &");
++        }
++        else {
++            system ("xscreensaver -nosplash &");
++        }
  	  return 0;
  	}
  
