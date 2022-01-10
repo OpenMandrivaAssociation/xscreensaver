@@ -15,11 +15,11 @@ Patch0:		xscreensaver-5.05-mdv-alt-drop_setgid.patch
 # Don't check login manager in PATH because we use custom wrapper
 #Patch1:		xscreensaver-5.15-lmcheck.patch
 # Only OpenMandriva should be enabled
-Patch9:		xscreensaver-5.45-defaultconfig.patch
+#Patch9:		xscreensaver-5.45-defaultconfig.patch
 # (fc) 4.00-4mdk allow root to start xscreensaver
-Patch10:	xscreensaver-4.23-root.patch
+#Patch10:	xscreensaver-4.23-root.patch
 # (fc) 4.05-3mdk disable openGL hacks by default
-Patch11:	xscreensaver-5.09-noGL.patch
+#Patch11:	xscreensaver-5.09-noGL.patch
 
 # fedora patches
 # bug 129335
@@ -30,7 +30,7 @@ Patch1001:	xscreensaver-5.44-sanitize-hacks.patch
 #
 # Change webcollage not to access to net
 # Also see bug 472061
-Patch1021:	xscreensaver-5.35-webcollage-default-nonet.patch
+#Patch1021:	xscreensaver-5.35-webcollage-default-nonet.patch
 #
 
 Requires:	xscreensaver-common = %{version}-%{release}
@@ -114,14 +114,14 @@ use with the X Window System and you have OpenGL or Mesa installed.
 %setup -q
 #patch1 -p1 -b .login-manager
 # WARNING this patch must ALWAYS be applied, if it fails, REGENERATE it !!!
-%patch9 -p1 -b .defaultconfig
-%patch10 -p1 -b .root
-%patch11 -p1 -b .noGL
+#patch9 -p1 -b .defaultconfig
+#patch10 -p1 -b .root
+#patch11 -p1 -b .noGL
 %if %{disable_inappropriate}
-%patch1001 -p1 -b .inappropriate
+#patch1001 -p1 -b .inappropriate
 %endif
 
-%patch1021 -p1
+#patch1021 -p1
 
 # Needed by patches 1 and 11
 autoreconf -fiv
