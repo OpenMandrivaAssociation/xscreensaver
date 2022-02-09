@@ -19,7 +19,7 @@ Patch9:		xscreensaver-5.45-defaultconfig.patch
 # (fc) 4.00-4mdk allow root to start xscreensaver
 Patch10:	xscreensaver-4.23-root.patch
 # (fc) 4.05-3mdk disable openGL hacks by default
-Patch11:	xscreensaver-5.09-noGL.patch
+#Patch11:	xscreensaver-5.09-noGL.patch
 
 # fedora patches
 # bug 129335
@@ -116,7 +116,7 @@ use with the X Window System and you have OpenGL or Mesa installed.
 # WARNING this patch must ALWAYS be applied, if it fails, REGENERATE it !!!
 %patch9 -p1 -b .defaultconfig
 %patch10 -p1 -b .root
-%patch11 -p1 -b .noGL
+#%patch11 -p1 -b .noGL
 %if %{disable_inappropriate}
 %patch1001 -p1 -b .inappropriate
 %endif
@@ -124,7 +124,7 @@ use with the X Window System and you have OpenGL or Mesa installed.
 %patch1021 -p1
 
 # Needed by patches 1 and 11
-autoreconf -fiv
+#autoreconf -fiv
 
 %build
 %configure \
@@ -159,7 +159,7 @@ autoreconf -fiv
 
 make distdepend
 make depend DEPEND="makedepend -I$(%{_cc} -print-search-dirs|sed -e 's#^install: \(.*\).*#\1#g'|head -n1)/include"
-%make_build
+%make 
 
 %install
 rm -rf %{buildroot} gl-extras.files base.files %{name}.lang
@@ -235,29 +235,41 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_datadir}/X11/app-defaul
 %files -f %{name}.lang
 %doc README
 %config(noreplace) %{_sysconfdir}/pam.d/xscreensaver
-%doc %{_mandir}/man1/xscreensaver-systemd.1*
+#%%doc %{_mandir}/man1/xscreensaver-systemd.1*
 %doc %{_mandir}/man1/xscreensaver-command.1*
 %doc %{_mandir}/man1/xscreensaver-demo.1*
 %doc %{_mandir}/man1/xscreensaver.1*
 %attr(755,root,shadow) %{_bindir}/xscreensaver
-%{_bindir}/xscreensaver-systemd
+#%%{_bindir}/xscreensaver-systemd
 %{_bindir}/xscreensaver-command
 %{_bindir}/xscreensaver-demo
+%{_bindir}/xscreensaver-settings
 %{_bindir}/dmctl
 %{_datadir}/applications/xscreensaver-properties.desktop
 %{_datadir}/pixmaps/*
-%{_datadir}/xscreensaver/ui/*
+%{_datadir}/%{name}/ui/*
+%{_datadir}/fonts/%{name}/OCRAStd.otf
+%{_datadir}/fonts/%{name}/SpecialElite.ttf
+%{_datadir}/fonts/%{name}/clacon.ttf
+%{_datadir}/fonts/%{name}/gallant12x22.ttf
+%{_datadir}/fonts/%{name}/luximr.ttf
 %{_iconsdir}/hicolor/*/apps/*.png
 
 %files common
 %{_datadir}/X11/app-defaults/*
 %dir %{_libexecdir}/%{name}
-%{_bindir}/xscreensaver-getimage
-%{_bindir}/xscreensaver-getimage-file
-%{_bindir}/xscreensaver-getimage-video
-%{_bindir}/xscreensaver-text
-%doc %{_mandir}/man1/xscreensaver-getimage*
-%doc %{_mandir}/man1/xscreensaver-text.1*
+%{_libexecdir}/%{name}/xscreensaver-auth
+%{_libexecdir}/%{name}/xscreensaver-gfx
+%{_libexecdir}/%{name}/xscreensaver-systemd
+#%%{_bindir}/xscreensaver-getimage
+#%%{_bindir}/xscreensaver-getimage-file
+#%%{_bindir}/xscreensaver-getimage-video
+#%%{_bindir}/xscreensaver-text
+%doc %{_mandir}/man1/xscreensaver-settings*
+%doc %{_mandir}/man6//xscreensaver-auth*
+%doc %{_mandir}/man6/xscreensaver-command*
+%doc %{_mandir}/man6/xscreensaver-gfx*
+%doc %{_mandir}/man6/xscreensaver-systemd*
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/config
 %{_datadir}/%{name}/config/README
