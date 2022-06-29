@@ -2,7 +2,7 @@
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	6.01
+Version:	6.04
 Release:	1
 License:	BSD
 Group:		Graphical desktop/Other
@@ -126,36 +126,37 @@ use with the X Window System and you have OpenGL or Mesa installed.
 # Needed by patches 1 and 11
 #autoreconf -fiv
 
+# Fix the %%configure-breaking
+# ac_unrecognized_opts check
+sed -i -e '/exit 2$/d' configure.ac configure
+
 %build
 %configure \
-    --enable-locking \
-    --enable-root-passwd \
-    --with-browser=xdg-open \
-    --with-dpms-ext \
-    --with-xinerama-ext \
-    --with-xf86vmode-ext \
-    --with-xf86gamma-ext \
-    --with-randr-ext \
-    --with-proc-interrupts \
-    --with-login-manager=dmctl \
-    --without-shadow \
-    --with-pixbuf \
-    --with-xpm \
-    --with-jpeg \
-    --with-xshm-ext \
-    --with-xdbe-ext \
-    --without-readdisplay \
-    --without-setuid-hacks \
-    --with-gtk \
-    --without-motif \
-    --with-pam \
-    --enable-pam-check-account-type \
-    --with-gl \
-    --with-image-directory=%{_datadir}/mdk/screensaver \
-    --with-x-app-defaults=%{_datadir}/X11/app-defaults \
-    --without-kerberos \
-    --with-text-file=%{_sysconfdir}/release \
-    --with-gle
+	--enable-locking \
+	--enable-root-passwd \
+	--with-browser=xdg-open \
+	--with-dpms-ext \
+	--with-xinerama-ext \
+	--with-xf86vmode-ext \
+	--with-xf86gamma-ext \
+	--with-randr-ext \
+	--with-login-manager=dmctl \
+	--without-shadow \
+	--with-pixbuf \
+	--with-jpeg \
+	--with-xshm-ext \
+	--with-xdbe-ext \
+	--without-readdisplay \
+	--without-setuid-hacks \
+	--with-gtk \
+	--without-motif \
+	--with-pam \
+	--enable-pam-check-account-type \
+	--with-gl \
+	--with-image-directory=%{_datadir}/mdk/screensaver \
+	--without-kerberos \
+	--with-text-file=%{_sysconfdir}/release \
+	--with-gle
 
 make distdepend
 make depend DEPEND="makedepend -I$(%{_cc} -print-search-dirs|sed -e 's#^install: \(.*\).*#\1#g'|head -n1)/include"
@@ -169,9 +170,7 @@ mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_mandir}/man6
 mkdir -p %{buildroot}%{_sysconfdir}/pam.d
 mkdir -p %{buildroot}%{_libexecdir}/xscreensaver
-
-# translate desktop file
-intltool-merge -d ./po ./driver/screensaver-properties.desktop.in ./driver/screensaver-properties.desktop
+mkdir -p %{buildroot}%{_sysconfdir}/xdg/autostart
 
 make install_prefix=%{buildroot} bindir=%{_bindir} \
  KDEDIR=%{_prefix} GNOME_BINDIR=%{_bindir}  GNOME_DATADIR=%{_datadir} \
@@ -193,6 +192,17 @@ Install the xscreensaver-gl package if you need more screensavers for
 use with the X Window System and you have OpenGL or Mesa installed.
 EOF
 
+cat >%{buildroot}%{_sysconfdir}/xdg/autostart/xscreensaver.desktop <<EOF
+[Desktop Entry]
+Name=XScreenSaver
+Exec=xscreensaver -nosplash
+Icon=xscreensaver
+Terminal=False
+Type=Application
+X-KDE-StartupNotify=False
+OnlyShowIn=KDE;
+EOF
+
 #icons
 mkdir -p %{buildroot}%{_datadir}/pixmaps
 mkdir -p %{buildroot}%{_iconsdir}/hicolor/{16x16,32x32,48x48}/apps
@@ -200,8 +210,6 @@ cp %{SOURCE1}  %{buildroot}%{_datadir}/pixmaps
 convert -scale 16x16 %{SOURCE1} %{buildroot}%{_iconsdir}/hicolor/16x16/apps/%{name}.png
 convert -scale 32x32 %{SOURCE1} %{buildroot}%{_iconsdir}/hicolor/32x32/apps/%{name}.png
 ln -s %{_datadir}/pixmaps/xscreensaver-capplet.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/%{name}.png
-
-%find_lang %{name}
 
 # This function prints a list of things that get installed.
 # It does this by parsing the output of a dummy run of "make install".
@@ -224,28 +232,26 @@ dd=%{_builddir}/%{name}-%{version}
 pushd hacks/glx ; list_files install > $dd/gl-extras.files ; popd
 pushd hacks     ; list_files install > $dd/base.files; popd
 
-%find_lang %{name}
-
 %post gl
 sed -i -e 's/\A-\s+GL:/ GL:/' %{_datadir}/X11/app-defaults/XScreenSaver
 
 %postun gl
 sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_datadir}/X11/app-defaults/XScreenSaver
 
-%files -f %{name}.lang
+%files
 %doc README
 %config(noreplace) %{_sysconfdir}/pam.d/xscreensaver
 #%%doc %{_mandir}/man1/xscreensaver-systemd.1*
 %doc %{_mandir}/man1/xscreensaver-command.1*
 %doc %{_mandir}/man1/xscreensaver-demo.1*
 %doc %{_mandir}/man1/xscreensaver.1*
+%{_sysconfdir}/xdg/autostart/%{name}.desktop
 %attr(755,root,shadow) %{_bindir}/xscreensaver
 #%%{_bindir}/xscreensaver-systemd
 %{_bindir}/xscreensaver-command
 %{_bindir}/xscreensaver-demo
 %{_bindir}/xscreensaver-settings
 %{_bindir}/dmctl
-%{_datadir}/applications/xscreensaver-properties.desktop
 %{_datadir}/pixmaps/*
 %{_datadir}/%{name}/ui/*
 %{_datadir}/fonts/%{name}/OCRAStd.otf
@@ -261,13 +267,11 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_datadir}/X11/app-defaul
 %{_libexecdir}/%{name}/xscreensaver-auth
 %{_libexecdir}/%{name}/xscreensaver-gfx
 %{_libexecdir}/%{name}/xscreensaver-systemd
-#%%{_bindir}/xscreensaver-getimage
-#%%{_bindir}/xscreensaver-getimage-file
-#%%{_bindir}/xscreensaver-getimage-video
-#%%{_bindir}/xscreensaver-text
+%{_datadir}/applications/xscreensaver-settings.desktop
+%{_datadir}/applications/xscreensaver.desktop
+%{_datadir}/xscreensaver/xscreensaver.service
 %doc %{_mandir}/man1/xscreensaver-settings*
-%doc %{_mandir}/man6//xscreensaver-auth*
-%doc %{_mandir}/man6/xscreensaver-command*
+%doc %{_mandir}/man6/xscreensaver-auth*
 %doc %{_mandir}/man6/xscreensaver-gfx*
 %doc %{_mandir}/man6/xscreensaver-systemd*
 %dir %{_datadir}/%{name}
