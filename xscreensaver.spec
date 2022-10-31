@@ -46,6 +46,7 @@ BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig(glu)
 BuildRequires:	pkgconfig(glut)
+BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(gdk-pixbuf-xlib-2.0)
 BuildRequires:	pkgconfig(libglade-2.0)
 BuildRequires:  pkgconfig(libsystemd)
