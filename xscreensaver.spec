@@ -46,6 +46,7 @@ BuildRequires:	pkgconfig(glut)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:	pkgconfig(krb5)
 BuildRequires:  pkgconfig(gtk+-3.0) >= 2.22.0
+BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xext)
 BuildRequires:	pkgconfig(xi)
@@ -140,7 +141,6 @@ sed -i -e '/exit 2$/d' configure.ac configure
 	--with-jpeg \
 	--with-xshm-ext \
 	--with-xdbe-ext \
-	--without-readdisplay \
 	--without-setuid-hacks \
 	--with-gtk \
 	--without-motif \
