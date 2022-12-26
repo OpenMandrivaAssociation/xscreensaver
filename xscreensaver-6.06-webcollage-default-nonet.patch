@@ -1,0 +1,55 @@
+From 585252a63804d1cea0271fe29ef33476d1127a4f Mon Sep 17 00:00:00 2001
+From: XScreenSaver owners <xscreensaver-owner@fedoraproject.org>
+Date: Sat, 22 Oct 2022 23:48:23 +0900
+Subject: [PATCH] # Change webcollage not to access to net # Also see bug
+ 472061
+
+---
+ hacks/config/webcollage.xml | 7 +++++++
+ hacks/webcollage.man        | 5 +++++
+ 2 files changed, 12 insertions(+)
+
+diff --git a/hacks/config/webcollage.xml b/hacks/config/webcollage.xml
+index a2acab7..1db7aa5 100644
+--- a/hacks/config/webcollage.xml
++++ b/hacks/config/webcollage.xml
+@@ -26,6 +26,8 @@
+    </vgroup>
+   </hgroup>
+ 
++  <file id="dir" _label="Image directory" arg="-directory %"/>
++
+   <xscreensaver-updater />
+ 
+   <_description>
+@@ -44,6 +46,11 @@ Please act accordingly.
+ 
+ See also https://www.jwz.org/webcollage/
+ 
++NOTE:
++Webcollage on Fedora does not connect to internet by default
++and uses image files on your local disk. If you want webcollage to
++search for image files on net, use webcollage.original .
++
+ Written by Jamie Zawinski; 1998.
+   </_description>
+ </screensaver>
+diff --git a/hacks/webcollage.man b/hacks/webcollage.man
+index 85255b5..fadcd20 100644
+--- a/hacks/webcollage.man
++++ b/hacks/webcollage.man
+@@ -176,6 +176,11 @@ the given directory.
+ .TP 8
+ .B \-\-fps
+ Display the current frame rate and CPU load (MacOS only).
++.SH NOTES FOR FEDORA USER
++Webcollage on Fedora uses '-directory' option by default, so it
++.B does not connect to internet
++and uses image files on your local disk. If you want webcollage to
++search for image files on net, use webcollage.original .
+ .SH ENVIRONMENT
+ .PP
+ .TP 8
+-- 
+2.38.1
+

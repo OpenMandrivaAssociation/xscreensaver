@@ -2,7 +2,7 @@
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	6.04
+Version:	6.06
 Release:	1
 License:	BSD
 Group:		Graphical desktop/Other
@@ -16,8 +16,6 @@ Patch0:		xscreensaver-5.05-mdv-alt-drop_setgid.patch
 #Patch1:		xscreensaver-5.15-lmcheck.patch
 # Only OpenMandriva should be enabled
 Patch9:		xscreensaver-5.45-defaultconfig.patch
-# (fc) 4.00-4mdk allow root to start xscreensaver
-Patch10:	xscreensaver-4.23-root.patch
 # (fc) 4.05-3mdk disable openGL hacks by default
 #Patch11:	xscreensaver-5.09-noGL.patch
 
@@ -30,7 +28,7 @@ Patch1001:	xscreensaver-5.44-sanitize-hacks.patch
 #
 # Change webcollage not to access to net
 # Also see bug 472061
-Patch1021:	xscreensaver-5.35-webcollage-default-nonet.patch
+Patch1021:	xscreensaver-6.06-webcollage-default-nonet.patch
 #
 
 Requires:	xscreensaver-common = %{version}-%{release}
@@ -39,17 +37,15 @@ Requires:	distro-release-theme
 Requires:	xdg-utils
 Requires:	pam >= 1.1.8-19
 BuildRequires:	intltool
-BuildRequires:	makedepend
 BuildRequires:	bc
 #BuildRequires:	fortune-mod
 BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig(glu)
 BuildRequires:	pkgconfig(glut)
-BuildRequires:	pkgconfig(gdk-pixbuf-xlib-2.0)
-BuildRequires:	pkgconfig(libglade-2.0)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:	pkgconfig(krb5)
+BuildRequires:  pkgconfig(gtk+-3.0) >= 2.22.0
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xext)
 BuildRequires:	pkgconfig(xi)
@@ -88,7 +84,6 @@ Summary:	Utilities used by xscreensaver screensavers
 Group:		Graphical desktop/Other
 Conflicts:	xscreensaver < 5.26-2
 Provides:	xscreensaver-utils
-Requires:	chbg
 
 %description common
 Utilities used by xscreensaver screensavers.
@@ -115,7 +110,6 @@ use with the X Window System and you have OpenGL or Mesa installed.
 #patch1 -p1 -b .login-manager
 # WARNING this patch must ALWAYS be applied, if it fails, REGENERATE it !!!
 %patch9 -p1 -b .defaultconfig
-%patch10 -p1 -b .root
 #%patch11 -p1 -b .noGL
 %if %{disable_inappropriate}
 %patch1001 -p1 -b .inappropriate
@@ -158,8 +152,6 @@ sed -i -e '/exit 2$/d' configure.ac configure
 	--with-text-file=%{_sysconfdir}/release \
 	--with-gle
 
-make distdepend
-make depend DEPEND="makedepend -I$(%{_cc} -print-search-dirs|sed -e 's#^install: \(.*\).*#\1#g'|head -n1)/include"
 %make 
 
 %install
@@ -253,7 +245,6 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_datadir}/X11/app-defaul
 %{_bindir}/xscreensaver-settings
 %{_bindir}/dmctl
 %{_datadir}/pixmaps/*
-%{_datadir}/%{name}/ui/*
 %{_datadir}/fonts/%{name}/OCRAStd.otf
 %{_datadir}/fonts/%{name}/SpecialElite.ttf
 %{_datadir}/fonts/%{name}/clacon.ttf

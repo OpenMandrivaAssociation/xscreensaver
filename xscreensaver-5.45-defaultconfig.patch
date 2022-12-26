@@ -33,66 +33,13 @@ diff -up xscreensaver-6.04/driver/XScreenSaver.ad.in.defaultconfig xscreensaver-
  *verbose:		False
  *fade:			True
  *unfade:		True
-@@ -325,6 +325,9 @@ XScreenSaver.bourneShell:		/bin/sh
+--- xscreensaver-6.06/driver/XScreenSaver.ad.in.orig	2022-12-26 10:21:44.212299706 +0000
++++ xscreensaver-6.06/driver/XScreenSaver.ad.in	2022-12-26 10:24:33.832238256 +0000
+@@ -325,6 +325,7 @@
  
  *programs:								      \
- 				maze -root				    \n\
-+default-n:             	chbg -xscreensaver -mode smart -bg "#000000"  \
-+                                -interval 0.16 -effect 1 -speed 500                  \
-+                                -R `/bin/ls /usr/share/mdk/screensaver/*`          \n\
- @GL_KLUDGE@ GL: 				superquadrics -root			    \n\
- 				attraction -root			    \n\
- 				blitspin -root				    \n\
-diff -up xscreensaver-6.04/hacks/config/OpenMandriva.xml.defaultconfig xscreensaver-6.04/hacks/config/OpenMandriva.xml
---- xscreensaver-6.04/hacks/config/OpenMandriva.xml.defaultconfig	2022-06-29 12:34:22.716761649 +0200
-+++ xscreensaver-6.04/hacks/config/OpenMandriva.xml	2022-06-29 12:34:22.716761649 +0200
-@@ -0,0 +1,13 @@
-+<?xml version="1.0" encoding="ISO-8859-1"?>
-+
-+<screensaver name="chbg" _label="OpenMandriva">
-+
-+  <command arg="-xscreensaver -mode smart -bg "#000000" -interval 0.16 -effect 1 -speed 500 -R /usr/share/mdk/screensaver/"/>
-+
-+  <_description>
-+This is the official OpenMandriva screensaver.
-+Visit www.openmandriva.org
-+
-+Written by OpenMandriva Association; 2021.
-+  </_description>
-+</screensaver>
-diff -up xscreensaver-6.04/hacks/config/OpenMandriva.xml.h.defaultconfig xscreensaver-6.04/hacks/config/OpenMandriva.xml.h
---- xscreensaver-6.04/hacks/config/OpenMandriva.xml.h.defaultconfig	2022-06-29 12:34:22.716761649 +0200
-+++ xscreensaver-6.04/hacks/config/OpenMandriva.xml.h	2022-06-29 12:34:22.716761649 +0200
-@@ -0,0 +1,2 @@
-+
-+
-diff -up xscreensaver-6.04/hacks/munge-ad.pl.defaultconfig xscreensaver-6.04/hacks/munge-ad.pl
---- xscreensaver-6.04/hacks/munge-ad.pl.defaultconfig	2021-10-26 02:57:44.115628334 +0200
-+++ xscreensaver-6.04/hacks/munge-ad.pl	2022-06-29 12:34:22.716761649 +0200
-@@ -152,6 +152,7 @@ sub munge_ad($) {
-     if (-f "$hack.c" || -f "$hack") { $glp = 0; }
-     elsif (-f "glx/$hack.c") { $glp = 1; }
-     elsif ($hack eq 'companioncube') { $glp = 1; }  # kludge
-+    elsif ($hack eq 'chbg') { $glp = 1; }  # kludge
-     elsif ($dis != 2) { error ("is $hack X or GL?"); }
- 
-     $counts[($disable{$hack} || 0)]++;
-diff -up xscreensaver-6.04/po/POTFILES.in.defaultconfig xscreensaver-6.04/po/POTFILES.in
---- xscreensaver-6.04/po/POTFILES.in.defaultconfig	2022-05-29 22:46:24.735583157 +0200
-+++ xscreensaver-6.04/po/POTFILES.in	2022-06-29 12:34:54.823558164 +0200
-@@ -6,6 +6,7 @@ driver/subprocs.c
- driver/xscreensaver-settings.desktop.in
- driver/xscreensaver.desktop.in
- driver/xscreensaver.ui
-+hacks/config/OpenMandriva.xml
- hacks/config/abstractile.xml
- hacks/config/anemone.xml
- hacks/config/anemotaxis.xml
-@@ -180,6 +181,7 @@ hacks/config/nakagin.xml
- hacks/config/nerverot.xml
- hacks/config/noof.xml
- hacks/config/noseguy.xml
-+
- hacks/config/pacman.xml
- hacks/config/pedal.xml
- hacks/config/peepers.xml
+ 				maze --root				    \n\
++default-n:			webcollage --root --directory /usr/share/mdk/screensaver 
+ @GL_KLUDGE@ GL: 				superquadrics --root			    \n\
+ 				attraction --root			    \n\
+ 				blitspin --root				    \n\
