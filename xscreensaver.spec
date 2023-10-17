@@ -245,7 +245,7 @@ sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_datadir}/X11/app-defaul
 %{_bindir}/xscreensaver-settings
 %{_bindir}/dmctl
 %{_datadir}/pixmaps/*
-#{_datadir}/fonts/%{name}/OCRAStd.otf
+%{_datadir}/fonts/%{name}/OCRA.ttf
 %{_datadir}/fonts/%{name}/SpecialElite.ttf
 %{_datadir}/fonts/%{name}/clacon.ttf
 %{_datadir}/fonts/%{name}/gallant12x22.ttf
