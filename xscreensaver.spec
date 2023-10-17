@@ -2,8 +2,8 @@
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	6.06
-Release:	3
+Version:	6.08
+Release:	1
 License:	BSD
 Group:		Graphical desktop/Other
 URL:		http://www.jwz.org/xscreensaver/
