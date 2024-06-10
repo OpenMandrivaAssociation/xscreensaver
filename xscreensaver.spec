@@ -2,12 +2,12 @@
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	6.08
+Version:	6.09
 Release:	1
 License:	BSD
 Group:		Graphical desktop/Other
-URL:		http://www.jwz.org/xscreensaver/
-Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
+URL:		https://www.jwz.org/xscreensaver/
+Source0:	https://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 Source1:	xscreensaver-capplet.png
 Source2:	dmctl
 Source3:	update-xscreensaver-hacks
