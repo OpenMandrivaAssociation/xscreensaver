@@ -110,13 +110,13 @@ use with the X Window System and you have OpenGL or Mesa installed.
 %setup -q
 #patch1 -p1 -b .login-manager
 # WARNING this patch must ALWAYS be applied, if it fails, REGENERATE it !!!
-%patch9 -p1 -b .defaultconfig
+%patch 9 -p1 -b .defaultconfig
 #%patch11 -p1 -b .noGL
 %if %{disable_inappropriate}
-%patch1001 -p1 -b .inappropriate
+%patch 1001 -p1 -b .inappropriate
 %endif
 
-%patch1021 -p1
+%patch 1021 -p1
 
 # Needed by patches 1 and 11
 #autoreconf -fiv
