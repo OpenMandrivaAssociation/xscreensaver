@@ -2,12 +2,12 @@
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	6.08
+Version:	6.09
 Release:	1
 License:	BSD
 Group:		Graphical desktop/Other
-URL:		http://www.jwz.org/xscreensaver/
-Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
+URL:		https://www.jwz.org/xscreensaver/
+Source0:	https://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 Source1:	xscreensaver-capplet.png
 Source2:	dmctl
 Source3:	update-xscreensaver-hacks
@@ -110,13 +110,13 @@ use with the X Window System and you have OpenGL or Mesa installed.
 %setup -q
 #patch1 -p1 -b .login-manager
 # WARNING this patch must ALWAYS be applied, if it fails, REGENERATE it !!!
-%patch9 -p1 -b .defaultconfig
+%patch 9 -p1 -b .defaultconfig
 #%patch11 -p1 -b .noGL
 %if %{disable_inappropriate}
-%patch1001 -p1 -b .inappropriate
+%patch 1001 -p1 -b .inappropriate
 %endif
 
-%patch1021 -p1
+%patch 1021 -p1
 
 # Needed by patches 1 and 11
 #autoreconf -fiv
