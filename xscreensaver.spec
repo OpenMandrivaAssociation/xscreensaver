@@ -36,6 +36,11 @@ Requires:	xscreensaver-common = %{version}-%{release}
 Requires:	distro-release-theme
 Requires:	xdg-utils
 Requires:	pam >= 1.1.8-19
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	intltool
 BuildRequires:	bc
 #BuildRequires:	fortune-mod
