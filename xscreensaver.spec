@@ -169,7 +169,7 @@ mkdir -p %{buildroot}%{_sysconfdir}/pam.d
 mkdir -p %{buildroot}%{_libexecdir}/xscreensaver
 mkdir -p %{buildroot}%{_sysconfdir}/xdg/autostart
 
-make install_prefix=%{buildroot} bindir=%{_bindir} \
+make install_prefix=%{buildroot} DESTDIR=%{buildroot} bindir=%{_bindir} \
  KDEDIR=%{_prefix} GNOME_BINDIR=%{_bindir}  GNOME_DATADIR=%{_datadir} \
  mandir=%{_mandir} AD_DIR=%{_datadir}/X11/app-defaults/ \
  gnulocaledir=%{_datadir}/locale install
