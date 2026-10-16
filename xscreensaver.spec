@@ -212,15 +212,19 @@ ln -s %{_datadir}/pixmaps/xscreensaver-capplet.png %{buildroot}%{_iconsdir}/hico
 # It does this by parsing the output of a dummy run of "make install".
 #
 list_files() {
-  make -s install_prefix=%{buildroot} mandir=%{_mandir}/ \
+  # 6.17 installs with DESTDIR. Without it, mkdir lines for HACKDIR
+  # land in the file list and RPM then owns every file in that directory.
+  make -s install_prefix=%{buildroot} DESTDIR=%{buildroot} mandir=%{_mandir}/ \
   bindir=%{_bindir} INSTALL=true "$@"	\
    | sed -n -e 's@.* \(/[^ ]*\)$@\1@p'				\
    | sed    -e "s@^%{buildroot}@@"				\
 	    -e "s@/[a-z][a-z]*/\.\./@/@"			\
+   | grep -v -x '%{_libexecdir}/xscreensaver'			\
+   | grep -v -x '%{_mandir}/man6'				\
    | sed    -e 's@\(.*/man/.*\)@\1\*@'				\
    | sed    -e 's@\(.*/app-defaults/\)@%config \1@'		\
 	    -e 's@\(.*/pam\.d/\)@%config(missingok) \1@'	\
-   | sort
+   | sort -u
 }
 
 # Generate three lists of files for the three packages.
