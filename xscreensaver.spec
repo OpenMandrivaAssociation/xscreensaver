@@ -233,13 +233,15 @@ dd=%{_builddir}/%{name}-%{version}
 pushd hacks/glx ; list_files install > $dd/gl-extras.files ; popd
 pushd hacks     ; list_files install > $dd/base.files; popd
 
+%find_lang %{name}
+
 %post gl
 sed -i -e 's/\A-\s+GL:/ GL:/' %{_datadir}/X11/app-defaults/XScreenSaver
 
 %postun gl
 sed -i -e '/\A\s*GL:/ and print "- $_" or print "$_"' %{_datadir}/X11/app-defaults/XScreenSaver
 
-%files
+%files -f %{name}.lang
 %doc README
 %config(noreplace) %{_sysconfdir}/pam.d/xscreensaver
 #%%doc %{_mandir}/man1/xscreensaver-systemd.1*
