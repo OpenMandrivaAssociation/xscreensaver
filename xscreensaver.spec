@@ -2,7 +2,7 @@
 
 Summary:	A set of X Window System screensavers
 Name:		xscreensaver
-Version:	6.15
+Version:	6.17
 Release:	1
 License:	BSD
 Group:		Graphical desktop/Other

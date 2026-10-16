@@ -1,16 +1,3 @@
-From 585252a63804d1cea0271fe29ef33476d1127a4f Mon Sep 17 00:00:00 2001
-From: XScreenSaver owners <xscreensaver-owner@fedoraproject.org>
-Date: Sat, 22 Oct 2022 23:48:23 +0900
-Subject: [PATCH] # Change webcollage not to access to net # Also see bug
- 472061
-
----
- hacks/config/webcollage.xml | 7 +++++++
- hacks/webcollage.man        | 5 +++++
- 2 files changed, 12 insertions(+)
-
-diff --git a/hacks/config/webcollage.xml b/hacks/config/webcollage.xml
-index a2acab7..1db7aa5 100644
 --- a/hacks/config/webcollage.xml
 +++ b/hacks/config/webcollage.xml
 @@ -26,6 +26,8 @@
@@ -21,8 +8,8 @@ index a2acab7..1db7aa5 100644
 +
    <xscreensaver-updater />
  
-   <_description>
-@@ -44,6 +46,11 @@ Please act accordingly.
+   <_description xml:space="preserve">
+@@ -44,6 +46,11 @@
  
  See also https://www.jwz.org/webcollage/
  
@@ -34,11 +21,9 @@ index a2acab7..1db7aa5 100644
  Written by Jamie Zawinski; 1998.
    </_description>
  </screensaver>
-diff --git a/hacks/webcollage.man b/hacks/webcollage.man
-index 85255b5..fadcd20 100644
 --- a/hacks/webcollage.man
 +++ b/hacks/webcollage.man
-@@ -176,6 +176,11 @@ the given directory.
+@@ -123,6 +123,11 @@
  .TP 8
  .B \-\-fps
  Display the current frame rate and CPU load (MacOS only).
@@ -50,6 +35,3 @@ index 85255b5..fadcd20 100644
  .SH ENVIRONMENT
  .PP
  .TP 8
--- 
-2.38.1
-
